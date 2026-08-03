@@ -71,9 +71,9 @@ Game.techData = (function () {
 
     // Researches
     instance.unlockStorage = $.extend({}, techBase, {
-        name: 'Storage Upgrades',
-        desc: 'This will allow you to build storage upgrades to increase the maximum on the amount of resource you can have at once.',
-        buttonText: 'Unlock Storage',
+        name: 'Colony Storage',
+        desc: 'Expand your fungal colony and increase the amount of biological resources you can safely store.',
+        buttonText: 'Unlock Colony Storage',
         type: TECH_TYPE.UNLOCK,
         unlocked: true,
         costType: COST_TYPE.FIXED,
@@ -85,9 +85,9 @@ Game.techData = (function () {
     });
     
     instance.unlockBasicEnergy = $.extend({}, techBase, {
-        name: 'Basic Energy Production',
-        desc: 'You will be able to produce power from steam engines using Charcoal made from wood in a furnace.',
-        buttonText: 'Unlock Basic Energy Production',
+        name: 'Basic Mycology',
+        desc: 'Learn the basics of fungal growth. Unlock the first Spore Nest and begin producing Spores for your colony.',
+        buttonText: 'Unlock Basic Mycology',
         type: TECH_TYPE.UNLOCK,
         unlocked: true,
         costType: COST_TYPE.FIXED,
@@ -100,9 +100,9 @@ Game.techData = (function () {
     });
 
     instance.unlockOil = $.extend({}, techBase, {
-        name: 'Oil Processing',
-        desc: 'Oil used to fuel more advanced machines that gather resources and also to produce more power than basic means. Unlocking Oil Processing allows you to extract it from the ground.',
-        buttonText: 'Unlock Oil',
+        name: 'Mycelium Cultivation',
+        desc: 'Grow underground mycelium networks that transport nutrients throughout your colony.',
+        buttonText: 'Unlock Mycelium',
         type: TECH_TYPE.UNLOCK,
         costType: COST_TYPE.FIXED,
         cost: {
@@ -113,9 +113,9 @@ Game.techData = (function () {
     });
 
     instance.unlockSolar = $.extend({}, techBase, {
-        name: 'Solar Panels',
-        desc: 'Solar Panels produce Energy without the need for fuel, but they do it slower than other forms of Energy production.',
-        buttonText: 'Unlock Solar Panels',
+        name: 'Photosynthesis',
+        desc: 'Harness sunlight to strengthen your fungal ecosystem and produce sustainable Bio Energy.',
+        buttonText: 'Unlock Photosynthesis',
         type: TECH_TYPE.UNLOCK,
         costType: COST_TYPE.FIXED,
         cost: {
