@@ -115,12 +115,13 @@ Game.resourceData = (function () {
     };
 
     instance.wood = {
-        name: 'Wood',
-        desc: 'Wood is one of the primary resources. It is used more often in early game for tools and buildings.',
-        icon: 'woodIcon',
-        category: 'earth',
-        baseCapacity: 50,
-        unlocked: true
+    name: 'Spores',
+    desc: 'Spores are the foundation of every fungal colony. They spread life, fuel expansion, and are used to grow your MycoVerse civilization.',
+    icon: 'woodIcon',
+    category: 'earth',
+    baseCapacity: 50,
+    unlocked: true
+
     };
 
     instance.silicon = {
