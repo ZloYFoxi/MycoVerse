@@ -242,6 +242,10 @@ Game.quests = (function () {
         if (!active || Date.now() < active.endsAt) return false;
         var expedition = this.getExpedition(id);
         var rewards = this.grantRewards(expedition.rewards);
+        if (Game.artifacts && Game.artifacts.rollExpeditionArtifact) {
+            var artifactId = Game.artifacts.rollExpeditionArtifact(expedition.planetId);
+            if (artifactId && Game.artifactData.entries[artifactId]) rewards.push(Game.artifactData.entries[artifactId].name + " artifact");
+        }
         this.dailyStats.expeditions += 1;
         this.history.push({ id: id, completedAt: Date.now(), rewards: rewards });
         this.activeExpeditions = this.activeExpeditions.filter(function (entry) { return entry.id !== id; });

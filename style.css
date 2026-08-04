@@ -335,3 +335,16 @@
     .myco-expedition-card { align-items: flex-start; }
     .myco-expedition-orb { flex-basis: 48px; width: 48px; height: 48px; }
 }
+
+
+/* MycoVerse Alpha 0.13.0 — Artifacts & Relics */
+.myco-artifact-hero{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:16px 0 22px;padding:24px;border:1px solid rgba(255,193,87,.28);border-radius:16px;background:linear-gradient(135deg,rgba(43,27,18,.96),rgba(21,25,45,.96))}
+.myco-artifact-hero h2{margin:4px 0 8px}.myco-artifact-hero p{max-width:760px;margin:0;color:#c9beb0}.myco-artifact-count{min-width:150px;padding:14px 18px;text-align:center;border-radius:12px;background:rgba(0,0,0,.25)}
+.myco-artifact-count span{display:block;font-size:11px;letter-spacing:1.5px;color:#c6ab7d}.myco-artifact-count strong{display:block;margin-top:5px;font-size:25px;color:#ffd16d}
+.myco-artifact-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}.myco-artifact-slot{min-height:145px;padding:18px;border:1px dashed rgba(255,255,255,.16);border-radius:14px;background:rgba(13,19,29,.75)}
+.myco-artifact-slot.filled{border-style:solid;border-color:rgba(255,196,88,.45);background:linear-gradient(145deg,rgba(48,35,18,.92),rgba(15,21,31,.96))}.myco-artifact-slot h3{margin:5px 0 8px}.myco-artifact-slot p{color:#b9b4aa;min-height:38px}
+.myco-artifact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:14px}.myco-artifact-card{position:relative;overflow:hidden;padding:18px;border:1px solid color-mix(in srgb,var(--artifact-color) 55%,transparent);border-radius:14px;background:linear-gradient(145deg,rgba(23,29,39,.97),rgba(10,14,21,.98));box-shadow:0 10px 28px rgba(0,0,0,.23)}
+.myco-artifact-card:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--artifact-color)}.myco-artifact-card.locked{opacity:.46;filter:grayscale(.65)}.myco-artifact-symbol{float:right;font-size:30px;color:var(--artifact-color);text-shadow:0 0 18px var(--artifact-color)}
+.myco-artifact-card h3{margin:5px 0 8px}.myco-artifact-card p{min-height:58px;color:#aeb8b5}.myco-artifact-bonus{margin:12px 0;padding:9px 11px;border-radius:9px;color:#f1d994;background:rgba(255,210,86,.08)}
+.myco-artifact-meta{display:flex;justify-content:space-between;gap:12px;margin:10px 0 14px;color:#8fa29e;font-size:12px}
+@media(max-width:700px){.myco-artifact-hero{flex-direction:column;align-items:stretch;padding:18px}.myco-artifact-count{min-width:0}.myco-artifact-slots{grid-template-columns:1fr}.myco-artifact-grid{grid-template-columns:1fr}}

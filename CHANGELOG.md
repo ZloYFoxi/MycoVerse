@@ -1,69 +1,8 @@
-# MycoVerse Alpha 0.12.0 — Quests & Expeditions
+# MycoVerse Alpha 0.13.0 — Artifacts & Relics
 
-- Added six persistent story quests tied to Colony Power, species discovery, laboratory progress, and planetary leagues.
-- Added three daily objectives that reset at 00:00 UTC.
-- Added five timed expeditions across the living planets.
-- Added laboratory-based expedition slots, team requirements, launch costs, and claimable rewards.
-- Added expedition rewards including Spores, Gems, Science, DNA, and rare miner specimens.
-- Added persistent quest progress, daily statistics, expedition timers, and expedition history.
-- Preserved compatibility with Alpha 0.6–0.11 save data.
-
-# MycoVerse Alpha 0.11.0 — Planets & Leagues
-
-- Added five living planets and league progression.
-- Added persistent planet unlocks and active-planet selection.
-- Added planet-specific miner production bonuses.
-- Added planet-specific Golden Mushroom drop tables.
-- Added fourteen new fungal miners tied to later planets.
-- Added migration from Alpha 0.10.x Golden Grove saves.
-- Preserved compatibility with earlier miner, laboratory, and event saves.
-
-# MycoVerse Alpha 0.10.1 — Event Schedule Balance
-
-- Golden Hour is now available once every 24 hours.
-- Each activation lasts a random 40–60 minutes.
-- Myco Prime Golden Mushroom now matures once every 12 hours.
-- Added save migration so the old short testing timers do not remain active.
-- Golden Event save data upgraded to version 2.
-
-# MycoVerse Alpha 0.10.0 — Golden Grove
-
-- Added the Golden Grove events tab.
-- Added Golden Mushrooms that award miner specimens using rarity-weighted drops.
-- Added Golden Hour with a temporary x2.5 multiplier to all miner production.
-- Added persistent event timers, reward history, and event statistics.
-- Added Myco Prime as the first planet-specific drop table.
-- Preserved compatibility with Alpha 0.6–0.9 save data.
-
-# MycoVerse Changelog
-
-## Alpha 0.9.0 — Laboratory & Miner Fusion
-- Added the Mycelium Laboratory tab.
-- Added persistent DNA and laboratory experience.
-- Added specimen cloning for discovered miners.
-- Added deterministic three-specimen fusion that evolves a species and rewards DNA.
-- Added random permanent income mutations with laboratory-level mutation slots.
-- Added save migration support for Alpha 0.6–0.8 miner saves.
-- Updated the displayed version to Alpha 0.9.0.
-
-## Alpha 0.8.0 — Colony & Miner UI
-- Added a dedicated Colony dashboard with colony power, species, specimens, and combined levels.
-- Added passive miner traits that boost resource-specific or global miner production.
-- Added production and bonus summaries to the Colony tab.
-- Added level progress bars and passive trait details to miner cards.
-- Preserved compatibility with Alpha 0.7 miner saves.
-- Updated the displayed version to Alpha 0.8.0.
-
-## Alpha 0.7.0 — Miner Integration
-- Added discovery and awakening for locked miners.
-- Added collection progress and improved miner cards.
-- Added generic miner production for Spores, Gems, Science, and future resources.
-- Upgraded miner save format while preserving Alpha 0.6 saves.
-- Added mobile layout improvements and clearer production summaries.
-- Updated the displayed game version to Alpha 0.7.0.
-
-## Alpha 0.6.0 — Miner Core
-- Functional miner system with persistence and resource production.
-- New Miners tab and evolution controls.
-- Restored a valid standalone `index.html`.
-- Updated MycoVerse branding and metadata.
+- Added 10 collectible artifacts across five planets.
+- Added Core, Crown, and Charm equipment slots.
+- Expeditions can now recover planet-specific relics.
+- Equipped artifacts grant permanent miner production bonuses.
+- Added artifact inventory, history, save/load support, and dedicated UI.
+- Preserved compatibility with Alpha 0.6–0.12 saves.
