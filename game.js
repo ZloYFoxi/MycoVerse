@@ -1,523 +1,125 @@
-var Game = (function() {
+var Game = (function () {
     'use strict';
 
     var instance = {
-        ui: {},
-        lastUpdateTime: 0,
-        intervals: {},
-        uiComponents: [],
-        logoAnimating: true,
-        timeSinceAutoSave: 0,
+        lastUpdate: Date.now(),
+        lastSave: 0,
         activeNotifications: {},
-        lastFixedUpdate: new Date().getTime()
+        uiComponents: []
     };
 
-    instance.update_frame = function(time) {
-        Game.update(time - Game.lastUpdateTime);
-        Game.lastUpdateTime = time;
+    var logicSystems = [
+        'resources','miners','laboratory','planets','goldenEvents','quests','artifacts','research','ascension','structures','worldCycle',
+        'account','backend','market','minerShop','bosses','worldBoss','guild','campaign','mycoAchievements','unions','economy','settings'
+    ];
+    var uiSystems = [
+        'minerUI','colonyUI','laboratoryUI','planetUI','goldenEventUI','questUI','artifactUI','researchUI','ascensionUI','structureUI',
+        'worldCycleUI','accountUI','inventoryUI','marketUI','minerShopUI','bossUI','worldBossUI','guildUI','campaignUI','collectionUI',
+        'unionUI','economyUI','frontendUI','designThemeUI','responsiveUI','accessUI'
+    ];
 
-        // This ensures that we wait for the browser to "catch up" to drawing and other events
-        window.requestAnimationFrame(Game.update_frame);
+    function call(name, method) {
+        var target = instance[name];
+        if (!target || typeof target[method] !== 'function') return;
+        var args = Array.prototype.slice.call(arguments, 2);
+        try { return target[method].apply(target, args); }
+        catch (error) { console.error('[MycoVerse] ' + name + '.' + method + ' failed', error); }
+    }
+
+    instance.notifyInfo = function (title, message) { this.notify(title, message, 'info'); };
+    instance.notifySuccess = function (title, message) { this.notify(title, message, 'success'); };
+    instance.notify = function (title, message, type) {
+        if (this.settings && this.settings.entries.notificationsEnabled === false) return;
+        if (window.PNotify) new PNotify({ title:title, text:message, type:type || 'info', styling:'bootstrap3', delay:3200, addclass:'stack-bottomright' });
+        else console.log(title + ': ' + message);
     };
 
-    instance.update = function(delta) {
-        for (var name in this.intervals) {
-            var data = this.intervals[name];
-            data.e += delta;
-            if (data.e > data.d) {
-                data.c(this, data.e / 1000);
-                data.e = 0;
-            }
+    instance.initialise = function () {
+        for (var i = 0; i < logicSystems.length; i++) call(logicSystems[i], 'initialise');
+        this.load();
+        for (var j = 0; j < uiSystems.length; j++) call(uiSystems[j], 'initialise');
+        $('#versionLabel').text(typeof versionNumber !== 'undefined' ? versionNumber : 'MycoVerse');
+        $('#loadScreen').addClass('hidden');
+        var firstTab = $('#tabList li:not(.myco-access-locked) a[data-toggle="tab"]').first();
+        if (firstTab.length) firstTab.tab('show');
+        this.lastUpdate = Date.now();
+        this.lastSave = Date.now();
+        window.requestAnimationFrame(this.frame.bind(this));
+    };
+
+    instance.frame = function () {
+        var now = Date.now();
+        var delta = Math.min(10, Math.max(0, (now - this.lastUpdate) / 1000));
+        this.lastUpdate = now;
+        this.update(delta);
+        window.requestAnimationFrame(this.frame.bind(this));
+    };
+
+    instance.update = function (delta) {
+        // Miner incomes are defined per minute.
+        if (this.miners && this.miners.getTotalIncome && !(this.bosses && this.bosses.activeBattle)) {
+            var income = this.miners.getTotalIncome();
+            for (var resourceId in income) if (income.hasOwnProperty(resourceId)) this.resources.addResource(resourceId, income[resourceId] * delta / 60);
+        }
+        for (var i = 0; i < logicSystems.length; i++) call(logicSystems[i], 'update', delta);
+        for (var j = 0; j < uiSystems.length; j++) call(uiSystems[j], 'update', delta);
+        if (nowOrZero() - this.lastSave >= (this.settings.entries.autoSaveInterval || 60000)) {
+            this.save(true);
+            this.lastSave = Date.now();
         }
     };
 
-    instance.createInterval = function(name, callback, delay) {
-        this.intervals[name] = {c: callback, d: delay, e: 0}
-    };
+    function nowOrZero(){ return Date.now(); }
 
-    instance.deleteInterval = function(name) {
-        delete this.intervals[name];
-    };
-
-    instance.fixedUpdate = function() {
-        var currentTime = new Date().getTime();
-        var delta = (currentTime - this.lastFixedUpdate) / 1000;
-        this.lastFixedUpdate = currentTime;
-
-        refreshPerSec(delta);
-        gainResources(delta);
-        fixStorageRounding();
-    };
-
-    instance.fastUpdate = function(self, delta) {
-        refreshWonderBars();
-        checkRedCost();
-
-        updateResourceEfficiencyDisplay();
-        updateEnergyEfficiencyDisplay();
-        updateScienceEfficiencyDisplay();
-        updateBatteryEfficiencyDisplay();
-
-        legacyRefreshUI();
-
-        self.ui.updateBoundElements(delta);
-
-        self.resources.update(delta);
-        self.buildings.update(delta);
-        self.tech.update(delta);
-        self.settings.update(delta);
-        self.miners.update(delta);
-        self.planets.update(delta);
-        self.minerUI.update(delta);
-        self.colonyUI.update(delta);
-        self.laboratoryUI.update(delta);
-        self.planetUI.update(delta);
-        self.goldenEventUI.update(delta);
-        self.quests.update(delta);
-        self.questUI.update(delta);
-        self.artifactUI.update(delta);
-        self.research.update(delta);
-        self.researchUI.update(delta);
-        self.ascensionUI.update(delta);
-        self.structureUI.update(delta);
-        self.worldCycleUI.update(delta);
-        self.accountUI.update(delta);
-        self.inventoryUI.update(delta);
-        self.marketUI.update(delta);
-        self.minerShopUI.update(delta);
-        self.bossUI.update(delta);
-        self.unionUI.update(delta);
-        self.unions.update(delta);
-        self.economy.update(delta);
-        self.economyUI.update(delta);
-        self.frontendUI.update(delta);
-        self.accessUI.update(delta);
-        self.market.update(delta);
-        self.bosses.update(delta);
-        self.worldBoss.update(delta);
-        self.guild.update(delta);
-        self.campaign.update(delta);
-        self.mycoAchievements.update(delta);
-        self.collectionUI.update(delta);
-        self.campaignUI.update(delta);
-        self.worldBossUI.update(delta);
-        self.guildUI.update(delta);
-        self.responsiveUI.update(delta);
-        self.designThemeUI.update(delta);
-
-        self.updateAutoSave(delta);
-
-        if(delta > 1) {
-            console.log("You have been away for " + Game.utils.getTimeDisplay(delta));
-        }
-    };
-
-    instance.slowUpdate = function(self, delta) {
-        refreshConversionDisplay();
-        refreshTimeUntilLimit();
-        gainAutoEmc();
-
-        checkStorages();
-
-        self.updateTime(delta);
-
-        self.achievements.update(delta);
-        self.statistics.update(delta);
-    };
-
-    instance.uiUpdate = function(self, delta) {
-        for(var i = 0; i < self.uiComponents.length; i++) {
-            self.uiComponents[i].update(delta);
-        }
-    };
-
-    instance.updateTime = function(delta) {
-        Game.statistics.add('sessionTime', delta);
-        Game.statistics.add('timePlayed', delta);
-    };
-
-    instance.import = function() {
-        var text = $('#impexpField').val();
-        if (!text.trim()) return console.warn("No save to import provided.");
-        if(text.length % 4 !== 0) {
-            console.log("String is not valid base64 encoded: " + text.length + ' (' + text.length % 4 + ')');
-            return;
-        }
-
-        var decompressed = LZString.decompressFromBase64(text);
-        if(!decompressed) {
-            console.log("Import Game failed, could not decompress!");
-            return;
-        }
-
-        localStorage.setItem("save", decompressed);
-
-        console.log("Imported Saved Game");
-
-        window.location.reload();
-    };
-
-    instance.export = function() {
-        var data = this.save();
-
-        var string = JSON.stringify(data);
-        var compressed = LZString.compressToBase64(string);
-
-        console.log('Compressing Save');
-        console.log('Compressed from ' + string.length + ' to ' + compressed.length + ' characters');
-        $('#impexpField').val(compressed);
-    };
-
-    instance.save = function(silent) {
-        var data = {
-            lastFixedUpdate: this.lastFixedUpdate
-        };
-
-        this.achievements.save(data);
-        this.statistics.save(data);
-        this.resources.save(data);
-        this.buildings.save(data);
-        this.tech.save(data);
-        this.settings.save(data);
-        this.miners.save(data);
-        this.laboratory.save(data);
-        this.planets.save(data);
-        this.goldenEvents.save(data);
-        this.quests.save(data);
-        this.artifacts.save(data);
-        this.research.save(data);
-        this.ascension.save(data);
-        this.structures.save(data);
-        this.worldCycle.save(data);
-        this.account.save(data);
-        this.backend.save(data);
-        this.market.save(data);
-        this.minerShop.save(data);
-        this.bosses.save(data);
-        this.worldBoss.save(data);
-        this.guild.save(data);
-        this.campaign.save(data);
-        this.mycoAchievements.save(data);
-        this.unions.save(data);
-        this.economy.save(data);
-        this.interstellar.save(data);
-        this.stargaze.save(data);
-        this.updates.save(data);
-
-        data = legacySave(data);
-
-        localStorage.setItem("save",JSON.stringify(data));
-        if (!silent) Game.notifyInfo('Game Saved', 'Your save data has been stored locally.');
-        if (!silent) console.log('Game Saved');
-
+    instance.save = function (silent) {
+        var data = { version: versionNumber, savedAt: Date.now() };
+        for (var i = 0; i < logicSystems.length; i++) call(logicSystems[i], 'save', data);
+        localStorage.setItem('save', JSON.stringify(data));
+        if (!silent) this.notifySuccess('Game Saved', 'Your MycoVerse progress has been stored locally.');
         return data;
     };
 
-    instance.load = function() {
-        var data = JSON.parse(localStorage.getItem("save"));
-
-        if(data && data !== null) {
-            this.achievements.load(data);
-            this.statistics.load(data);
-            this.resources.load(data);
-            this.buildings.load(data);
-            this.miners.load(data);
-            this.laboratory.load(data);
-            this.planets.load(data);
-            this.goldenEvents.load(data);
-            this.quests.load(data);
-            this.artifacts.load(data);
-            this.research.load(data);
-            this.ascension.load(data);
-            this.structures.load(data);
-            this.worldCycle.load(data);
-            this.account.load(data);
-            this.backend.load(data);
-            this.market.load(data);
-            this.minerShop.load(data);
-            this.bosses.load(data);
-            this.worldBoss.load(data);
-            this.guild.load(data);
-            this.campaign.load(data);
-            this.mycoAchievements.load(data);
-            this.unions.load(data);
-            this.economy.load(data);
-            this.stargaze.load(data);
-            this.tech.load(data);
-            this.interstellar.load(data); 
-            this.updates.load(data);
-
-            legacyLoad(data);
-
-            this.settings.load(data);
-
-            if(data != null && data.lastFixedUpdate && !isNaN(data.lastFixedUpdate)) {
-                this.handleOfflineGains((new Date().getTime() - data.lastFixedUpdate) / 1000);
-            }
+    instance.load = function () {
+        var raw = localStorage.getItem('save');
+        if (!raw) return;
+        try {
+            var data = JSON.parse(raw);
+            for (var i = 0; i < logicSystems.length; i++) call(logicSystems[i], 'load', data);
+        } catch (error) {
+            console.error('Could not load save', error);
+            this.notifyInfo('Save warning', 'The existing save could not be read. Export a backup before continuing.');
         }
-
-        console.log("Load Successful");
     };
 
-    instance.updateUI = function(self){
-        Game.settings.updateCompanyName();
-        refreshResources();
-        refreshResearches();
-        refreshTabs();
-
-        updateCost();
-        updateDysonCost();
-        updateFuelProductionCost();
-        updateLabCost();
-        updateWonderCost();
-
-        if(Game.constants.enableMachineTab === true){
-            $('#machineTopTab').show();
-        }
-
-        $('#versionLabel').text(versionNumber);
-
-        self.interstellar.redundantChecking();
-    }
-
-    instance.handleOfflineGains = function(offlineTime) {
-        if(offlineTime <= 0) {
-            return;
-        }
-
-        refreshPerSec(1);
-        gainResources(offlineTime);
-        fixStorageRounding();
-
-        this.notifyOffline(offlineTime);
+    instance.export = function () {
+        var raw = JSON.stringify(this.save(true));
+        $('#impexpField').val(LZString.compressToBase64(raw));
     };
 
-    instance.deleteSave = function() {
-        var deleteSave = prompt("Are you sure you want to delete this save? It is irreversible! If so, type 'DELETE' into the box.");
+    instance.import = function () {
+        var encoded = String($('#impexpField').val() || '').trim();
+        if (!encoded) return;
+        try {
+            var raw = LZString.decompressFromBase64(encoded);
+            JSON.parse(raw);
+            localStorage.setItem('save', raw);
+            window.location.reload();
+        } catch (error) { this.notifyInfo('Import failed', 'This save code is not valid.'); }
+    };
 
-        if(deleteSave === "DELETE") {
-            localStorage.removeItem("save");
-
-            alert("Deleted Save");
+    instance.deleteSave = function () {
+        if (prompt("Type DELETE to erase this save permanently.") === 'DELETE') {
+            localStorage.removeItem('save');
             window.location.reload();
         }
-        else {
-            alert("Deletion Cancelled");
-        }
     };
 
-    instance.loadDelay = function (self, delta) {
-        document.getElementById("game").className = "container";
-
-        self.deleteInterval("Loading");
-
-        registerLegacyBindings();
-        self.ui.updateAutoDataBindings();
-
-        // Initialize first
-        self.achievements.initialise();
-        self.statistics.initialise();
-        self.resources.initialise();
-        self.buildings.initialise();
-        self.tech.initialise();
-        self.interstellar.initialise();
-        self.stargaze.initialise();
-        self.miners.initialise();
-        self.laboratory.initialise();
-        self.planets.initialise();
-        self.goldenEvents.initialise();
-        self.quests.initialise();
-        self.artifacts.initialise();
-        self.research.initialise();
-        self.ascension.initialise();
-        self.structures.initialise();
-        self.worldCycle.initialise();
-        self.account.initialise();
-        self.backend.initialise();
-        self.market.initialise();
-        self.minerShop.initialise();
-        self.bosses.initialise();
-        self.worldBoss.initialise();
-        self.guild.initialise();
-        self.campaign.initialise();
-        self.mycoAchievements.initialise();
-        self.unions.initialise();
-        self.economy.initialise();
-
-        // Now load
-        self.load();
-
-        self.settings.initialise();
-        self.minerUI.initialise();
-        self.colonyUI.initialise();
-        self.laboratoryUI.initialise();
-        self.planetUI.initialise();
-        self.goldenEventUI.initialise();
-        self.questUI.initialise();
-        self.artifactUI.initialise();
-        self.researchUI.initialise();
-        self.ascensionUI.initialise();
-        self.structureUI.initialise();
-        self.worldCycleUI.initialise();
-        self.accountUI.initialise();
-        self.inventoryUI.initialise();
-        self.marketUI.initialise();
-        self.minerShopUI.initialise();
-        self.bossUI.initialise();
-        self.worldBossUI.initialise();
-        self.guildUI.initialise();
-        self.campaignUI.initialise();
-        self.collectionUI.initialise();
-        self.unionUI.initialise();
-        self.economyUI.initialise();
-        self.frontendUI.initialise();
-        self.responsiveUI.initialise();
-        self.designThemeUI.initialise();
-        self.accessUI.initialise();
-
-        for(var i = 0; i < self.uiComponents.length; i++) {
-            self.uiComponents[i].initialise();
-        }
-
-        self.updateUI(self);
-
-        // Display what has changed since last time
-        self.updates.initialise();
-
-        // Then start the main loops
-        self.createInterval("Fast Update", self.fastUpdate, 100);
-        self.createInterval("Slow Update", self.slowUpdate, 1000);
-        self.createInterval("UI Update", self.uiUpdate, 100);
-
-        // Do this in a setInterval so it gets called even when the window is inactive
-        window.setInterval(function(){ Game.fixedUpdate(); },100);
-
-        setTimeout(function(){document.getElementById("loadScreen").className = "hidden";}, 100)
-        console.debug("Load Complete");
-
-    };
-
-    instance.loadAnimation = function(self, delta) {
-        if (self.logoAnimating === false) {
-            return;
-        }
-
-        var logoElement = $('#loadLogo');
-        var opacity = logoElement.css('opacity');
-        if(opacity >= 0.9) {
-            logoElement.fadeTo(1000, .95, function() { Game.logoAnimating = false; });
-            self.logoAnimating = true;
-        } else if (opacity <= 0.3) {
-            logoElement.fadeTo(1000, .95, function() { Game.logoAnimating = false; });
-            self.logoAnimating = true;
-        }
-    };
-
-    instance.noticeStack = {"dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25};
-
-    instance.notifyInfo = function(title, message) {
-        if(title == "Game Saved" && Game.settings.entries.saveNotifsEnabled == false){
-            return;
-        }
-        if(Game.settings.entries.notificationsEnabled === true){
-            this.activeNotifications.info = new PNotify({
-                title: title,
-                text: message,
-                type: 'info',
-                animation: 'fade',
-                animate_speed: 'fast',
-                addclass: "stack-bottomright",
-                stack: this.noticeStack
-            });
-        }
-    };
-
-    instance.notifySuccess = function(title, message) {
-        if(Game.settings.entries.notificationsEnabled === true){
-            this.activeNotifications.success = new PNotify({
-                title: title,
-                text: message,
-                type: 'success',
-                animation: 'fade',
-                animate_speed: 'fast',
-                addclass: "stack-bottomright",
-                stack: this.noticeStack
-            });
-        }
-    };
-
-    instance.notifyStorage = function() {
-        if(Game.settings.entries.notificationsEnabled === true){
-            this.activeNotifications.storage = new PNotify({
-                title: "Storage Full!",
-                text: 'You will no longer collect resources when they are full.',
-                type: 'warning',
-                animation: 'fade',
-                animate_speed: 'fast',
-                addclass: "stack-bottomright",
-                stack: this.noticeStack
-            });
-
-            this.activeNotifications.storage.get().click(function() {
-                Game.activeNotifications.storage.remove();
-                Game.activeNotifications.storage = undefined;
-            });
-        }
-    };
-
-    instance.notifyOffline = function(time) {
-        this.activeNotifications.success = new PNotify({
-            title: "Offline Gains",
-            text: "You've been offline for " + Game.utils.getFullTimeDisplay(time, true),
-            type: 'info',
-            animation: 'fade',
-            animate_speed: 'fast',
-            addclass: "stack-bottomright",
-            stack: this.noticeStack
-        });
-    };
-
-    instance.removeExcess = function(array, id){
-        var check = false;
-        for(var i = array.length; i > 0 ; i--){
-            if(array[i] === id){
-                if(check === false){
-                    check = true;
-                }
-                else{
-                    check = true;
-                    array.splice(i, 1);
-                }
-            }
-        }
-    }
-
-    instance.updateAutoSave = function(delta) {
-        this.timeSinceAutoSave += delta;
-        var timeSinceSaveInMS = this.timeSinceAutoSave * 1000;
-        if (timeSinceSaveInMS >= Game.settings.entries.autoSaveInterval) {
-            this.save(true);
-            this.timeSinceAutoSave = 0;
-        }
-    };
-
-    instance.start = function() {
-        PNotify.prototype.options.styling = "bootstrap3";
-        PNotify.prototype.options.delay = 3500;
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-        console.debug("Loading Game");
-        
-        this.createInterval("Loading Animation", this.loadAnimation, 10);
-        this.createInterval("Loading", this.loadDelay, 1000);
-
-        this.update_frame(0);
+    instance.start = function () {
+        if (window.PNotify) PNotify.prototype.options.styling = 'bootstrap3';
+        this.initialise();
     };
 
     return instance;
 }());
 
-window.onload = function(){
-    Game.start();
-};
+window.onload = function () { Game.start(); };

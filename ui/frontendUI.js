@@ -85,7 +85,7 @@ Game.frontendUI = (function () {
         );
 
         $(document).on("click", "#mycoOpenTitle", function () { $("#mycoTitleScreen").removeClass("hidden"); });
-        $(document).on("click", "#mycoTitlePlay", function () { closeTitle(); showTab("resources"); });
+        $(document).on("click", "#mycoTitlePlay", function () { closeTitle(); showTab("minersPage"); });
         $(document).on("click", "#mycoTitleAccount,#mycoOpenAccount", function () { closeTitle(); showTab("accountPage"); });
         $(document).on("click", "#mycoTitleInventory,#mycoOpenInventory", function () { closeTitle(); showTab("inventoryPage"); });
         $(document).on("click", "#mycoTitleMarket,#mycoOpenMarket", function () { closeTitle(); showTab("marketPage"); });

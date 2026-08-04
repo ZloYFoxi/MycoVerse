@@ -1,3 +1,12 @@
+# Alpha 0.32.0 — Legacy Space Company Removal
+
+- Removed the remaining Space Company gameplay layer, tabs, resources, buildings, researches, rockets, Solar System, Stargaze, Interstellar, wonders, achievements, and legacy UI modules.
+- Replaced the old monolithic runtime with a compact MycoVerse-only game loop and save pipeline.
+- Reduced the resource economy to Spores, Gems, and Science, while preserving migration from older saves.
+- Rebuilt index.html as a clean MycoVerse application shell that loads only modern systems.
+- Removed unused Space Company assets, themes, scripts, and data files.
+- Preserved the modern account, miners, shop, quests, campaign, planets, bosses, health, laboratory, artifacts, guild, unions, world events, achievements, economy, and marketplace systems.
+
 # Alpha 0.31.0 — Visual Identity & Planet Themes
 
 - Added a unified MycoVerse visual identity using central CSS variables and planet-aware theme colors.

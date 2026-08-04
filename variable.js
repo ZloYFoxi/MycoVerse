@@ -1,6 +1,6 @@
 // Variables in save function
 
-var versionNumber = "MycoVerse Alpha 0.31.0"; var companyName = "MycoVerse";
+var versionNumber = "MycoVerse Alpha 0.32.0"; var companyName = "MycoVerse";
 
 // unlocked & activated
 

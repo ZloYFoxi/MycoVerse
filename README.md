@@ -1,4 +1,4 @@
-# MycoVerse Alpha 0.31.0 — Visual Identity & Planet Themes
+# MycoVerse Alpha 0.32.0 — Visual Identity & Planet Themes
 
 The living archive now tracks modern achievements and the complete collection of miners, artifacts, planets, and bosses.
 

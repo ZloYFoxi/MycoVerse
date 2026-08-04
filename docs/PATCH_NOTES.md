@@ -1,3 +1,7 @@
+## Alpha 0.32.0 — Legacy Space Company Removal
+
+The game now runs on a clean MycoVerse-only application shell. Legacy Space Company mechanics and UI no longer load. The remaining compatibility layer contains only the three modern resources—Spores, Gems, and Science—plus save migration for existing players.
+
 ## Alpha 0.31.0 — Visual Identity & Planet Themes
 
 MycoVerse now has a unified visual language. Every active planet applies its own background, accent colors, glow effects, and atmosphere to the full game interface. Buttons, cards, navigation, progress bars, the title screen, planet cards, and responsive mobile navigation have been restyled without changing the campaign or economy logic.
