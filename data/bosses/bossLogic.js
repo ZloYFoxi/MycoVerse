@@ -184,7 +184,9 @@ Game.bosses = (function () {
     instance.completeVictory = function () {
         if (!this.activeBattle) return;
         var boss = this.getBoss(this.activeBattle.bossId);
+        var finalHealth = this.getTeamHealth(this.activeBattle.team);
         this.defeated[boss.id] = { defeatedAt: now(), damage: this.activeBattle.totalDamage };
+        if (Game.mycoAchievements && finalHealth.max > 0 && finalHealth.current / finalHealth.max <= 0.10) Game.mycoAchievements.setCustomStat("lastSporeVictory", 1);
         this.applyRewards(boss);
         if (Game.account) { Game.account.addXp(250 + ((boss.league || 1) * 100), "Gate boss victory", true); Game.account.recordStat("bossesDefeated", 1); }
         if (Game.quests && Game.quests.recordBossDefeat) Game.quests.recordBossDefeat();

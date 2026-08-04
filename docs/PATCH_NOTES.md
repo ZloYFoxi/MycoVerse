@@ -1,3 +1,7 @@
+## Alpha 0.29.0 — Achievements & Collections
+
+The colony now records its modern MycoVerse history in a dedicated archive. Complete categorized and secret achievements, claim profile rewards, and fill a responsive collection book containing miners, artifacts, planets, and defeated gate bosses.
+
 ## Alpha 0.28.0 — Responsive UI Foundation
 
 MycoVerse now adapts its layout across phones, tablets, laptops, and desktop monitors. Mobile players receive a bottom navigation bar and system drawer, while new accessibility and density controls allow the interface to be tailored without changing game progression.

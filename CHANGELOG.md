@@ -1,3 +1,12 @@
+# Alpha 0.29.0 — Achievements & Collections
+
+- Added a dedicated MycoVerse Achievements tab with 24 goals across seven categories.
+- Added secret achievements, claimable rewards, Commander XP, currencies, and profile titles.
+- Added a responsive Collection Book for miners, artifacts, planets, and gate bosses.
+- Added combined archive completion, collection counters, and persistent claimed-state tracking.
+- Integrated achievement tracking with healing, combat, economy, guild, research, expeditions, and account progression.
+- Preserved compatibility with older saves and kept the legacy Space Company achievements intact.
+
 # Alpha 0.28.0 — Responsive UI Foundation
 
 - Added responsive phone, tablet, laptop, and desktop layout foundations.

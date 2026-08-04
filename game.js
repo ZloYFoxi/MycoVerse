@@ -96,6 +96,8 @@ var Game = (function() {
         self.bosses.update(delta);
         self.worldBoss.update(delta);
         self.guild.update(delta);
+        self.mycoAchievements.update(delta);
+        self.collectionUI.update(delta);
         self.worldBossUI.update(delta);
         self.guildUI.update(delta);
         self.responsiveUI.update(delta);
@@ -191,6 +193,7 @@ var Game = (function() {
         this.bosses.save(data);
         this.worldBoss.save(data);
         this.guild.save(data);
+        this.mycoAchievements.save(data);
         this.unions.save(data);
         this.economy.save(data);
         this.interstellar.save(data);
@@ -231,6 +234,7 @@ var Game = (function() {
             this.bosses.load(data);
             this.worldBoss.load(data);
             this.guild.load(data);
+            this.mycoAchievements.load(data);
             this.unions.load(data);
             this.economy.load(data);
             this.stargaze.load(data);
@@ -330,6 +334,7 @@ var Game = (function() {
         self.bosses.initialise();
         self.worldBoss.initialise();
         self.guild.initialise();
+        self.mycoAchievements.initialise();
         self.unions.initialise();
         self.economy.initialise();
 
@@ -355,6 +360,7 @@ var Game = (function() {
         self.bossUI.initialise();
         self.worldBossUI.initialise();
         self.guildUI.initialise();
+        self.collectionUI.initialise();
         self.unionUI.initialise();
         self.economyUI.initialise();
         self.frontendUI.initialise();

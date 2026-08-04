@@ -106,6 +106,7 @@ Game.laboratory = (function () {
         this.dna -= cost.dna;
         var healed = Game.miners.healMiner(minerId, cost.healAmount);
         this.addExperience(Math.max(2, Math.floor(healed / 10)));
+        if (Game.mycoAchievements) Game.mycoAchievements.addCustomStat("healthRestored", healed);
         Game.notifySuccess("Miner treated", Game.miners.getEntry(minerId).definition.name + " recovered " + Math.floor(healed) + " HP.");
         return true;
     };
@@ -136,6 +137,7 @@ Game.laboratory = (function () {
         this.dna -= cost.dna;
         var healed = Game.miners.healAll();
         this.addExperience(Math.max(5, Math.floor(healed / 12)));
+        if (Game.mycoAchievements) Game.mycoAchievements.addCustomStat("healthRestored", healed);
         Game.notifySuccess("Colony treatment complete", "All available miners were restored to full health.");
         return true;
     };

@@ -1,3 +1,7 @@
+# MycoVerse Alpha 0.29.0 — Achievements & Collections
+
+The living archive now tracks modern achievements and the complete collection of miners, artifacts, planets, and bosses.
+
 # MycoVerse
 
 Current version: **Alpha 0.27.0 — Guild Foundation**.

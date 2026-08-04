@@ -74,7 +74,7 @@ Game.account = (function () {
         var summary=this.getSummary(), titles=["Keeper of the Grove"];
         if(summary.species>=5)titles.push("Collector of Spores"); if(summary.unlockedPlanets>=3)titles.push("Planetary Mycologist"); if(summary.power>=250)titles.push("Mycelium Sovereign"); if(summary.ascensions>=1)titles.push("Ascended Network");
         if(Game.artifacts&&Game.artifacts.getOwnedCount&&Game.artifacts.getOwnedCount()>=5)titles.push("Relic Weaver");
-        var bossTitles=instance.entries.unlockedBossTitles||[]; for(var i=0;i<bossTitles.length;i++)if(titles.indexOf(bossTitles[i])<0)titles.push(bossTitles[i]); return titles;
+        var bossTitles=instance.entries.unlockedBossTitles||[]; for(var i=0;i<bossTitles.length;i++)if(titles.indexOf(bossTitles[i])<0)titles.push(bossTitles[i]); var achievementTitles=instance.entries.unlockedAchievementTitles||[]; for(var j=0;j<achievementTitles.length;j++)if(titles.indexOf(achievementTitles[j])<0)titles.push(achievementTitles[j]); return titles;
     };
     instance.setTitle = function (title) { if(this.getAvailableTitles().indexOf(title)<0)return false; this.entries.title=title; return true; };
 
