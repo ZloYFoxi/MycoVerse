@@ -2,7 +2,7 @@ Game.goldenEvents = (function () {
     "use strict";
 
     var instance = {
-        dataVersion: 2,
+        dataVersion: 3,
         currentPlanet: "mycoPrime",
         nextMushroomAt: 0,
         nextGoldenHourAt: 0,
@@ -51,7 +51,7 @@ Game.goldenEvents = (function () {
     instance.load = function (data) {
         if (!data || !data.goldenEvents) return;
         var saved = data.goldenEvents;
-        if (Game.goldenEventData.planets[saved.currentPlanet]) this.currentPlanet = saved.currentPlanet;
+        if (Game.planetData && Game.planetData.planets[saved.currentPlanet]) this.currentPlanet = saved.currentPlanet;
         var savedVersion = Math.max(1, number(saved.version, 1));
         var current = now();
         this.nextMushroomAt = Math.max(0, number(saved.nextMushroomAt, this.nextMushroomAt));
@@ -75,8 +75,12 @@ Game.goldenEvents = (function () {
     };
 
     instance.getPlanet = function () {
-        return Game.goldenEventData.planets[this.currentPlanet] ||
-            Game.goldenEventData.planets.mycoPrime;
+        if (Game.planets && Game.planets.getActivePlanet) {
+            var active = Game.planets.getActivePlanet();
+            this.currentPlanet = active.id;
+            return active;
+        }
+        return Game.planetData.planets.mycoPrime;
     };
 
     instance.isMushroomReady = function () {
@@ -132,41 +136,26 @@ Game.goldenEvents = (function () {
         return true;
     };
 
-    instance.rollRarity = function () {
-        var weights = this.getPlanet().rarityWeights;
+    instance.rollDrop = function () {
+        var planet = this.getPlanet();
+        var drops = planet.drops || [];
         var total = 0;
-        var id;
-        for (id in weights) if (weights.hasOwnProperty(id)) total += Math.max(0, number(weights[id], 0));
+        for (var i = 0; i < drops.length; i++) total += Math.max(0, number(drops[i].weight, 0));
+        if (total <= 0) return null;
         var roll = Math.random() * total;
-        for (id in weights) {
-            if (!weights.hasOwnProperty(id)) continue;
-            roll -= Math.max(0, number(weights[id], 0));
-            if (roll <= 0) return id;
+        for (var j = 0; j < drops.length; j++) {
+            roll -= Math.max(0, number(drops[j].weight, 0));
+            if (roll <= 0) return drops[j];
         }
-        return "common";
-    };
-
-    instance.getCandidates = function (rarityId) {
-        var candidates = [];
-        for (var id in Game.minerData) {
-            if (!Game.minerData.hasOwnProperty(id)) continue;
-            if (Game.minerData[id].rarity.id === rarityId) candidates.push(id);
-        }
-        return candidates;
+        return drops[drops.length - 1] || null;
     };
 
     instance.openMushroom = function () {
         if (!this.isMushroomReady()) return null;
+        var drop = this.rollDrop();
+        if (!drop || !Game.minerData[drop.minerId]) return null;
 
-        var rarityId = this.rollRarity();
-        var candidates = this.getCandidates(rarityId);
-        if (!candidates.length) {
-            rarityId = "common";
-            candidates = this.getCandidates(rarityId);
-        }
-        if (!candidates.length) return null;
-
-        var minerId = candidates[Math.floor(Math.random() * candidates.length)];
+        var minerId = drop.minerId;
         var entry = Game.miners.getEntry(minerId);
         var wasDiscovered = entry && entry.owned > 0;
         Game.miners.unlock(minerId, 1);
@@ -176,17 +165,16 @@ Game.goldenEvents = (function () {
         this.lastReward = {
             minerId: minerId,
             minerName: Game.minerData[minerId].name,
-            rarityId: rarityId,
+            rarityId: Game.minerData[minerId].rarity.id,
             rarityName: Game.minerData[minerId].rarity.name,
+            planetId: this.getPlanet().id,
             openedAt: now(),
             duplicate: wasDiscovered
         };
 
-        Game.notifySuccess(
-            "Golden Mushroom opened",
-            this.lastReward.minerName + " (" + this.lastReward.rarityName + ")" +
-            (wasDiscovered ? " joined the colony as another specimen." : " has been discovered!")
-        );
+        Game.notifySuccess("Golden Mushroom opened",
+            this.lastReward.minerName + " (" + this.lastReward.rarityName + ") from " +
+            this.getPlanet().name + (wasDiscovered ? " joined as another specimen." : " has been discovered!"));
         return this.lastReward;
     };
 

@@ -1,3 +1,13 @@
+# MycoVerse Alpha 0.11.0 — Planets & Leagues
+
+- Added five living planets and league progression.
+- Added persistent planet unlocks and active-planet selection.
+- Added planet-specific miner production bonuses.
+- Added planet-specific Golden Mushroom drop tables.
+- Added fourteen new fungal miners tied to later planets.
+- Added migration from Alpha 0.10.x Golden Grove saves.
+- Preserved compatibility with earlier miner, laboratory, and event saves.
+
 # MycoVerse Alpha 0.10.1 — Event Schedule Balance
 
 - Golden Hour is now available once every 24 hours.

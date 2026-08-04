@@ -168,7 +168,8 @@ Game.miners = (function () {
         var mutationPercent = this.getMutationPercent(id);
         var eventMultiplier = (Game.goldenEvents && Game.goldenEvents.getProductionMultiplier) ?
             Game.goldenEvents.getProductionMultiplier() : 1;
-        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier;
+        var planetMultiplier = (Game.planets && Game.planets.getProductionMultiplier) ? Game.planets.getProductionMultiplier(miner.definition.resource) : 1;
+        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier * planetMultiplier;
     };
 
     instance.getResourceIncome = function (resourceId) {

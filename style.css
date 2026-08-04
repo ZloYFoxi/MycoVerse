@@ -239,3 +239,21 @@
     .myco-golden-grid { grid-template-columns: 1fr; }
     .myco-golden-global { flex-wrap: wrap; gap: 8px 14px; font-size: 12px; }
 }
+
+
+/* Alpha 0.11.0 — Planets & Leagues */
+.myco-planets-hero{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:28px;margin:20px 0;border:1px solid rgba(126,255,178,.28);border-radius:18px;background:linear-gradient(135deg,rgba(18,46,42,.95),rgba(24,21,54,.95))}
+.myco-planets-hero h2{margin:4px 0 8px;font-size:34px}.myco-planet-progress{text-align:center;min-width:140px;padding:18px;border-radius:16px;background:rgba(0,0,0,.25)}
+.myco-planet-progress span{display:block;font-size:11px;letter-spacing:2px}.myco-planet-progress strong{font-size:30px;color:#91ffbd}
+.myco-planet-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px;padding-bottom:32px}
+.myco-planet-card{display:flex;gap:16px;padding:20px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(12,18,28,.9);transition:.2s}
+.myco-planet-card.active{border-color:#8bffb6;box-shadow:0 0 24px rgba(87,255,156,.22)}.myco-planet-card.locked{opacity:.72}
+.myco-planet-orb{width:72px;height:72px;min-width:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:bold;box-shadow:inset 0 0 18px rgba(255,255,255,.18),0 0 22px rgba(120,140,255,.22)}
+.myco-planet-orb.league-1{background:radial-gradient(circle at 35% 30%,#b7ff9c,#276c4a 65%,#10251d)}
+.myco-planet-orb.league-2{background:radial-gradient(circle at 35% 30%,#e7d4ff,#7257c9 60%,#23184c)}
+.myco-planet-orb.league-3{background:radial-gradient(circle at 35% 30%,#d9ff77,#617d13 60%,#252b08)}
+.myco-planet-orb.league-4{background:radial-gradient(circle at 35% 30%,#ffd382,#8d4d21 60%,#331b12)}
+.myco-planet-orb.league-5{background:radial-gradient(circle at 35% 30%,#b8a6ff,#34216e 55%,#090716)}
+.myco-planet-copy h3{margin:2px 0 8px}.myco-planet-bonus{margin:12px 0;padding:9px 11px;border-radius:10px;background:rgba(103,255,168,.08);color:#a8ffc9}
+.myco-planet-req{display:flex;flex-direction:column;gap:3px;margin-bottom:12px;font-size:12px;color:#c4c9d4}
+@media(max-width:700px){.myco-planets-hero{flex-direction:column;align-items:stretch}.myco-planet-card{flex-direction:column}.myco-planet-orb{width:60px;height:60px;min-width:60px}}

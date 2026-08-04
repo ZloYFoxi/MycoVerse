@@ -43,7 +43,7 @@ Game.goldenEventUI = (function () {
             '<button id="activateGoldenHour" class="btn btn-success">Activate Golden Hour</button>' +
             '<div class="myco-hour-track"><span id="goldenHourTrackFill"></span></div></article>' +
             '</div>' +
-            '<section class="myco-drop-table"><h3>Myco Prime drop chances</h3><div id="goldenDropRates"></div></section>' +
+            '<section class="myco-drop-table"><h3 id="goldenDropTitle">Active planet drop chances</h3><div id="goldenDropRates"></div></section>' +
             '</div>'
         );
 
@@ -62,20 +62,16 @@ Game.goldenEventUI = (function () {
     };
 
     instance.renderDropRates = function () {
-        var weights = Game.goldenEvents.getPlanet().rarityWeights;
+        var planet = Game.goldenEvents.getPlanet();
+        var drops = planet.drops || [];
         var html = [];
-        var rarityMap = {
-            common: MINER_RARITY.COMMON,
-            rare: MINER_RARITY.RARE,
-            epic: MINER_RARITY.EPIC,
-            legendary: MINER_RARITY.LEGENDARY,
-            mythic: MINER_RARITY.MYTHIC
-        };
-        for (var id in weights) {
-            if (!weights.hasOwnProperty(id)) continue;
-            var rarity = rarityMap[id];
-            html.push('<div class="myco-drop-row"><span style="color:' + rarity.color + '">' +
-                rarity.name + '</span><strong>' + weights[id] + '%</strong></div>');
+        $("#goldenDropTitle").text(planet.name + " drop chances");
+        for (var i = 0; i < drops.length; i++) {
+            var definition = Game.minerData[drops[i].minerId];
+            if (!definition) continue;
+            html.push('<div class="myco-drop-row"><span style="color:' + definition.rarity.color + '">' +
+                definition.name + ' <small>(' + definition.rarity.name + ')</small></span><strong>' +
+                drops[i].weight + '%</strong></div>');
         }
         $("#goldenDropRates").html(html.join(""));
     };
@@ -90,6 +86,7 @@ Game.goldenEventUI = (function () {
         var durationSeconds = events.getGoldenHourDurationMs() / 1000;
 
         $("#goldenPlanetName").text(events.getPlanet().name);
+        this.renderDropRates();
         $("#openGoldenMushroom").prop("disabled", !mushroomReady);
         $("#goldenMushroomStatus").text(
             mushroomReady ? "A Golden Mushroom is ready." :

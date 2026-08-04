@@ -1,3 +1,20 @@
+# Alpha 0.11.0 — Planets & Leagues
+
+## Planets
+- Myco Prime, Crystal Grove, Toxic Forest, Ancient Hive, and Void Bloom.
+- Unlock later leagues using Colony Power and Laboratory Level.
+- Select one active planet at a time.
+
+## Active bonuses
+- Myco Prime: +15% Spores miner production.
+- Crystal Grove: +25% Gems miner production.
+- Toxic Forest: +12% all miner production.
+- Ancient Hive: +25% all miner production.
+- Void Bloom: +40% Science and +10% all miner production.
+
+## Golden Mushrooms
+Each planet now has its own named miner drop table. Changing the active planet immediately changes future Golden Mushroom rewards.
+
 # Alpha 0.10.1 — Event Schedule Balance
 
 ## Golden Hour
