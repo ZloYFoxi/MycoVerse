@@ -14,3 +14,11 @@
 - Equipped artifacts grant permanent miner production bonuses.
 - Added artifact inventory, history, save/load support, and dedicated UI.
 - Preserved compatibility with Alpha 0.6–0.12 saves.
+
+## Alpha 0.15.0 — Ascension & Legacy
+- Added Mycelial Ascension as the first prestige layer.
+- Added permanent Legacy currency and five upgrade paths.
+- Added ascension requirements based on Colony Power, planets, and research.
+- Added permanent production and Insight bonuses that survive rebirth.
+- Added a safe reset of MycoVerse systems while preserving the legacy engine and old saves.
+- Added a dedicated Ascension interface and confirmation flow.

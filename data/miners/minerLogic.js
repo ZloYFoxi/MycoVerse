@@ -171,7 +171,8 @@ Game.miners = (function () {
         var planetMultiplier = (Game.planets && Game.planets.getProductionMultiplier) ? Game.planets.getProductionMultiplier(miner.definition.resource) : 1;
         var artifactMultiplier = (Game.artifacts && Game.artifacts.getProductionMultiplier) ? Game.artifacts.getProductionMultiplier(miner.definition.resource) : 1;
         var researchMultiplier = (Game.research && Game.research.getProductionMultiplier) ? Game.research.getProductionMultiplier(miner.definition.resource) : 1;
-        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier * planetMultiplier * artifactMultiplier * researchMultiplier;
+        var ascensionMultiplier = (Game.ascension && Game.ascension.getProductionMultiplier) ? Game.ascension.getProductionMultiplier(miner.definition.resource) : 1;
+        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier * planetMultiplier * artifactMultiplier * researchMultiplier * ascensionMultiplier;
     };
 
     instance.getResourceIncome = function (resourceId) {

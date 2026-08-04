@@ -45,3 +45,9 @@
 - [x] Story quests
 - [x] Daily objectives
 - [x] Expeditions
+
+## Phase 6 - Ascension
+- [x] Mycelial Ascension
+- [x] Legacy currency
+- [x] Permanent Legacy adaptations
+- [x] Safe MycoVerse cycle reset

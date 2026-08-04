@@ -56,6 +56,7 @@ Game.research = (function () {
         if (power <= 0) return 0;
         var rate = Math.sqrt(power) * 0.035;
         if (this.isPurchased("deepRootMemory")) rate *= 1.30;
+        if (Game.ascension && Game.ascension.getInsightMultiplier) rate *= Game.ascension.getInsightMultiplier();
         return rate;
     };
 
