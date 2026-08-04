@@ -48,7 +48,7 @@ Game.colonyUI = (function () {
         var income = [];
         for (var resource in summary.income) {
             if (!summary.income.hasOwnProperty(resource) || summary.income[resource] <= 0) continue;
-            income.push('<div class="myco-colony-row"><span>' + resourceName(resource) + '</span><strong>+' + summary.income[resource].toFixed(2) + '/s</strong></div>');
+            income.push('<div class="myco-colony-row"><span>' + resourceName(resource) + '</span><strong>+' + (summary.income[resource] * 60).toFixed(2) + '/min</strong></div>');
         }
         $("#colonyIncome").html(income.length ? income.join("") : '<p class="text-muted">Awaken miners to begin production.</p>');
 

@@ -63,7 +63,7 @@ Game.minerUI = (function () {
                 '<h3>' + definition.name + '</h3><p>' + definition.description + '</p>' +
                 '<div><strong>Owned:</strong> ' + miner.owned + '</div>' +
                 '<div><strong>Level:</strong> ' + miner.level + ' / ' + definition.maxLevel + '</div>' +
-                '<div><strong>Income:</strong> ' + income.toFixed(2) + ' ' + resourceName(definition.resource) + '/s</div>' +
+                '<div><strong>Income:</strong> ' + (income * 60).toFixed(2) + ' ' + resourceName(definition.resource) + '/min</div>' +
                 '<div class="myco-miner-passive"><strong>Passive:</strong> ' + Game.miners.getPassiveBonusText(id) + '</div>' +
                 '<div class="myco-level-track"><span style="width:' + Math.min(100, (miner.level / definition.maxLevel) * 100) + '%"></span></div>' +
                 '<button class="btn btn-success miner-upgrade-button" data-miner-id="' + id + '" ' + (maxed ? 'disabled' : '') + '>' +
@@ -80,7 +80,7 @@ Game.minerUI = (function () {
         var labels = [];
         for (var resource in totals) {
             if (!totals.hasOwnProperty(resource) || totals[resource] <= 0) continue;
-            labels.push(totals[resource].toFixed(2) + " " + resourceName(resource) + "/s");
+            labels.push((totals[resource] * 60).toFixed(2) + " " + resourceName(resource) + "/min");
         }
         $("#minerTotalIncome").text("Production: " + (labels.length ? labels.join(" • ") : "none"));
     };

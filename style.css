@@ -960,3 +960,15 @@ div {
 
 /* Alpha 0.23.0 profile access and miner shop */
 #tabList li.myco-access-locked > a{opacity:.5;filter:saturate(.45);cursor:not-allowed!important}.myco-lock-badge{font-size:10px;color:#ffd477;margin-left:4px}.myco-miner-empty{padding:24px;border:1px dashed rgba(140,255,190,.2);border-radius:18px;text-align:center;color:#b8d0c1}
+
+/* Alpha 0.24.0 — Miner Shop progression */
+.myco-shop-rarity-section { margin: 0 0 28px; }
+.myco-shop-rarity-heading {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 16px;
+    padding: 14px 18px; margin-bottom: 14px; border-left: 4px solid #74e69d;
+    background: rgba(255,255,255,0.035); border-radius: 14px;
+}
+.myco-shop-rarity-heading h3 { margin: 4px 0 0; }
+.miner-shop-locked { opacity: .55; filter: saturate(.55); }
+.miner-shop-locked .btn { cursor: not-allowed; }
+#minerShopLevel { display:block; color:#9fc7ad; margin-top:4px; }

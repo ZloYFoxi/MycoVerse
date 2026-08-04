@@ -127,7 +127,8 @@ Game.economy = (function () {
     instance.getMinerMarketValue = function (definition) {
         if (!definition) return Game.economyData.minimumMarketPrice;
         var resourceValue = this.getResourceValue(definition.resource);
-        var hourlyOutput = Math.max(0.01, definition.baseIncome * definition.rarity.incomeMultiplier * resourceValue * 3600);
+        var perMinute = isFinite(Number(definition.incomePerMinute)) ? Number(definition.incomePerMinute) : Number(definition.baseIncome || 0) * 60;
+        var hourlyOutput = Math.max(0.01, perMinute * definition.rarity.incomeMultiplier * resourceValue * 60);
         var rarityPremium = Math.pow(Math.max(1, definition.rarity.incomeMultiplier), 0.8);
         var progressionPremium = 1 + Math.max(0, num(definition.order, 1) - 1) * 0.035;
         return Math.max(Game.economyData.minimumMarketPrice, Math.floor(hourlyOutput * 0.14 * rarityPremium * progressionPremium));

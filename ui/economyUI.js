@@ -46,7 +46,7 @@ Game.economyUI = (function () {
         var health = Game.economy.getHealth();
         $("#economyHealthScore").text(health.score + "/100");
         $("#economyHealthLabel").text(health.label);
-        $("#economyProductionIndex").text(Game.economy.getProductionIndex().toFixed(2) + "/s");
+        $("#economyProductionIndex").text((Game.economy.getProductionIndex() * 60).toFixed(2) + "/min");
         $("#economyMarketIndex").text(fmt(Game.economy.getMarketIndex()));
         $("#economySpent").text(fmt(Game.economy.totalSpentSpores));
         $("#economyVolume").text(fmt(Game.economy.totalMarketVolume));
@@ -69,7 +69,7 @@ Game.economyUI = (function () {
         var rows = [];
         for (var i = 0; i < analyses.length; i++) {
             var a = analyses[i];
-            rows.push('<tr><td><strong>' + a.name + '</strong><div class="myco-small-note">' + resourceName(a.resource) + '</div></td><td>' + a.level + ' → ' + (a.level + 1) + '</td><td>' + fmt(a.cost) + '</td><td>+' + a.incrementalIncome.toFixed(3) + '/s</td><td>' + time(a.paybackSeconds) + '</td><td><span class="myco-roi-grade grade-' + a.grade.toLowerCase() + '">' + a.grade + '</span> ' + a.label + '</td></tr>');
+            rows.push('<tr><td><strong>' + a.name + '</strong><div class="myco-small-note">' + resourceName(a.resource) + '</div></td><td>' + a.level + ' → ' + (a.level + 1) + '</td><td>' + fmt(a.cost) + '</td><td>+' + (a.incrementalIncome * 60).toFixed(3) + '/min</td><td>' + time(a.paybackSeconds) + '</td><td><span class="myco-roi-grade grade-' + a.grade.toLowerCase() + '">' + a.grade + '</span> ' + a.label + '</td></tr>');
         }
         $("#economyRoiRows").html(rows.join("") || '<tr><td colspan="6" class="text-muted">No available upgrades.</td></tr>');
 

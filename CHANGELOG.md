@@ -1,3 +1,13 @@
+# Alpha 0.24.0 — Miner Progression & Per-Minute Economy
+
+- Changed miner production presentation to resources per minute while keeping smooth real-time accumulation.
+- Expanded the Miner Shop to 35 purchasable miners: seven per rarity.
+- Added level-based miner unlocks from Commander Level 1 through 34.
+- Added a one-time free Spore Worker claim; later copies cost MycoCoins.
+- Added repeat purchases and reduced XP rewards for duplicate miners.
+- Grouped shop inventory by Common, Rare, Epic, Legendary, and Mythic strength tiers.
+- Removed the autosave countdown and suppressed autosave notifications while preserving silent automatic saving.
+
 # Alpha 0.23.0 — Miner Shop, Owned Miners & Commander XP
 
 - Miners tab now displays only miners owned by the player and available for production.

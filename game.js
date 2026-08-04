@@ -156,7 +156,7 @@ var Game = (function() {
         $('#impexpField').val(compressed);
     };
 
-    instance.save = function() {
+    instance.save = function(silent) {
         var data = {
             lastFixedUpdate: this.lastFixedUpdate
         };
@@ -191,8 +191,8 @@ var Game = (function() {
         data = legacySave(data);
 
         localStorage.setItem("save",JSON.stringify(data));
-        Game.notifyInfo('Game Saved', 'Your save data has been stored in localStorage on your computer');
-        console.log('Game Saved');
+        if (!silent) Game.notifyInfo('Game Saved', 'Your save data has been stored locally.');
+        if (!silent) console.log('Game Saved');
 
         return data;
     };
@@ -464,26 +464,10 @@ var Game = (function() {
 
     instance.updateAutoSave = function(delta) {
         this.timeSinceAutoSave += delta;
-
-        var element = $('#autoSaveTimer');
         var timeSinceSaveInMS = this.timeSinceAutoSave * 1000;
-        var timeLeft = Game.settings.entries.autoSaveInterval - timeSinceSaveInMS;
-
-        if (timeLeft <= 15000) {
-            element.show();
-            if(timeLeft <= 5000){
-                element.text("Autosaving in " + (timeLeft / 1000).toFixed(1) + " seconds");
-            }
-            else{
-                element.text("Autosaving in " + (timeLeft / 1000).toFixed(0) + " seconds");
-            }
-        } else {
-            element.hide();
-        }
-
-        if(timeLeft < 100) {
-            this.save();
-            this.timeSinceAutoSave = 1;
+        if (timeSinceSaveInMS >= Game.settings.entries.autoSaveInterval) {
+            this.save(true);
+            this.timeSinceAutoSave = 0;
         }
     };
 

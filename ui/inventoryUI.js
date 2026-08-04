@@ -15,7 +15,7 @@ Game.inventoryUI = (function () {
         var items=Game.inventory.getMinerItems().concat(Game.inventory.getArtifactItems()), html=[];
         for(var i=0;i<items.length;i++){
             var x=items[i]; if(this.filter!=="all"&&this.filter!==x.type)continue;
-            var detail=x.type==="miner" ? ("Owned: "+x.owned+" • Level "+x.level+" • "+x.income.toFixed(2)+"/s") : ("Copies: "+x.owned+" • "+x.slot+" • "+x.bonusText+(x.equipped?" • Equipped":""));
+            var detail=x.type==="miner" ? ("Owned: "+x.owned+" • Level "+x.level+" • "+(x.income*60).toFixed(2)+"/min") : ("Copies: "+x.owned+" • "+x.slot+" • "+x.bonusText+(x.equipped?" • Equipped":""));
             html.push('<article class="myco-offer-card" style="border-color:'+x.rarityColor+'"><div class="myco-offer-type">'+x.type.toUpperCase()+' • '+x.rarity+'</div><h4>'+x.name+'</h4><p>'+x.description+'</p><strong>'+detail+'</strong></article>');
         }
         $("#inventoryGrid").html(html.join("")||'<p class="text-muted">Nothing collected yet.</p>');

@@ -1,3 +1,7 @@
+## Alpha 0.24.0 — Miner Progression & Per-Minute Economy
+
+Miner production is now displayed per minute. The Miner Shop contains 35 progression miners split into five rarity sections, with one new miner unlocking at almost every Commander Level. New commanders may claim one free Spore Worker, while later copies are purchased normally. Autosaves now happen silently without a timer or notification.
+
 ## Alpha 0.23.0 — Miner Shop, Owned Miners & Commander XP
 
 The Miners screen now shows only active owned miners. Undiscovered miners have moved into a dedicated Miner Shop. Commander progression now uses explicit XP earned across purchases, quests, expeditions, upgrades, fusion, bosses, discoveries, research, and daily activity. Early access starts with Account, Inventory, Miner Shop, Miners, and Quests at level 1.

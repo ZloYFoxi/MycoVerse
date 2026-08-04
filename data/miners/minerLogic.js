@@ -161,7 +161,9 @@ Game.miners = (function () {
     instance.getBaseMinerIncome = function (id) {
         var miner = this.entries[id];
         if (!miner || miner.owned <= 0 || miner.level <= 0) return 0;
-        return miner.definition.baseIncome * miner.definition.rarity.incomeMultiplier * miner.level * miner.owned;
+        var perMinute = Number(miner.definition.incomePerMinute);
+        if (!isFinite(perMinute)) perMinute = Number(miner.definition.baseIncome || 0) * 60;
+        return (perMinute / 60) * miner.definition.rarity.incomeMultiplier * miner.level * miner.owned;
     };
 
     instance.getMinerIncome = function (id) {
