@@ -1,3 +1,20 @@
+# Alpha 0.19.0 — Profile Expansion, Inventory & Backend Foundation
+
+- Added Commander levels derived from colony progress, collection strength, and earned currency.
+- Added selectable avatars and milestone-unlocked profile titles.
+- Added a unified Inventory Hub for miners and artifacts with filters and a collection score.
+- Added a backend-ready service abstraction with operation queue, local snapshots, and future cloud-sync boundaries.
+- Expanded the title screen and HUD with direct Inventory access.
+- Preserved save compatibility with Alpha 0.6–0.18.
+
+# Alpha 0.18.0 — Visual Overhaul, Account & Marketplace
+
+- Reworked the presentation layer with a new fungal background, top command HUD, and cinematic title screen.
+- Added a local Account system with editable commander name, profile summary, wallet balances, and a 24-hour daily reward.
+- Added a Marketplace prototype with rotating local offers for miners and artifacts, plus selling duplicate miners for MycoCoins.
+- Added a quick-access hero banner linking the front-end economy and current world state.
+- Preserved save compatibility with Alpha 0.6–0.17.
+
 # Alpha 0.17.0 — Mycelial Seasons
 
 - Added a deterministic four-season planetary cycle that changes every six hours.

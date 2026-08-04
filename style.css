@@ -559,3 +559,262 @@
     .myco-ritual-grid { grid-template-columns:1fr; }
     #mycoSeasonCalendar { grid-template-columns:1fr 1fr; }
 }
+
+/* ===== MycoVerse Alpha 0.18.0 Visual Overhaul ===== */
+body {
+    background:
+        radial-gradient(circle at top left, rgba(102, 255, 168, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(77, 174, 255, 0.14), transparent 28%),
+        radial-gradient(circle at bottom center, rgba(255, 182, 72, 0.12), transparent 30%),
+        linear-gradient(180deg, #06110c 0%, #0a1d18 35%, #0f241d 100%);
+    color: #eef6ef;
+}
+
+#game.myco-shell {
+    max-width: 1580px;
+}
+
+.myco-loadscreen {
+    background: linear-gradient(180deg, #020504 0%, #0b1814 45%, #12261f 100%) !important;
+}
+
+.myco-topbar.navbar {
+    border: 1px solid rgba(123, 255, 181, 0.18);
+    background: rgba(9, 20, 17, 0.78);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(10px);
+}
+
+.myco-topbar .navbar-brand,
+.myco-topbar .text-muted,
+.myco-topbar a,
+.nav-tabs > li > a,
+.table,
+.tab-content,
+.btn,
+h1,h2,h3,h4,h5,
+label,
+span,
+p,
+div {
+    color: inherit;
+}
+
+.myco-command-bar,
+.myco-hero-banner,
+.myco-panel,
+.myco-title-card,
+#tabContent > .tab-pane,
+#resources,
+#research,
+#solarSystem,
+#wonder,
+#solCenterPage,
+#machineTab,
+#help,
+#more {
+    background: rgba(10, 24, 20, 0.72);
+    border: 1px solid rgba(133, 255, 190, 0.14);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(10px);
+}
+
+.nav-tabs {
+    border-bottom: 1px solid rgba(133, 255, 190, 0.2);
+    margin-top: 16px;
+}
+
+.nav-tabs > li > a {
+    border-radius: 14px 14px 0 0;
+    border: none !important;
+    background: rgba(17, 36, 30, 0.7);
+    margin-right: 6px;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li > a:hover {
+    background: linear-gradient(180deg, rgba(39, 92, 72, 0.95), rgba(21, 57, 45, 0.95));
+    color: #ffffff;
+}
+
+.tab-content > .tab-pane {
+    margin-top: 16px;
+    border-radius: 20px;
+    padding: 18px;
+}
+
+.myco-command-bar,
+.myco-hero-banner,
+.myco-panel-grid,
+.myco-title-actions,
+.myco-title-grid,
+.myco-wallet-grid,
+.myco-market-grid,
+.myco-colony-columns,
+.myco-command-wallet {
+    display: grid;
+    gap: 16px;
+}
+
+.myco-command-bar {
+    grid-template-columns: 1.2fr 1.5fr auto;
+    align-items: center;
+    padding: 18px 20px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+}
+
+.myco-command-profile { display:flex; align-items:center; gap:14px; }
+.myco-avatar {
+    width: 56px; height: 56px; border-radius: 16px; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg, #12362a, #205f48);
+    font-size: 28px;
+    border: 1px solid rgba(169,255,210,0.24);
+}
+.myco-command-label, .myco-eyebrow, .myco-offer-type { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #8fc7ad; }
+.myco-command-sub, .myco-small-note { font-size: 12px; color: #9ab4a5; }
+.myco-command-wallet { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.myco-wallet-chip, .myco-wallet-card {
+    background: rgba(255,255,255,0.04); padding: 14px 16px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.06);
+}
+.myco-wallet-chip span, .myco-wallet-card span { display:block; font-size:12px; color:#9ab4a5; margin-bottom:4px; }
+.myco-wallet-chip strong, .myco-wallet-card strong { font-size: 22px; color:#fff; }
+.myco-command-actions { display:flex; gap:10px; }
+.myco-ghost-button { background: transparent; border: 1px solid rgba(171,255,213,0.2); color:#dff9e6; }
+
+.myco-hero-banner {
+    grid-template-columns: 1.4fr 1fr;
+    padding: 28px;
+    border-radius: 22px;
+    margin-bottom: 18px;
+    background:
+        radial-gradient(circle at right center, rgba(120, 255, 198, 0.08), transparent 32%),
+        linear-gradient(135deg, rgba(13, 31, 24, 0.88), rgba(12, 49, 38, 0.78));
+}
+.myco-hero-banner h1 { margin: 8px 0 12px; font-size: 38px; }
+.myco-hero-banner p { color:#c5d7cb; max-width: 720px; }
+.myco-hero-stats { display:grid; grid-template-columns: 1fr; gap: 12px; }
+.myco-hero-stats article { background: rgba(255,255,255,0.05); border-radius: 16px; padding: 16px; }
+.myco-hero-stats span { display:block; font-size:12px; color:#8fc7ad; }
+.myco-hero-stats strong { font-size:22px; color:#fff; }
+
+.myco-panel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom:18px; }
+.myco-panel { border-radius: 20px; padding: 22px; }
+.myco-panel h2, .myco-panel h3 { margin-top: 0; }
+.myco-form-row { display:flex; gap:10px; margin: 14px 0 18px; }
+.myco-kv-list > div, .myco-history-row, .myco-sell-row, .myco-colony-row {
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.myco-kv-list > div:last-child, .myco-history-row:last-child, .myco-sell-row:last-child, .myco-colony-row:last-child { border-bottom: none; }
+.myco-note { color: #d7eadc; margin-bottom: 12px; }
+
+.myco-market-head {
+    display:grid; grid-template-columns: 1.2fr auto; gap:16px; align-items:center; margin-bottom:18px;
+}
+.myco-market-actions { display:grid; gap:10px; justify-items:end; }
+.myco-market-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.myco-offer-card, .myco-miner-card {
+    background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.06); border-radius: 18px; padding: 18px;
+}
+.myco-offer-card h4, .myco-miner-card h3 { margin-top: 8px; }
+.myco-offer-card p { color:#c5d7cb; min-height: 54px; }
+.myco-offer-footer { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top: 14px; }
+.myco-sell-list, .myco-history-list { display:grid; gap:8px; }
+
+.myco-title-screen {
+    position: fixed; inset: 0; z-index: 9999; display:flex; align-items:center; justify-content:center;
+}
+.myco-title-backdrop {
+    position:absolute; inset:0;
+    background:
+        radial-gradient(circle at center, rgba(82, 255, 173, 0.18), transparent 28%),
+        linear-gradient(180deg, rgba(3,10,8,0.9), rgba(4,14,11,0.96));
+    backdrop-filter: blur(8px);
+}
+.myco-title-card {
+    position: relative; width:min(960px, calc(100vw - 32px)); padding: 38px; border-radius: 28px;
+    background: linear-gradient(180deg, rgba(9,22,18,0.95), rgba(12,33,26,0.92));
+}
+.myco-title-card h1 { font-size: clamp(32px, 5vw, 58px); line-height:1.05; margin: 10px 0 14px; }
+.myco-title-card p { color:#c8ddd0; font-size: 18px; max-width: 780px; }
+.myco-title-actions { grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 24px 0; }
+.myco-title-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.myco-title-grid article { background: rgba(255,255,255,0.045); padding: 18px; border-radius: 16px; }
+.myco-title-grid strong { display:block; margin-bottom:8px; color:#fff; }
+.myco-title-grid span { color:#c8ddd0; }
+
+.myco-colony-hero, .myco-colony-stats, .myco-colony-columns, .myco-miner-summary { display:grid; gap:16px; }
+.myco-colony-hero { grid-template-columns: 1.3fr 0.7fr; margin-bottom:18px; }
+.myco-colony-rank { background: rgba(255,255,255,0.045); padding:16px; border-radius:16px; }
+.myco-colony-rank span { display:block; color:#8fc7ad; font-size:12px; }
+.myco-colony-rank strong { font-size: 34px; }
+.myco-colony-stats { grid-template-columns: repeat(4, minmax(0,1fr)); margin-bottom:18px; }
+.myco-colony-stats article { background: rgba(255,255,255,0.045); border-radius:16px; padding:16px; }
+.myco-colony-stats span { display:block; font-size:12px; color:#8fc7ad; }
+.myco-colony-stats strong { font-size:24px; }
+.myco-colony-columns { grid-template-columns: repeat(2, minmax(0,1fr)); }
+.myco-colony-panel { background: rgba(255,255,255,0.045); padding:18px; border-radius:18px; }
+.myco-miner-summary { grid-template-columns: repeat(2, minmax(0,1fr)); margin: 12px 0 18px; }
+.myco-miner-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
+.myco-level-track { height:8px; background:rgba(255,255,255,0.08); border-radius:99px; overflow:hidden; margin:12px 0; }
+.myco-level-track span { display:block; height:100%; background: linear-gradient(90deg, #4fe08d, #b2ff72); }
+
+@media (max-width: 1100px) {
+    .myco-command-bar, .myco-hero-banner, .myco-market-head, .myco-colony-hero { grid-template-columns: 1fr; }
+    .myco-command-actions { justify-content:flex-start; flex-wrap:wrap; }
+}
+
+@media (max-width: 900px) {
+    .myco-panel-grid, .myco-title-grid, .myco-title-actions, .myco-command-wallet, .myco-colony-stats, .myco-colony-columns, .myco-miner-summary { grid-template-columns: 1fr; }
+    .myco-form-row { flex-direction: column; }
+}
+
+/* ===== MycoVerse Alpha 0.19.0 Profile & Inventory ===== */
+.myco-profile-hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 22px;
+    align-items: center;
+    padding: 24px;
+    margin-bottom: 18px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(20, 59, 44, 0.88), rgba(15, 31, 26, 0.82));
+    border: 1px solid rgba(141, 255, 194, 0.16);
+}
+.myco-profile-avatar {
+    width: 92px;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    border-radius: 26px;
+    background: radial-gradient(circle, rgba(140,255,188,0.22), rgba(31,85,61,0.78));
+    border: 1px solid rgba(171,255,213,0.22);
+}
+.myco-filter-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+.myco-code-box {
+    min-height: 120px;
+    margin-top: 14px;
+    resize: vertical;
+    font-family: monospace;
+    font-size: 11px;
+    background: rgba(0,0,0,0.28);
+    color: #c9f4d5;
+}
+#accountAvatarSelect,
+#accountTitleSelect {
+    margin-bottom: 12px;
+}
+@media (max-width: 720px) {
+    .myco-profile-hero { grid-template-columns: 1fr; text-align: center; }
+    .myco-profile-avatar { margin: 0 auto; }
+}

@@ -1,3 +1,11 @@
+## Alpha 0.19.0 — Profile Expansion, Inventory & Backend Foundation
+
+Commander profiles now gain levels from real colony progress, support avatars and unlockable titles, and can create portable profile snapshots. A new Inventory Hub unifies miners and artifacts. The game also has a dedicated backend service boundary so future authentication and cloud sync can be added without rewriting the gameplay modules.
+
+## Alpha 0.18.0 — Visual Overhaul, Account & Marketplace
+
+MycoVerse now has a dedicated front-end layer: a new title screen, a living fungal background, a profile HUD, a local account with wallet balances and daily rewards, plus a marketplace prototype for buying miners or artifacts and selling duplicate specimens.
+
 ## Alpha 0.17.0 — Mycelial Seasons
 
 The planetary ecosystem now rotates through four six-hour seasons. Each season changes production or discovery, while one player-selected ritual can add a second temporary specialization until the next cycle.

@@ -79,6 +79,11 @@ var Game = (function() {
         self.ascensionUI.update(delta);
         self.structureUI.update(delta);
         self.worldCycleUI.update(delta);
+        self.accountUI.update(delta);
+        self.inventoryUI.update(delta);
+        self.marketUI.update(delta);
+        self.frontendUI.update(delta);
+        self.market.update(delta);
 
         self.updateAutoSave(delta);
 
@@ -164,6 +169,9 @@ var Game = (function() {
         this.ascension.save(data);
         this.structures.save(data);
         this.worldCycle.save(data);
+        this.account.save(data);
+        this.backend.save(data);
+        this.market.save(data);
         this.interstellar.save(data);
         this.stargaze.save(data);
         this.updates.save(data);
@@ -195,6 +203,9 @@ var Game = (function() {
             this.ascension.load(data);
             this.structures.load(data);
             this.worldCycle.load(data);
+            this.account.load(data);
+            this.backend.load(data);
+            this.market.load(data);
             this.stargaze.load(data);
             this.tech.load(data);
             this.interstellar.load(data); 
@@ -285,6 +296,9 @@ var Game = (function() {
         self.ascension.initialise();
         self.structures.initialise();
         self.worldCycle.initialise();
+        self.account.initialise();
+        self.backend.initialise();
+        self.market.initialise();
 
         // Now load
         self.load();
@@ -301,6 +315,10 @@ var Game = (function() {
         self.ascensionUI.initialise();
         self.structureUI.initialise();
         self.worldCycleUI.initialise();
+        self.accountUI.initialise();
+        self.inventoryUI.initialise();
+        self.marketUI.initialise();
+        self.frontendUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {
             self.uiComponents[i].initialise();
