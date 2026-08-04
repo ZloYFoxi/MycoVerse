@@ -1,3 +1,7 @@
+## Alpha 0.21.0 — Miner Unions
+
+Players can now create three named miner unions, assign up to five species and specialised roles, develop synergies, level the active formation, and invest talent points into production, boss combat, or expedition speed.
+
 ## Alpha 0.20.0 — Planet Bosses
 
 Each planetary league is now guarded by a unique boss. Assemble a squad of up to five miner species and defeat the guardian before the battle timer expires. Victories unlock the next league and grant exclusive organisms, relics, profile titles, and account currency. Battles use real timestamps and continue while the game is closed.

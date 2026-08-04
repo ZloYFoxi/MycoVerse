@@ -158,6 +158,7 @@ Game.ascension = (function () {
         if (Game.structures) Game.structures.initialise();
         if (Game.worldCycle && Game.worldCycle.resetForAscension) Game.worldCycle.resetForAscension();
         if (Game.bosses) { Game.bosses.defeated = {}; Game.bosses.resetForAscension(); }
+        if (Game.unions && Game.unions.resetForAscension) Game.unions.resetForAscension();
 
         // Reset the three primary MycoVerse currencies while leaving the legacy Space Company engine intact.
         if (typeof window.wood !== "undefined") window.wood = 0;

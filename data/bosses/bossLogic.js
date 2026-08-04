@@ -179,7 +179,8 @@ Game.bosses = (function () {
         for (var i = 0; i < team.length; i++) total += this.getMinerCombatPower(team[i]);
         var artifactMultiplier = Game.artifacts && Game.artifacts.getBonuses ? 1 + (Game.artifacts.getBonuses().global || 0) / 200 : 1;
         var legacyMultiplier = Game.ascension && Game.ascension.getProductionMultiplier ? Game.ascension.getProductionMultiplier("wood") : 1;
-        return total * artifactMultiplier * Math.sqrt(Math.max(1, legacyMultiplier));
+        var unionMultiplier = (Game.unions && Game.unions.getBossMultiplier) ? Game.unions.getBossMultiplier(team) : 1;
+        return total * artifactMultiplier * Math.sqrt(Math.max(1, legacyMultiplier)) * unionMultiplier;
     };
 
     instance.applyRewards = function (boss) {

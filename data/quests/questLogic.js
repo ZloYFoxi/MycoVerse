@@ -230,8 +230,7 @@ Game.quests = (function () {
         this.activeExpeditions.push({
             id: id,
             startedAt: Date.now(),
-            endsAt: Date.now() + expedition.durationSeconds * 1000 * ((Game.worldCycle && Game.worldCycle.getExpeditionDurationMultiplier) ? Game.worldCycle.getExpeditionDurationMultiplier() : 1),
-            claimed: false
+            endsAt: Date.now() + expedition.durationSeconds * 1000 * ((Game.worldCycle && Game.worldCycle.getExpeditionDurationMultiplier) ? Game.worldCycle.getExpeditionDurationMultiplier() : 1) * ((Game.unions && Game.unions.getExpeditionDurationMultiplier) ? Game.unions.getExpeditionDurationMultiplier() : 1)
         });
         Game.notifySuccess("Expedition launched", expedition.name + " has departed.");
         return true;

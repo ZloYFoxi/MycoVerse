@@ -1,3 +1,12 @@
+# Alpha 0.21.0 — Miner Unions
+
+- Added three saved miner unions with one active formation.
+- Added Leader, Worker, Support, and Researcher roles.
+- Added resource, rarity, planet, and full-team synergies.
+- Added union levels, experience, talent points, and three permanent talent paths.
+- Integrated union bonuses with miner production, boss combat, and expedition duration.
+- Added Ascension-safe union resets while preserving purchased talents.
+
 # Alpha 0.20.0 — Planet Bosses
 
 - Added five planetary guardians, one for every MycoVerse league.

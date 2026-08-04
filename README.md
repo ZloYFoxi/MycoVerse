@@ -1,5 +1,9 @@
 # MycoVerse
 
+Current version: **Alpha 0.21.0 — Miner Unions**. Build specialised miner collectives, assign roles, unlock synergies and strengthen production, expeditions, and planetary boss squads.
+
+# MycoVerse
+
 MycoVerse is a fungal-themed incremental strategy game with living miners, planetary leagues, artifacts, accounts, a marketplace prototype, and real-time planetary boss battles.
 
 Current version: **Alpha 0.20.0 — Planet Bosses**.

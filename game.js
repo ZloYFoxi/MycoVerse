@@ -83,6 +83,8 @@ var Game = (function() {
         self.inventoryUI.update(delta);
         self.marketUI.update(delta);
         self.bossUI.update(delta);
+        self.unionUI.update(delta);
+        self.unions.update(delta);
         self.frontendUI.update(delta);
         self.market.update(delta);
         self.bosses.update(delta);
@@ -175,6 +177,7 @@ var Game = (function() {
         this.backend.save(data);
         this.market.save(data);
         this.bosses.save(data);
+        this.unions.save(data);
         this.interstellar.save(data);
         this.stargaze.save(data);
         this.updates.save(data);
@@ -210,6 +213,7 @@ var Game = (function() {
             this.backend.load(data);
             this.market.load(data);
             this.bosses.load(data);
+            this.unions.load(data);
             this.stargaze.load(data);
             this.tech.load(data);
             this.interstellar.load(data); 
@@ -304,6 +308,7 @@ var Game = (function() {
         self.backend.initialise();
         self.market.initialise();
         self.bosses.initialise();
+        self.unions.initialise();
 
         // Now load
         self.load();
@@ -324,6 +329,7 @@ var Game = (function() {
         self.inventoryUI.initialise();
         self.marketUI.initialise();
         self.bossUI.initialise();
+        self.unionUI.initialise();
         self.frontendUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {
