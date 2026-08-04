@@ -8,3 +8,7 @@ Expeditions now have a planet-specific chance to return with an artifact. Equip 
 
 ## Alpha 0.15.0 — Ascension & Legacy
 The colony can now undergo Mycelial Ascension after reaching the required Colony Power, planets, and research. Ascension resets the modern MycoVerse progression layer and awards permanent Legacy. Legacy may be invested into global production, Spores, Gems, Science, and Insight generation.
+
+
+## Alpha 0.16.0 — Living Structures
+The colony can now grow six specialized fungal structures. Each structure has its own level cap, escalating costs, progression requirements, and permanent bonus for the current Ascension cycle. Structures strengthen Spores, Gems, Science, Insight, or all miner production and are reset during Mycelial Ascension.

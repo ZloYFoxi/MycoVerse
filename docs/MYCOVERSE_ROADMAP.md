@@ -51,3 +51,9 @@
 - [x] Legacy currency
 - [x] Permanent Legacy adaptations
 - [x] Safe MycoVerse cycle reset
+
+
+## Completed — Alpha 0.16.0
+- [x] Living colony structures
+- [x] Structure progression requirements
+- [x] Production and Insight bonuses

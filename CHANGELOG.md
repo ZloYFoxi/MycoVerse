@@ -22,3 +22,13 @@
 - Added permanent production and Insight bonuses that survive rebirth.
 - Added a safe reset of MycoVerse systems while preserving the legacy engine and old saves.
 - Added a dedicated Ascension interface and confirmation flow.
+
+
+## Alpha 0.16.0 — Living Structures
+- Added a dedicated Structures tab with six growable fungal buildings.
+- Added structure levels, escalating multi-currency costs, caps, and progression requirements.
+- Added permanent-per-cycle bonuses to Spores, Gems, Science, Insight, and all miner production.
+- Added Colony Power, planet, laboratory, research, and Ascension requirements.
+- Integrated structure bonuses into miner income and Insight generation.
+- Added full save/load support and Ascension reset compatibility.
+- Preserved compatibility with saves from Alpha 0.6–0.15.

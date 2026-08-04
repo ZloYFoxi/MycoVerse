@@ -44,6 +44,7 @@ Game.ascensionUI = (function () {
                 if (Game.questUI) Game.questUI.render();
                 if (Game.artifactUI) Game.artifactUI.render();
                 if (Game.researchUI) Game.researchUI.render();
+                if (Game.structureUI) Game.structureUI.render();
             }
         });
         $("#ascensionUpgrades").on("click", "button[data-legacy-id]", function () {

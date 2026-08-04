@@ -379,3 +379,82 @@
 .myco-legacy-card{display:flex;flex-direction:column;min-height:245px;padding:18px;border:1px solid rgba(226,123,184,.25);border-radius:15px;background:linear-gradient(155deg,rgba(44,31,48,.97),rgba(18,20,30,.98))}.myco-legacy-card.maxed{border-color:rgba(117,240,163,.45)}
 .myco-legacy-level{font-size:11px;letter-spacing:1.2px;color:#e0a7c5}.myco-legacy-card h3{margin:8px 0}.myco-legacy-card p{flex:1;color:#bdb4c1}.myco-legacy-bonus{margin:12px 0;padding:9px 11px;border-radius:9px;color:#ffcae1;background:rgba(210,91,151,.1)}
 @media(max-width:800px){.myco-ascension-hero{align-items:stretch;flex-direction:column}.myco-legacy-currency{width:100%}.myco-ascension-layout{grid-template-columns:1fr}.myco-legacy-grid{grid-template-columns:1fr}}
+
+
+/* MycoVerse Living Structures */
+.myco-structures-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 22px;
+    margin: 20px 0 18px;
+    padding: 24px;
+    border: 1px solid rgba(123, 255, 178, .28);
+    border-radius: 16px;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(161, 255, 110, .16), transparent 34%),
+        linear-gradient(135deg, rgba(8, 30, 22, .96), rgba(18, 42, 31, .92));
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .28);
+}
+.myco-structures-hero h2 { margin: 4px 0 8px; font-size: 32px; }
+.myco-structure-rank {
+    min-width: 180px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid rgba(139, 255, 190, .18);
+    border-radius: 14px;
+    background: rgba(112, 255, 166, .08);
+}
+.myco-structure-rank span,
+.myco-structure-rank small { display: block; }
+.myco-structure-rank span { font-size: 11px; letter-spacing: 1.2px; opacity: .7; }
+.myco-structure-rank strong { display: block; color: #91ffc1; font-size: 34px; }
+.myco-structure-rank small { opacity: .72; }
+.myco-structure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 16px;
+    padding-bottom: 34px;
+}
+.myco-structure-card {
+    display: flex;
+    min-height: 305px;
+    flex-direction: column;
+    padding: 18px;
+    border: 1px solid rgba(127, 255, 185, .22);
+    border-radius: 14px;
+    background:
+        radial-gradient(circle at top right, rgba(94, 255, 165, .09), transparent 36%),
+        rgba(8, 23, 18, .94);
+    box-shadow: 0 11px 28px rgba(0, 0, 0, .23);
+    transition: transform .18s ease, border-color .18s ease;
+}
+.myco-structure-card:hover { transform: translateY(-2px); border-color: rgba(142, 255, 192, .42); }
+.myco-structure-card.locked { opacity: .58; filter: grayscale(.45); }
+.myco-structure-top { display: flex; gap: 13px; align-items: center; }
+.myco-structure-top h3 { margin: 2px 0 0; }
+.myco-structure-icon {
+    display: grid;
+    width: 52px;
+    height: 52px;
+    place-items: center;
+    border-radius: 13px;
+    background: rgba(115, 255, 177, .1);
+    font-size: 29px;
+}
+.myco-structure-card > p { min-height: 58px; margin: 14px 0; opacity: .82; }
+.myco-structure-bonus {
+    margin-bottom: 12px;
+    padding: 11px;
+    border-radius: 10px;
+    background: rgba(116, 255, 179, .07);
+    color: #a0ffd0;
+}
+.myco-structure-bonus strong { display: block; margin-top: 5px; color: #fff; }
+.myco-structure-requirements { min-height: 38px; margin-bottom: 12px; font-size: 12px; opacity: .67; }
+.myco-structure-card .btn { width: 100%; margin-top: auto; white-space: normal; }
+@media (max-width: 700px) {
+    .myco-structures-hero { align-items: flex-start; flex-direction: column; padding: 18px; }
+    .myco-structure-rank { width: 100%; }
+    .myco-structure-grid { grid-template-columns: 1fr; }
+}

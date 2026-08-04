@@ -77,6 +77,7 @@ var Game = (function() {
         self.research.update(delta);
         self.researchUI.update(delta);
         self.ascensionUI.update(delta);
+        self.structureUI.update(delta);
 
         self.updateAutoSave(delta);
 
@@ -160,6 +161,7 @@ var Game = (function() {
         this.artifacts.save(data);
         this.research.save(data);
         this.ascension.save(data);
+        this.structures.save(data);
         this.interstellar.save(data);
         this.stargaze.save(data);
         this.updates.save(data);
@@ -189,6 +191,7 @@ var Game = (function() {
             this.artifacts.load(data);
             this.research.load(data);
             this.ascension.load(data);
+            this.structures.load(data);
             this.stargaze.load(data);
             this.tech.load(data);
             this.interstellar.load(data); 
@@ -277,6 +280,7 @@ var Game = (function() {
         self.artifacts.initialise();
         self.research.initialise();
         self.ascension.initialise();
+        self.structures.initialise();
 
         // Now load
         self.load();
@@ -291,6 +295,7 @@ var Game = (function() {
         self.artifactUI.initialise();
         self.researchUI.initialise();
         self.ascensionUI.initialise();
+        self.structureUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {
             self.uiComponents[i].initialise();
