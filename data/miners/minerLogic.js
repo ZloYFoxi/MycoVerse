@@ -173,7 +173,8 @@ Game.miners = (function () {
         var researchMultiplier = (Game.research && Game.research.getProductionMultiplier) ? Game.research.getProductionMultiplier(miner.definition.resource) : 1;
         var ascensionMultiplier = (Game.ascension && Game.ascension.getProductionMultiplier) ? Game.ascension.getProductionMultiplier(miner.definition.resource) : 1;
         var structureMultiplier = (Game.structures && Game.structures.getProductionMultiplier) ? Game.structures.getProductionMultiplier(miner.definition.resource) : 1;
-        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier * planetMultiplier * artifactMultiplier * researchMultiplier * ascensionMultiplier * structureMultiplier;
+        var worldCycleMultiplier = (Game.worldCycle && Game.worldCycle.getProductionMultiplier) ? Game.worldCycle.getProductionMultiplier(miner.definition.resource) : 1;
+        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier * planetMultiplier * artifactMultiplier * researchMultiplier * ascensionMultiplier * structureMultiplier * worldCycleMultiplier;
     };
 
     instance.getResourceIncome = function (resourceId) {

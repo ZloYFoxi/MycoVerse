@@ -114,6 +114,8 @@ Game.artifacts = (function () {
     instance.rollExpeditionArtifact = function (planetId) {
         var pool = Game.artifactData.expeditionPools[planetId] || [];
         var chance = num(Game.artifactData.expeditionChance[planetId], 0);
+        if (Game.worldCycle && Game.worldCycle.getArtifactChanceBonus) chance += Game.worldCycle.getArtifactChanceBonus();
+        chance = Math.min(1, Math.max(0, chance));
         if (!pool.length || Math.random() > chance) return null;
         var id = pool[Math.floor(Math.random() * pool.length)];
         if (!this.add(id, 1)) return null;

@@ -1,3 +1,7 @@
+## Alpha 0.17.0 — Mycelial Seasons
+
+The planetary ecosystem now rotates through four six-hour seasons. Each season changes production or discovery, while one player-selected ritual can add a second temporary specialization until the next cycle.
+
 # Alpha 0.14.0 — Mycelium Research
 
 The colony now converts its power into Insight over time. Spend Insight on a connected research tree and choose one permanent specialization after completing three nodes.

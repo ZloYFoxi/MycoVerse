@@ -56,7 +56,9 @@ Game.laboratory = (function () {
     instance.getFusionReward = function (minerId) {
         var entry = Game.miners.getEntry(minerId);
         if (!entry) return 0;
-        return Game.laboratoryData.fusionRewards[entry.definition.rarity.id] || 0;
+        var reward = Game.laboratoryData.fusionRewards[entry.definition.rarity.id] || 0;
+        if (Game.worldCycle && Game.worldCycle.getDnaMultiplier) reward *= Game.worldCycle.getDnaMultiplier();
+        return Math.max(0, Math.floor(reward));
     };
 
     instance.getMutationCost = function (minerId) {

@@ -1,3 +1,12 @@
+# Alpha 0.17.0 — Mycelial Seasons
+
+- Added a deterministic four-season planetary cycle that changes every six hours.
+- Added Bloomtide, Prism Rain, Oracle Night, and Deep Root production bonuses.
+- Added seasonal rituals that last until the active season ends.
+- Integrated seasonal bonuses with miner income, Insight generation, fusion DNA, expeditions, and artifact discovery.
+- Added a complete Seasons interface with countdowns, active bonuses, ritual selection, and cycle calendar.
+- Added save compatibility and Ascension-safe ritual resets.
+
 # MycoVerse Alpha 0.14.0 — Mycelium Research
 
 - Added Mycelium Research tab and passive Insight generation.
