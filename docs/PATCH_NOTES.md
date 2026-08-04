@@ -1,3 +1,7 @@
+## Alpha 0.22.0 — Economy Rebalance & ROI
+
+The new Economy Center converts every miner output into a shared Spore Equivalent value. This makes upgrade payback comparable across Spores, Gems, Science, and later resources. Marketplace prices now use the same fair-value model, while all upgrades and trades are recorded in a persistent economy history.
+
 ## Alpha 0.21.0 — Miner Unions
 
 Players can now create three named miner unions, assign up to five species and specialised roles, develop synergies, level the active formation, and invest talent points into production, boss combat, or expedition speed.

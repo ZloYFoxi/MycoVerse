@@ -941,3 +941,19 @@ div {
 .myco-union-available-row select { min-width:120px; }
 #unionTalents { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }
 @media(max-width:900px){.myco-union-head,.myco-union-overview,.myco-union-tabs{grid-template-columns:1fr}.myco-union-member,.myco-union-available-row{align-items:flex-start;flex-direction:column}.myco-union-available-row>div:last-child{width:100%;min-width:0}}
+
+/* ===== Alpha 0.22.0 Economy & ROI ===== */
+.myco-economy-hero { display:grid; grid-template-columns:1.4fr .6fr; gap:18px; margin-bottom:18px; }
+.myco-economy-health { background:rgba(255,255,255,.045); border:1px solid rgba(130,255,190,.12); border-radius:18px; padding:20px; display:flex; flex-direction:column; justify-content:center; }
+.myco-economy-health span { color:#8fc7ad; font-size:12px; text-transform:uppercase; letter-spacing:.12em; }
+.myco-economy-health strong { font-size:36px; color:#fff; }
+.myco-economy-health em { color:#bfe6cf; font-style:normal; }
+.myco-economy-summary { grid-template-columns:repeat(4,minmax(0,1fr)); margin-bottom:18px; }
+.myco-economy-callout { display:flex; flex-direction:column; background:rgba(79,224,141,.08); border:1px solid rgba(79,224,141,.18); padding:16px; border-radius:16px; }
+.myco-economy-callout span { color:#8fc7ad; font-size:12px; }
+.myco-economy-callout strong { font-size:28px; color:#fff; }
+.myco-economy-callout em { color:#c7e6d3; font-style:normal; }
+.myco-economy-table > thead > tr > th, .myco-economy-table > tbody > tr > td { border-color:rgba(255,255,255,.07); vertical-align:middle; }
+.myco-roi-grade { display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:28px; border-radius:8px; font-weight:800; color:#07120d; margin-right:6px; }
+.grade-s { background:#79ffab; }.grade-a { background:#b7ff79; }.grade-b { background:#ffe66d; }.grade-c { background:#ffc269; }.grade-d { background:#ff8c69; }.grade-e { background:#ff687f; }
+@media(max-width:900px){.myco-economy-hero,.myco-economy-summary{grid-template-columns:1fr;}}

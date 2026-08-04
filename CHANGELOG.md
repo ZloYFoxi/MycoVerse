@@ -1,3 +1,15 @@
+# Alpha 0.22.0 — Economy Rebalance & ROI
+
+- Added a dedicated Economy tab with production, market, investment, and transaction metrics.
+- Added Spore Equivalent valuation for comparing miners that produce different resources.
+- Added live ROI and payback analysis for every available miner upgrade.
+- Added a best-next-upgrade recommendation and economy health score.
+- Rebalanced miner upgrade growth from 18% to 16% and clone growth from 35% to 30%.
+- Repriced Marketplace miners and artifacts from their actual output and bonuses.
+- Increased duplicate sale returns to a consistent fair-value model.
+- Added persistent economy history, market volume, and hourly index snapshots.
+- Preserved compatibility with Alpha 0.6–0.21 saves.
+
 # Alpha 0.21.0 — Miner Unions
 
 - Added three saved miner unions with one active formation.

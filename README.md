@@ -1,5 +1,11 @@
 # MycoVerse
 
+Current version: **Alpha 0.22.0 — Economy Rebalance & ROI**.
+
+MycoVerse is a fungal incremental strategy game with miners, planets, bosses, unions, artifacts, accounts, a marketplace, and a transparent cross-resource economy model.
+
+# MycoVerse
+
 Current version: **Alpha 0.21.0 — Miner Unions**. Build specialised miner collectives, assign roles, unlock synergies and strengthen production, expeditions, and planetary boss squads.
 
 # MycoVerse

@@ -67,7 +67,8 @@ Game.miners = (function () {
     instance.getUpgradeCost = function (id) {
         var miner = this.entries[id];
         if (!miner) return Infinity;
-        return Math.floor(miner.definition.upgradeBaseCost * Math.pow(1.18, Math.max(1, miner.level) - 1));
+        if (Game.economy && Game.economy.getMinerUpgradeCost) return Game.economy.getMinerUpgradeCost(miner);
+        return Math.floor(miner.definition.upgradeBaseCost * Math.pow(1.16, Math.max(1, miner.level) - 1));
     };
 
     instance.getUnlockCost = function (id) {
@@ -115,7 +116,8 @@ Game.miners = (function () {
         var miner = this.entries[id];
         if (!miner || miner.owned <= 0) return Infinity;
         var base = Math.max(10, normaliseNumber(miner.definition.upgradeBaseCost, 10) * 2);
-        return Math.floor(base * Math.pow(1.35, Math.max(0, miner.owned - 1)));
+        if (Game.economy && Game.economy.getMinerCloneCost) return Game.economy.getMinerCloneCost(miner);
+        return Math.floor(base * Math.pow(1.30, Math.max(0, miner.owned - 1)));
     };
 
     instance.clone = function (id) {
@@ -127,6 +129,7 @@ Game.miners = (function () {
             return false;
         }
         Game.resources.takeResource(RESOURCE.Wood, cost);
+        if (Game.economy && Game.economy.recordSporeSpend) Game.economy.recordSporeSpend('clone', cost, miner.definition.name);
         miner.owned += 1;
         Game.notifySuccess("Clone cultivated", miner.definition.name + " now has " + miner.owned + " specimens.");
         return true;
@@ -251,6 +254,7 @@ Game.miners = (function () {
             return false;
         }
         Game.resources.takeResource(RESOURCE.Wood, cost);
+        if (Game.economy && Game.economy.recordSporeSpend) Game.economy.recordSporeSpend('awaken', cost, miner.definition.name);
         miner.owned = 1;
         miner.level = 1;
         Game.notifySuccess("Miner awakened", miner.definition.name + " has joined your colony.");
@@ -266,6 +270,7 @@ Game.miners = (function () {
             return false;
         }
         Game.resources.takeResource(RESOURCE.Wood, cost);
+        if (Game.economy && Game.economy.recordSporeSpend) Game.economy.recordSporeSpend('upgrade', cost, miner.definition.name);
         miner.level += 1;
         miner.experience += cost;
         if (Game.quests && Game.quests.recordUpgrade) Game.quests.recordUpgrade();

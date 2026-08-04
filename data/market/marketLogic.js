@@ -84,7 +84,7 @@ Game.market = (function () {
                 title: miner.name,
                 rarity: miner.rarity.name,
                 description: miner.description,
-                price: minerPrice(miner),
+                price: Game.economy && Game.economy.getMarketPrice ? Game.economy.getMarketPrice('miner', minerIds[i]) : minerPrice(miner),
                 currency: "mycoCoins"
             });
         }
@@ -99,7 +99,7 @@ Game.market = (function () {
                 title: artifact.name,
                 rarity: Game.artifactData.rarities[artifact.rarity].name,
                 description: artifact.description,
-                price: artifactPrice(artifact),
+                price: Game.economy && Game.economy.getMarketPrice ? Game.economy.getMarketPrice('artifact', artifactIds[j]) : artifactPrice(artifact),
                 currency: "mycoCoins"
             });
         }
@@ -151,6 +151,7 @@ Game.market = (function () {
             Game.artifacts.add(offer.itemId, 1);
         }
         this.history.unshift({ type: "buy", title: offer.title, price: offer.price, at: Date.now() });
+        if (Game.economy && Game.economy.recordMarketTrade) Game.economy.recordMarketTrade('buy', offer.price, offer.title);
         this.history = this.history.slice(0, 25);
         this.offers.splice(index, 1);
         Game.notifySuccess("Purchase completed", offer.title + " joined your collection.");
@@ -160,6 +161,7 @@ Game.market = (function () {
     instance.getSellPrice = function (minerId) {
         var entry = Game.miners.getEntry(minerId);
         if (!entry || entry.owned <= 1) return 0;
+        if (Game.economy && Game.economy.getMinerSellPrice) return Game.economy.getMinerSellPrice(minerId);
         var base = Math.max(10, minerPrice(entry.definition) * 0.35);
         return Math.floor(base * (1 + Math.max(0, entry.level - 1) * 0.08));
     };
@@ -174,6 +176,7 @@ Game.market = (function () {
         entry.owned -= 1;
         Game.account.add("mycoCoins", price);
         this.history.unshift({ type: "sell", title: entry.definition.name, price: price, at: Date.now() });
+        if (Game.economy && Game.economy.recordMarketTrade) Game.economy.recordMarketTrade('sell', price, entry.definition.name);
         this.history = this.history.slice(0, 25);
         Game.notifySuccess("Sale complete", "Sold one " + entry.definition.name + " for " + price + " MycoCoins.");
         return true;
