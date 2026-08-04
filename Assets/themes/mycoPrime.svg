@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1f18"/><stop offset="1" stop-color="#2b6a45"/></linearGradient>
+<radialGradient id="halo"><stop offset="0" stop-color="#71e6a2" stop-opacity=".48"/><stop offset="1" stop-color="#71e6a2" stop-opacity="0"/></radialGradient>
+<filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+<pattern id="spores" width="120" height="120" patternUnits="userSpaceOnUse"><circle cx="18" cy="32" r="2" fill="#71e6a2" opacity=".35"/><circle cx="84" cy="82" r="1.5" fill="#71e6a2" opacity=".28"/><circle cx="55" cy="18" r="1" fill="white" opacity=".18"/></pattern>
+</defs>
+<rect width="1400" height="900" fill="url(#sky)"/>
+<circle cx="1090" cy="190" r="300" fill="url(#halo)" filter="url(#blur)"/>
+<circle cx="260" cy="210" r="220" fill="url(#halo)" opacity=".65" filter="url(#blur)"/>
+<rect width="1400" height="900" fill="url(#spores)"/>
+<path d="M0 820 Q220 650 430 760 T900 720 T1400 760 V900 H0Z" fill="#18392b" opacity=".96"/>
+<g fill="none" stroke="#71e6a2" stroke-width="12" stroke-linecap="round" opacity=".38"><path d="M180 680 C120 520 240 410 305 520 C360 420 500 520 445 680Z"/></g>
+<g fill="#71e6a2" opacity=".78"><circle cx="190" cy="690" r="10"/><circle cx="460" cy="720" r="7"/><circle cx="730" cy="690" r="9"/><circle cx="980" cy="720" r="8"/><circle cx="1190" cy="690" r="11"/></g>
+<rect y="620" width="1400" height="280" fill="url(#halo)" opacity=".18"/>
+</svg>

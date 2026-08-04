@@ -96,11 +96,14 @@ var Game = (function() {
         self.bosses.update(delta);
         self.worldBoss.update(delta);
         self.guild.update(delta);
+        self.campaign.update(delta);
         self.mycoAchievements.update(delta);
         self.collectionUI.update(delta);
+        self.campaignUI.update(delta);
         self.worldBossUI.update(delta);
         self.guildUI.update(delta);
         self.responsiveUI.update(delta);
+        self.designThemeUI.update(delta);
 
         self.updateAutoSave(delta);
 
@@ -193,6 +196,7 @@ var Game = (function() {
         this.bosses.save(data);
         this.worldBoss.save(data);
         this.guild.save(data);
+        this.campaign.save(data);
         this.mycoAchievements.save(data);
         this.unions.save(data);
         this.economy.save(data);
@@ -234,6 +238,7 @@ var Game = (function() {
             this.bosses.load(data);
             this.worldBoss.load(data);
             this.guild.load(data);
+            this.campaign.load(data);
             this.mycoAchievements.load(data);
             this.unions.load(data);
             this.economy.load(data);
@@ -334,6 +339,7 @@ var Game = (function() {
         self.bosses.initialise();
         self.worldBoss.initialise();
         self.guild.initialise();
+        self.campaign.initialise();
         self.mycoAchievements.initialise();
         self.unions.initialise();
         self.economy.initialise();
@@ -360,11 +366,13 @@ var Game = (function() {
         self.bossUI.initialise();
         self.worldBossUI.initialise();
         self.guildUI.initialise();
+        self.campaignUI.initialise();
         self.collectionUI.initialise();
         self.unionUI.initialise();
         self.economyUI.initialise();
         self.frontendUI.initialise();
         self.responsiveUI.initialise();
+        self.designThemeUI.initialise();
         self.accessUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {

@@ -42,7 +42,7 @@ Game.frontendUI = (function () {
             '<section class="myco-command-bar">' +
             '<div class="myco-command-profile">' +
             '<div class="myco-avatar">🍄</div>' +
-            '<div><div class="myco-command-label">Commander</div><strong id="mycoCommandName">Wandering Spore</strong><div class="myco-command-sub" id="mycoCommandId">MV-0000</div></div>' +
+            '<div><div class="myco-command-label">Commander</div><strong id="mycoCommandName">Wandering Spore</strong><div class="myco-command-sub"><span id="mycoCommandId">MV-0000</span> • <span id="mycoActiveWorldLabel">Myco Prime</span></div></div>' +
             '</div>' +
             '<div class="myco-command-wallet">' +
             '<div class="myco-wallet-chip"><span>MycoCoins</span><strong id="mycoCoinsHud">0</strong></div>' +
@@ -56,7 +56,7 @@ Game.frontendUI = (function () {
             '</div>' +
             '</section>' +
             '<section class="myco-hero-banner">' +
-            '<div><div class="myco-eyebrow">MYCOVERSE FRONTIER</div><h1>Grow a living fungal empire.</h1><p>Command miners, evolve your colony, collect relics, and trade discoveries across the network.</p></div>' +
+            '<div><div class="myco-eyebrow">MYCOVERSE FRONTIER</div><h1>Grow a living fungal empire.</h1><p>Explore living planets, command evolving miners, defeat guardians, and write the first campaign of a galactic mycelium.</p><div class="myco-hero-actions"><button class="btn btn-success" data-hero-target="campaignPage">Continue Campaign</button><button class="btn btn-default" data-hero-target="planetsPage">View Planets</button></div></div>' +
             '<div class="myco-hero-stats">' +
             '<article><span>Active Season</span><strong id="mycoHeroSeason">—</strong></article>' +
             '<article><span>Golden Hour</span><strong id="mycoHeroGolden">—</strong></article>' +
@@ -66,13 +66,13 @@ Game.frontendUI = (function () {
 
         $("body").append(
             '<div id="mycoTitleScreen" class="myco-title-screen hidden">' +
-            '<div class="myco-title-backdrop"></div>' +
+            '<div class="myco-title-backdrop"></div><div class="myco-title-orb" aria-hidden="true"></div>' +
             '<div class="myco-title-card">' +
             '<div class="myco-eyebrow">WELCOME TO MYCOVERSE</div>' +
-            '<h1>From a single spore to a galactic network.</h1>' +
-            '<p>Build a beautiful fungal civilization, manage your account, and trade rare organisms in the marketplace prototype.</p>' +
+            '<div class="myco-title-logo"><span class="myco-logo-mark">M</span><span>MYCOVERSE</span></div><h1>From a single spore to a galactic network.</h1>' +
+            '<p>Awaken miners, cross living worlds, conquer gate guardians, and shape the future of a cosmic fungal civilization.</p>' +
             '<div class="myco-title-actions">' +
-            '<button class="btn btn-success btn-lg" id="mycoTitlePlay">Continue Colony</button>' +
+            '<button class="btn btn-success btn-lg" id="mycoTitlePlay">Enter MycoVerse</button>' +
             '<button class="btn btn-default btn-lg" id="mycoTitleAccount">Account</button>' +
             '<button class="btn btn-warning btn-lg" id="mycoTitleMarket">Marketplace</button>' +
             '</div>' +
@@ -89,6 +89,7 @@ Game.frontendUI = (function () {
         $(document).on("click", "#mycoTitleAccount,#mycoOpenAccount", function () { closeTitle(); showTab("accountPage"); });
         $(document).on("click", "#mycoTitleInventory,#mycoOpenInventory", function () { closeTitle(); showTab("inventoryPage"); });
         $(document).on("click", "#mycoTitleMarket,#mycoOpenMarket", function () { closeTitle(); showTab("marketPage"); });
+        $(document).on("click", "[data-hero-target]", function () { showTab($(this).attr("data-hero-target")); });
 
         this.initialised = true;
         this.render();

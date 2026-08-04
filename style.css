@@ -1123,3 +1123,420 @@ input,select,textarea,button{max-width:100%}
 .myco-achievement-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.myco-achievement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}.myco-achievement-card{padding:18px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;min-height:270px}.myco-achievement-card.complete{border-color:rgba(255,190,66,.45);box-shadow:inset 0 0 24px rgba(255,190,66,.05)}.myco-achievement-card.claimed{opacity:.78;border-color:rgba(93,225,145,.35)}.myco-achievement-top{display:flex;justify-content:space-between;gap:12px}.myco-achievement-top h4{margin:6px 0 8px}.myco-achievement-category{text-transform:uppercase;letter-spacing:.12em;font-size:10px;color:#86bd9d}.myco-achievement-state{font-size:24px}.myco-achievement-card p{color:#c6d7cc;flex:1}.myco-achievement-progress{font-size:12px;color:#9eb4a6;margin:6px 0}.myco-achievement-reward{min-height:38px;color:#f4cf75;font-size:12px;margin-bottom:10px}
 .myco-book-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.myco-collection-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.myco-collection-entry{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}.myco-collection-entry.locked{filter:grayscale(1);opacity:.55}.myco-collection-entry.owned{border-color:rgba(84,220,145,.22)}.myco-collection-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:rgba(91,225,151,.12);font-weight:bold;color:#7ff0ab}
 @media(max-width:900px){.myco-collection-hero{grid-template-columns:1fr}.myco-achievement-grid,.myco-collection-grid{grid-template-columns:1fr}.myco-achievement-card{min-height:0}.myco-book-head{align-items:flex-start;flex-direction:column}}
+
+/* =============================
+   Alpha 0.30.0 — Campaign UI
+   ============================= */
+.myco-campaign-hero {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 16px;
+    padding: 18px 20px;
+    border: 1px solid rgba(120,255,190,0.14);
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(14,31,26,0.96), rgba(24,49,40,0.94));
+    margin-bottom: 14px;
+}
+.myco-campaign-score,
+.myco-campaign-header-badge {
+    border: 1px solid rgba(120,255,190,0.18);
+    background: rgba(255,255,255,0.04);
+    border-radius: 16px;
+    padding: 14px;
+}
+.myco-campaign-score strong,
+.myco-campaign-header-badge {
+    display: block;
+    font-size: 24px;
+    margin: 6px 0;
+}
+.myco-campaign-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+    gap: 16px;
+}
+.myco-campaign-chapter-list {
+    display: grid;
+    gap: 12px;
+}
+.myco-campaign-chapter-card {
+    width: 100%;
+    text-align: left;
+    border-radius: 16px;
+    border: 1px solid rgba(120,255,190,0.14);
+    background: rgba(255,255,255,0.03);
+    padding: 14px;
+    transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    color: inherit;
+}
+.myco-campaign-chapter-card:hover:not([disabled]),
+.myco-campaign-chapter-card.active {
+    transform: translateY(-1px);
+    border-color: rgba(120,255,190,0.34);
+    background: rgba(86,227,159,0.08);
+}
+.myco-campaign-chapter-card[disabled] {
+    opacity: .55;
+    cursor: not-allowed;
+}
+.myco-campaign-card-top,
+.myco-campaign-journal-top,
+.myco-campaign-mission-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.myco-campaign-card-top h4,
+.myco-campaign-chapter-card h4,
+.myco-campaign-block h4 {
+    margin: 8px 0 6px;
+}
+.myco-campaign-status {
+    font-size: 12px;
+    color: #afeecb;
+}
+.myco-campaign-main .myco-panel-head { margin-bottom: 12px; }
+.myco-campaign-description { margin-bottom: 14px; color: #d8f3e5; }
+.myco-campaign-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 14px;
+}
+.myco-campaign-block {
+    border: 1px solid rgba(120,255,190,0.14);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.03);
+    padding: 14px;
+}
+.myco-campaign-scene {
+    border-left: 3px solid rgba(86,227,159,0.42);
+    padding-left: 10px;
+    margin-bottom: 10px;
+    color: #e7fff4;
+}
+.myco-campaign-mission { margin-bottom: 12px; }
+.myco-campaign-mission.complete strong { color: #7df2b7; }
+.myco-campaign-mission progress,
+.myco-campaign-score progress,
+.myco-campaign-chapter-card progress {
+    width: 100%;
+    height: 12px;
+    margin-top: 6px;
+}
+.myco-campaign-choice-list {
+    display: grid;
+    gap: 10px;
+}
+.myco-campaign-choice {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-radius: 14px;
+    border: 1px solid rgba(120,255,190,0.18);
+    background: rgba(255,255,255,0.04);
+    padding: 12px;
+    color: inherit;
+}
+.myco-campaign-choice strong,
+.myco-campaign-choice span,
+.myco-campaign-choice small {
+    display: block;
+}
+.myco-campaign-choice span { margin: 4px 0 8px; }
+.myco-campaign-choice.selected {
+    border-color: rgba(255, 211, 105, 0.6);
+    background: rgba(255, 211, 105, 0.08);
+}
+.myco-campaign-journal { display: grid; gap: 12px; }
+.myco-campaign-journal-entry {
+    border: 1px solid rgba(120,255,190,0.12);
+    border-radius: 14px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+}
+
+@media (max-width: 991px) {
+    .myco-campaign-hero,
+    .myco-campaign-layout,
+    .myco-campaign-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   Alpha 0.31.0 — Visual Identity & Planet Themes
+   ========================================================= */
+:root {
+    --myco-primary: #64f0a2;
+    --myco-primary-2: #2b9d6a;
+    --myco-danger: #ff647c;
+    --myco-gold: #ffd36a;
+    --myco-ink: #07100d;
+    --myco-panel: rgba(8, 21, 17, .86);
+    --myco-panel-soft: rgba(255, 255, 255, .045);
+    --myco-border: rgba(130, 255, 194, .18);
+    --myco-text: #effcf4;
+    --myco-muted: #9fc2ae;
+    --myco-planet-background: url("assets/themes/mycoPrime.svg");
+}
+
+html, body { min-height: 100%; }
+body {
+    color: var(--myco-text);
+    background-color: var(--myco-ink);
+    background-image:
+        linear-gradient(180deg, rgba(3, 9, 7, .58), rgba(3, 10, 8, .90)),
+        var(--myco-planet-background);
+    background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
+    transition: background-image .45s ease, color .2s ease;
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 14% 20%, color-mix(in srgb, var(--myco-primary) 18%, transparent), transparent 30%),
+        radial-gradient(circle at 86% 12%, color-mix(in srgb, var(--myco-primary-2) 22%, transparent), transparent 34%),
+        linear-gradient(180deg, transparent 55%, rgba(1, 7, 5, .65));
+}
+body.myco-backgrounds-off {
+    background-image: linear-gradient(180deg, #06110c, #0b2018 58%, #07110d);
+}
+body[data-myco-quality="medium"] { background-size: auto 100vh; }
+body[data-myco-quality="low"] { background-attachment: scroll; }
+body.myco-effects-off::before { display: none; }
+
+.myco-shell { position: relative; z-index: 1; }
+.myco-topbar,
+.myco-command-bar,
+.myco-hero-banner,
+.myco-panel,
+.tab-content > .tab-pane,
+.myco-title-card,
+.myco-responsive-drawer {
+    border-color: var(--myco-border) !important;
+    background: linear-gradient(145deg, rgba(7, 18, 15, .93), rgba(12, 31, 25, .86)) !important;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, .34), inset 0 1px 0 rgba(255,255,255,.035);
+}
+.myco-command-bar,
+.myco-hero-banner,
+.myco-panel,
+.tab-content > .tab-pane { backdrop-filter: blur(14px); }
+
+.myco-topbar.navbar {
+    border-radius: 0 0 18px 18px;
+    border-top: 0;
+}
+.myco-topbar .navbar-brand {
+    font-weight: 900;
+    letter-spacing: .12em;
+    color: var(--myco-primary) !important;
+    text-shadow: 0 0 18px color-mix(in srgb, var(--myco-primary) 55%, transparent);
+}
+
+.btn {
+    border-radius: 12px;
+    border-width: 1px;
+    font-weight: 700;
+    letter-spacing: .015em;
+    transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.btn:hover:not([disabled]) { transform: translateY(-1px); filter: brightness(1.06); }
+.btn:active:not([disabled]) { transform: translateY(0); }
+.btn-success,
+.btn-primary {
+    color: #06110d !important;
+    background: linear-gradient(135deg, var(--myco-primary), var(--myco-primary-2)) !important;
+    border-color: color-mix(in srgb, var(--myco-primary) 60%, white 12%) !important;
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--myco-primary) 22%, transparent);
+}
+.btn-warning {
+    color: #221504 !important;
+    background: linear-gradient(135deg, var(--myco-gold), #f39b3f) !important;
+    border-color: rgba(255, 211, 106, .7) !important;
+}
+.btn-danger {
+    background: linear-gradient(135deg, var(--myco-danger), #a92d55) !important;
+    border-color: color-mix(in srgb, var(--myco-danger) 70%, white 8%) !important;
+}
+.btn-default,
+.myco-ghost-button {
+    color: var(--myco-text) !important;
+    background: rgba(255,255,255,.055) !important;
+    border-color: var(--myco-border) !important;
+}
+
+.nav-tabs > li > a {
+    border-radius: 13px 13px 0 0;
+    background: rgba(5, 18, 14, .74);
+    border: 1px solid transparent !important;
+    color: var(--myco-muted) !important;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:hover {
+    color: var(--myco-text) !important;
+    border-color: var(--myco-border) !important;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--myco-primary-2) 38%, #0b1814), rgba(8,22,17,.96)) !important;
+    box-shadow: inset 0 3px 0 var(--myco-primary);
+}
+
+.myco-eyebrow,
+.myco-achievement-category,
+.myco-command-label,
+.myco-offer-type { color: var(--myco-primary); }
+.myco-small-note,
+.myco-command-sub,
+.text-muted { color: var(--myco-muted) !important; }
+a { color: var(--myco-primary); }
+a:hover { color: color-mix(in srgb, var(--myco-primary) 72%, white); }
+
+progress,
+.myco-native-progress {
+    accent-color: var(--myco-primary);
+    border: 0;
+    border-radius: 99px;
+    overflow: hidden;
+    background: rgba(255,255,255,.08);
+}
+progress::-webkit-progress-bar { background: rgba(255,255,255,.08); border-radius: 99px; }
+progress::-webkit-progress-value { background: linear-gradient(90deg, var(--myco-primary-2), var(--myco-primary)); border-radius: 99px; }
+progress::-moz-progress-bar { background: linear-gradient(90deg, var(--myco-primary-2), var(--myco-primary)); border-radius: 99px; }
+
+.myco-command-bar { border-radius: 22px; }
+.myco-avatar,
+.myco-logo-mark {
+    background: linear-gradient(145deg, color-mix(in srgb, var(--myco-primary-2) 65%, #0b1c16), color-mix(in srgb, var(--myco-primary) 35%, #10271f));
+    border-color: color-mix(in srgb, var(--myco-primary) 40%, transparent);
+    box-shadow: 0 0 26px color-mix(in srgb, var(--myco-primary) 22%, transparent);
+}
+.myco-wallet-chip,
+.myco-wallet-card,
+.myco-hero-stats article {
+    border: 1px solid rgba(255,255,255,.055);
+    background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+}
+.myco-wallet-chip strong,
+.myco-wallet-card strong,
+.myco-hero-stats strong { color: var(--myco-primary); }
+
+.myco-hero-banner {
+    min-height: 260px;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, rgba(5,16,12,.96) 0%, rgba(5,17,13,.83) 54%, rgba(5,16,12,.28) 100%),
+        var(--myco-planet-background) center/cover !important;
+}
+.myco-hero-banner::after {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    right: 7%;
+    top: -30px;
+    border: 1px solid color-mix(in srgb, var(--myco-primary) 35%, transparent);
+    box-shadow: inset 0 0 70px color-mix(in srgb, var(--myco-primary) 22%, transparent), 0 0 80px color-mix(in srgb, var(--myco-primary) 16%, transparent);
+    opacity: .72;
+}
+.myco-hero-banner > * { position: relative; z-index: 1; }
+.myco-hero-banner h1 { font-size: clamp(32px, 4vw, 58px); line-height: 1; max-width: 760px; }
+.myco-hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
+.myco-title-screen { background: rgba(1, 5, 4, .5); }
+.myco-title-backdrop {
+    background:
+        linear-gradient(90deg, rgba(2,7,5,.95), rgba(2,8,6,.72) 55%, rgba(2,7,5,.45)),
+        var(--myco-planet-background) center/cover !important;
+}
+.myco-title-card { overflow: hidden; }
+.myco-title-orb {
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    right: -150px;
+    top: -170px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, color-mix(in srgb, var(--myco-primary) 65%, white), var(--myco-primary-2) 40%, rgba(0,0,0,.1) 72%);
+    box-shadow: 0 0 100px color-mix(in srgb, var(--myco-primary) 28%, transparent);
+    opacity: .48;
+}
+.myco-title-card > * { position: relative; z-index: 1; }
+.myco-title-logo { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: .16em; color: var(--myco-primary); }
+.myco-logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 14px; color: #fff; }
+
+.myco-planet-grid { gap: 20px; }
+.myco-planet-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--myco-border);
+    border-radius: 22px;
+    background:
+        linear-gradient(90deg, rgba(5,14,11,.96), rgba(5,14,11,.78) 58%, rgba(5,14,11,.44)),
+        var(--planet-card-bg) center/cover;
+    box-shadow: 0 18px 44px rgba(0,0,0,.32);
+}
+.myco-planet-card.active {
+    border-color: color-mix(in srgb, var(--myco-primary) 70%, white 8%);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--myco-primary) 30%, transparent), 0 20px 60px color-mix(in srgb, var(--myco-primary) 18%, rgba(0,0,0,.35));
+}
+.myco-planet-card.locked { filter: grayscale(.72) brightness(.66); }
+.myco-planet-card .myco-planet-art {
+    background: radial-gradient(circle at center, color-mix(in srgb, var(--myco-primary) 16%, transparent), transparent 65%);
+}
+.myco-planet-card .myco-planet-art img { filter: drop-shadow(0 15px 26px rgba(0,0,0,.55)); }
+.myco-planet-bonus {
+    display: inline-flex;
+    padding: 6px 10px;
+    border-radius: 99px;
+    border: 1px solid color-mix(in srgb, var(--myco-primary) 32%, transparent);
+    background: color-mix(in srgb, var(--myco-primary) 8%, transparent);
+    color: var(--myco-primary);
+}
+
+.myco-miner-card,
+.myco-offer-card,
+.myco-achievement-card,
+.myco-collection-entry,
+.myco-campaign-block,
+.myco-campaign-chapter-card,
+.myco-campaign-journal-entry {
+    border-color: var(--myco-border) !important;
+    background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.022)) !important;
+}
+.myco-miner-card:hover,
+.myco-offer-card:hover,
+.myco-achievement-card:hover,
+.myco-collection-entry:hover {
+    border-color: color-mix(in srgb, var(--myco-primary) 45%, transparent) !important;
+}
+
+/* Rarity identity */
+.myco-miner-card.common, .rarity-common { --rarity-color: #a8b7ad; }
+.myco-miner-card.rare, .rarity-rare { --rarity-color: #55b8ff; }
+.myco-miner-card.epic, .rarity-epic { --rarity-color: #b46dff; }
+.myco-miner-card.legendary, .rarity-legendary { --rarity-color: #ffbe4d; }
+.myco-miner-card.mythic, .rarity-mythic { --rarity-color: #ff4f8f; }
+[class*="rarity-"] { color: var(--rarity-color); }
+
+.myco-mobile-nav {
+    border-color: var(--myco-border) !important;
+    background: rgba(5, 15, 12, .94) !important;
+    backdrop-filter: blur(16px);
+}
+.myco-mobile-nav button { color: var(--myco-muted); }
+.myco-mobile-nav button:hover { color: var(--myco-primary); }
+
+@media (max-width: 899px) {
+    body { background-attachment: scroll; }
+    .myco-hero-banner { min-height: auto; background-position: center !important; }
+    .myco-hero-banner::after { width: 180px; height: 180px; opacity: .28; }
+    .myco-title-orb { width: 280px; height: 280px; }
+    .myco-planet-card { background-position: center; }
+}

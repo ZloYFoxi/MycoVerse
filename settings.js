@@ -24,7 +24,10 @@ Game.settings = (function(){
             largeButtons: false,
             reducedAnimations: false,
             hudCollapsed: false,
-            uiScale: 1
+            uiScale: 1,
+            visualQuality: 'high',
+            planetBackgrounds: true,
+            visualEffects: true
         },
         elementCache: {},
         reapplyTheme: true

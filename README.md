@@ -1,10 +1,10 @@
-# MycoVerse Alpha 0.29.0 — Achievements & Collections
+# MycoVerse Alpha 0.31.0 — Visual Identity & Planet Themes
 
 The living archive now tracks modern achievements and the complete collection of miners, artifacts, planets, and bosses.
 
 # MycoVerse
 
-Current version: **Alpha 0.27.0 — Guild Foundation**.
+Current version: **Alpha 0.31.0 — Visual Identity & Planet Themes**.
 
 MycoVerse is a fungal incremental strategy game with living miners, planetary progression, gate bosses, a World Boss, guilds, quests, artifacts, accounts, and a local marketplace economy.
 

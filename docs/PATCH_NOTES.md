@@ -1,3 +1,11 @@
+## Alpha 0.31.0 — Visual Identity & Planet Themes
+
+MycoVerse now has a unified visual language. Every active planet applies its own background, accent colors, glow effects, and atmosphere to the full game interface. Buttons, cards, navigation, progress bars, the title screen, planet cards, and responsive mobile navigation have been restyled without changing the campaign or economy logic.
+
+## Alpha 0.30.0 — Story & Campaign
+
+MycoVerse now includes a dedicated narrative Campaign tab. The first act contains six persistent chapters with story scenes, connected mission goals, branching choices, chapter rewards, and a campaign journal. Progress is tied to the systems already built in the game: colony growth, planetary completion, boss victories, healing, artifacts, guilds, research, and World Boss activity.
+
 ## Alpha 0.29.0 — Achievements & Collections
 
 The colony now records its modern MycoVerse history in a dedicated archive. Complete categorized and secret achievements, claim profile rewards, and fill a responsive collection book containing miners, artifacts, planets, and defeated gate bosses.

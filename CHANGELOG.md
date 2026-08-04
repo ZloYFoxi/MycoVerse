@@ -1,3 +1,21 @@
+# Alpha 0.31.0 — Visual Identity & Planet Themes
+
+- Added a unified MycoVerse visual identity using central CSS variables and planet-aware theme colors.
+- Added five lightweight SVG planetary backgrounds for Myco Prime, Crystal Grove, Toxic Forest, Ancient Hive, and Void Bloom.
+- The full interface now changes atmosphere automatically when the active planet changes.
+- Reworked buttons, navigation tabs, cards, panels, progress bars, title screen, HUD, hero banner, and mobile navigation.
+- Added visual quality, planet background, and atmospheric effect controls in Graphics Options.
+- Enhanced planet cards with their own environmental artwork while preserving responsive phone and desktop layouts.
+- Preserved all Alpha 0.30.0 campaign and gameplay systems.
+
+# Alpha 0.30.0 — Story & Campaign
+
+- Added a dedicated Campaign tab with six narrative chapters across the first act of MycoVerse.
+- Added story scenes, mission objectives, persistent chapter rewards, branching chapter choices, and a journal archive.
+- Connected campaign progression to existing systems including miners, planets, bosses, artifacts, research, healing, guilds, and World Boss participation.
+- Added Commander Level 2 access requirement for the Campaign tab.
+- Preserved save compatibility with Alpha 0.29.0 and earlier modern MycoVerse saves.
+
 # Alpha 0.29.0 — Achievements & Collections
 
 - Added a dedicated MycoVerse Achievements tab with 24 goals across seven categories.
