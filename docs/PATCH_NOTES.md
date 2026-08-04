@@ -1,3 +1,7 @@
+## Alpha 0.25.0 — World Boss Prototype
+
+The Mushroom Titan now appears in a repeating global raid simulation. Players receive three attacks per UTC day, contribute damage with their Planet Boss squad, rise through Bronze to Mythic ranks, and claim World Boss Tokens, MycoCoins, XP, and exclusive rewards.
+
 ## Alpha 0.24.0 — Miner Progression & Per-Minute Economy
 
 Miner production is now displayed per minute. The Miner Shop contains 35 progression miners split into five rarity sections, with one new miner unlocking at almost every Commander Level. New commanders may claim one free Spore Worker, while later copies are purchased normally. Autosaves now happen silently without a timer or notification.

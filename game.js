@@ -92,6 +92,8 @@ var Game = (function() {
         self.accessUI.update(delta);
         self.market.update(delta);
         self.bosses.update(delta);
+        self.worldBoss.update(delta);
+        self.worldBossUI.update(delta);
 
         self.updateAutoSave(delta);
 
@@ -182,6 +184,7 @@ var Game = (function() {
         this.market.save(data);
         this.minerShop.save(data);
         this.bosses.save(data);
+        this.worldBoss.save(data);
         this.unions.save(data);
         this.economy.save(data);
         this.interstellar.save(data);
@@ -220,6 +223,7 @@ var Game = (function() {
             this.market.load(data);
             this.minerShop.load(data);
             this.bosses.load(data);
+            this.worldBoss.load(data);
             this.unions.load(data);
             this.economy.load(data);
             this.stargaze.load(data);
@@ -317,6 +321,7 @@ var Game = (function() {
         self.market.initialise();
         self.minerShop.initialise();
         self.bosses.initialise();
+        self.worldBoss.initialise();
         self.unions.initialise();
         self.economy.initialise();
 
@@ -340,6 +345,7 @@ var Game = (function() {
         self.marketUI.initialise();
         self.minerShopUI.initialise();
         self.bossUI.initialise();
+        self.worldBossUI.initialise();
         self.unionUI.initialise();
         self.economyUI.initialise();
         self.frontendUI.initialise();

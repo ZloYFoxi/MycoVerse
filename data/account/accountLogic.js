@@ -19,9 +19,10 @@ Game.account = (function () {
         if (!instance.entries.title) instance.entries.title = "Keeper of the Grove";
         if (!instance.entries.avatar) instance.entries.avatar = "🍄";
         if (!instance.entries.createdAt) instance.entries.createdAt = Date.now();
-        if (!instance.entries.wallet) instance.entries.wallet = { mycoCoins: 500, bloomTokens: 10 };
+        if (!instance.entries.wallet) instance.entries.wallet = { mycoCoins: 500, bloomTokens: 10, worldBossTokens: 0 };
         instance.entries.wallet.mycoCoins = Math.max(0, Math.floor(num(instance.entries.wallet.mycoCoins, 500)));
         instance.entries.wallet.bloomTokens = Math.max(0, Math.floor(num(instance.entries.wallet.bloomTokens, 10)));
+        instance.entries.wallet.worldBossTokens = Math.max(0, Math.floor(num(instance.entries.wallet.worldBossTokens, 0)));
         instance.entries.lastDailyClaim = num(instance.entries.lastDailyClaim, 0);
         instance.entries.totalCoinsEarned = Math.max(0, num(instance.entries.totalCoinsEarned, instance.entries.wallet.mycoCoins));
         instance.entries.totalTokensEarned = Math.max(0, num(instance.entries.totalTokensEarned, instance.entries.wallet.bloomTokens));
@@ -29,16 +30,16 @@ Game.account = (function () {
         instance.entries.profileXp = Math.max(0, Math.floor(num(instance.entries.profileXp, 0)));
         instance.entries.lifetimeXp = Math.max(instance.entries.profileXp, Math.floor(num(instance.entries.lifetimeXp, instance.entries.profileXp)));
         instance.entries.profileStats = instance.entries.profileStats || {};
-        var defaults = { minersPurchased:0, questsClaimed:0, expeditionsCompleted:0, upgradesPurchased:0, fusionsCompleted:0, bossesDefeated:0 };
+        var defaults = { minersPurchased:0, questsClaimed:0, expeditionsCompleted:0, upgradesPurchased:0, fusionsCompleted:0, bossesDefeated:0, worldBossAttacks:0, worldBossRewards:0 };
         for (var key in defaults) if (defaults.hasOwnProperty(key)) instance.entries.profileStats[key] = Math.max(0, Math.floor(num(instance.entries.profileStats[key], defaults[key])));
     }
 
     instance.initialise = function () {
         this.entries = {
             id: generateId(), name: "Wandering Spore", title: "Keeper of the Grove", avatar: "🍄", createdAt: Date.now(),
-            wallet: { mycoCoins: 500, bloomTokens: 10 }, lastDailyClaim: 0, totalCoinsEarned: 500, totalTokensEarned: 10,
+            wallet: { mycoCoins: 500, bloomTokens: 10, worldBossTokens: 0 }, lastDailyClaim: 0, totalCoinsEarned: 500, totalTokensEarned: 10,
             profileXp: 0, lifetimeXp: 0,
-            profileStats: { minersPurchased:0, questsClaimed:0, expeditionsCompleted:0, upgradesPurchased:0, fusionsCompleted:0, bossesDefeated:0 }
+            profileStats: { minersPurchased:0, questsClaimed:0, expeditionsCompleted:0, upgradesPurchased:0, fusionsCompleted:0, bossesDefeated:0, worldBossAttacks:0, worldBossRewards:0 }
         };
     };
 

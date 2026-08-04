@@ -1,3 +1,12 @@
+# Alpha 0.25.0 — World Boss Prototype
+
+- Added the global Mushroom Titan raid prototype.
+- Added a deterministic 48-hour active event followed by a 24-hour recovery period.
+- Added three daily raid attempts, personal damage, simulated community damage, and four reward ranks.
+- Added World Boss Tokens, Commander XP rewards, exclusive Titan Herald miner, and Titan Heart artifact.
+- Reused the Planet Boss squad for raid damage and persisted event progress across browser sessions.
+- Added a dedicated World Boss interface and Commander Level 22 access requirement.
+
 # Alpha 0.24.0 — Miner Progression & Per-Minute Economy
 
 - Changed miner production presentation to resources per minute while keeping smooth real-time accumulation.

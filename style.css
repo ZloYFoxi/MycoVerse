@@ -972,3 +972,58 @@ div {
 .miner-shop-locked { opacity: .55; filter: saturate(.55); }
 .miner-shop-locked .btn { cursor: not-allowed; }
 #minerShopLevel { display:block; color:#9fc7ad; margin-top:4px; }
+
+/* ===== Alpha 0.25.0 World Boss Prototype ===== */
+.myco-worldboss-hero {
+    display: grid;
+    grid-template-columns: 1.45fr .55fr;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 18px;
+    padding: 24px;
+    border-radius: 22px;
+    background:
+        radial-gradient(circle at 80% 10%, rgba(255, 102, 96, .16), transparent 32%),
+        linear-gradient(135deg, rgba(42, 21, 25, .92), rgba(14, 30, 24, .92));
+    border: 1px solid rgba(255, 126, 103, .2);
+}
+.myco-worldboss-status {
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.07);
+}
+.myco-worldboss-status span { color:#ff9e83; font-size:12px; letter-spacing:.14em; }
+.myco-worldboss-status strong { color:#fff; font-size:28px; }
+.myco-worldboss-status small { color:#a9bdb1; }
+.myco-worldboss-arena { margin-bottom:18px; }
+.myco-worldboss-title { display:flex; gap:14px; align-items:center; }
+.myco-worldboss-icon {
+    width:72px; height:72px; border-radius:22px; display:flex; align-items:center; justify-content:center;
+    font-size:40px; background:linear-gradient(135deg, rgba(193,65,58,.35), rgba(63,28,29,.6));
+    border:1px solid rgba(255,133,108,.22);
+}
+.myco-worldboss-health span { background:linear-gradient(90deg,#6b171c,#d33e43,#ff8b5c); }
+.myco-worldboss-stats {
+    display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:18px 0;
+}
+.myco-worldboss-stats article {
+    background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.06); border-radius:15px; padding:14px;
+}
+.myco-worldboss-stats span { display:block; color:#9eb8a9; font-size:12px; }
+.myco-worldboss-stats strong { display:block; color:#fff; font-size:21px; }
+.myco-worldboss-actions { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+.myco-worldboss-rank, .myco-worldboss-team-row {
+    display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.065);
+}
+.myco-worldboss-rank > div, .myco-worldboss-team-row > div { display:flex; flex-direction:column; }
+.myco-worldboss-rank span { display:block; color:#9cb1a5; font-size:12px; }
+.myco-worldboss-rank.reached { color:#8bffb3; }
+.myco-worldboss-rank.reached strong { color:#8bffb3; }
+@media(max-width:900px){
+    .myco-worldboss-hero,.myco-worldboss-stats{grid-template-columns:1fr;}
+    .myco-worldboss-rank,.myco-worldboss-team-row{align-items:flex-start;flex-direction:column;}
+}

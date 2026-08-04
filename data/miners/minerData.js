@@ -186,6 +186,8 @@ Game.minerData = (function () {
         hiveMonarch: { bossExclusive: true, name: "Hive Monarch", description: "The reborn sovereign of the Ancient Hive commands every connected root.", rarity: MINER_RARITY.MYTHIC, resource: "wood",
             incomePerMinute: 1080, maxLevel: 30, startOwned: 0, unlockCost: 99999999, upgradeBaseCost: 90000, order: 104, passiveBonus: { type: "global", percentPerOwned: 12 } },
         astralMycelium: { bossExclusive: true, name: "Astral Mycelium", description: "A cosmic organism woven from the remains of the Void Devourer.", rarity: MINER_RARITY.MYTHIC, resource: "science",
-            incomePerMinute: 840, maxLevel: 25, startOwned: 0, unlockCost: 99999999, upgradeBaseCost: 180000, order: 105, passiveBonus: { type: "resource", resource: "science", percentPerOwned: 20 } }
+            incomePerMinute: 840, maxLevel: 25, startOwned: 0, unlockCost: 99999999, upgradeBaseCost: 180000, order: 105, passiveBonus: { type: "resource", resource: "science", percentPerOwned: 20 } },
+        titanHerald: { bossExclusive: true, name: "Titan Herald", description: "A mythic emissary cultivated from the spores released by the defeated Mushroom Titan.", rarity: MINER_RARITY.MYTHIC, resource: "wood",
+            incomePerMinute: 18000, maxLevel: 25, startOwned: 0, unlockCost: 99999999, upgradeBaseCost: 650000, order: 106, passiveBonus: { type: "global", percentPerOwned: 24 } }
     };
 }());
