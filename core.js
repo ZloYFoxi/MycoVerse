@@ -186,9 +186,6 @@ function refreshPerSec(delta){
 	gemps = gemMiner * gemMinerOutput * perSecondMultiplier;
 	charcoalps = 0;
 	woodps = woodcutter * woodcutterOutput * perSecondMultiplier;
-	if (Game.miners) {
-		woodps += Game.miners.getResourceIncome(RESOURCE.Wood);
-	}
 	lunariteps = moonWorker * moonWorkerOutput * perSecondMultiplier;
 	methaneps = vacuum * vacuumOutput * perSecondMultiplier;
 	titaniumps = explorer * explorerOutput * perSecondMultiplier;
@@ -208,6 +205,18 @@ function refreshPerSec(delta){
 	var scienceEfficiencyTech = Game.tech.getTechData('scienceEfficiencyResearch');
 	var scienceMultiplier = (1 + (scienceEfficiencyTech.current * 0.02)) * (1 + (Game.stargaze.entries.darkMatter.count * dmBoost));
 	scienceps = ((lab*labOutput) + (labT2*labT2Output) + (labT3*labT3Output) + (labT4*labT4Output) + labT5*labT5Output) * scienceMultiplier;
+
+	// MycoVerse miners contribute to any existing legacy resource.
+	if (Game.miners) {
+		var minerIncome = Game.miners.getTotalIncome();
+		for (var minerResource in minerIncome) {
+			if (!minerIncome.hasOwnProperty(minerResource)) continue;
+			var productionVariable = minerResource + "ps";
+			if (typeof window[productionVariable] === "number") {
+				window[productionVariable] += minerIncome[minerResource];
+			}
+		}
+	}
 
 	if (!energyLow && globalEnergyLock === false) {
 		// Add resource gain from machines

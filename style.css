@@ -59,3 +59,20 @@
 .myco-miner-card .btn { margin-top: 14px; width: 100%; }
 .myco-miner-rarity { font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
 .miner-locked { opacity: 0.55; filter: grayscale(0.7); }
+
+.myco-miner-summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 14px;
+}
+.myco-miner-undiscovered {
+    margin-top: 18px;
+    font-style: italic;
+    opacity: 0.85;
+}
+@media (max-width: 600px) {
+    .myco-miner-grid { grid-template-columns: 1fr; }
+    .myco-miner-header { margin: 10px 0; padding: 14px; }
+}

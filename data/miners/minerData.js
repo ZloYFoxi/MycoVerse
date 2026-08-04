@@ -10,7 +10,9 @@ Game.minerData = (function () {
             baseIncome: 0.5,
             maxLevel: 100,
             startOwned: 1,
-            upgradeBaseCost: 15
+            unlockCost: 0,
+            upgradeBaseCost: 15,
+            order: 1
         },
         glowForager: {
             name: "Glow Forager",
@@ -20,7 +22,9 @@ Game.minerData = (function () {
             baseIncome: 1.25,
             maxLevel: 100,
             startOwned: 0,
-            upgradeBaseCost: 75
+            unlockCost: 250,
+            upgradeBaseCost: 75,
+            order: 2
         },
         crystalDigger: {
             name: "Crystal Digger",
@@ -30,7 +34,9 @@ Game.minerData = (function () {
             baseIncome: 0.2,
             maxLevel: 75,
             startOwned: 0,
-            upgradeBaseCost: 300
+            unlockCost: 2500,
+            upgradeBaseCost: 300,
+            order: 3
         },
         elderMycelium: {
             name: "Elder Mycelium",
@@ -40,7 +46,9 @@ Game.minerData = (function () {
             baseIncome: 4,
             maxLevel: 50,
             startOwned: 0,
-            upgradeBaseCost: 1500
+            unlockCost: 25000,
+            upgradeBaseCost: 1500,
+            order: 4
         },
         voidOracle: {
             name: "Void Oracle",
@@ -50,7 +58,9 @@ Game.minerData = (function () {
             baseIncome: 0.5,
             maxLevel: 25,
             startOwned: 0,
-            upgradeBaseCost: 10000
+            unlockCost: 250000,
+            upgradeBaseCost: 10000,
+            order: 5
         }
     };
 }());
