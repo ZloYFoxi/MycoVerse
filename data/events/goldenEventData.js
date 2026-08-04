@@ -2,12 +2,13 @@ Game.goldenEventData = (function () {
     "use strict";
 
     return {
-        dataVersion: 1,
-        firstMushroomDelay: 60 * 1000,
-        mushroomCooldown: 15 * 60 * 1000,
-        firstGoldenHourDelay: 5 * 60 * 1000,
-        goldenHourCooldown: 60 * 60 * 1000,
-        goldenHourDuration: 5 * 60 * 1000,
+        dataVersion: 2,
+        firstMushroomDelay: 12 * 60 * 60 * 1000,
+        mushroomCooldown: 12 * 60 * 60 * 1000,
+        firstGoldenHourDelay: 24 * 60 * 60 * 1000,
+        goldenHourCooldown: 24 * 60 * 60 * 1000,
+        goldenHourMinDuration: 40 * 60 * 1000,
+        goldenHourMaxDuration: 60 * 60 * 1000,
         goldenHourMultiplier: 2.5,
         planetOrder: ["mycoPrime"],
         planets: {

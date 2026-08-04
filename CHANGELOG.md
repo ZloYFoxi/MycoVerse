@@ -1,3 +1,11 @@
+# MycoVerse Alpha 0.10.1 — Event Schedule Balance
+
+- Golden Hour is now available once every 24 hours.
+- Each activation lasts a random 40–60 minutes.
+- Myco Prime Golden Mushroom now matures once every 12 hours.
+- Added save migration so the old short testing timers do not remain active.
+- Golden Event save data upgraded to version 2.
+
 # MycoVerse Alpha 0.10.0 — Golden Grove
 
 - Added the Golden Grove events tab.

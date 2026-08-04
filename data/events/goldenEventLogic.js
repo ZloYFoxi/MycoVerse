@@ -2,11 +2,12 @@ Game.goldenEvents = (function () {
     "use strict";
 
     var instance = {
-        dataVersion: 1,
+        dataVersion: 2,
         currentPlanet: "mycoPrime",
         nextMushroomAt: 0,
         nextGoldenHourAt: 0,
         goldenHourEndsAt: 0,
+        goldenHourDurationMs: 0,
         mushroomsOpened: 0,
         goldenHoursActivated: 0,
         lastReward: null
@@ -27,6 +28,7 @@ Game.goldenEvents = (function () {
         this.nextMushroomAt = current + Game.goldenEventData.firstMushroomDelay;
         this.nextGoldenHourAt = current + Game.goldenEventData.firstGoldenHourDelay;
         this.goldenHourEndsAt = 0;
+        this.goldenHourDurationMs = 0;
         this.mushroomsOpened = 0;
         this.goldenHoursActivated = 0;
         this.lastReward = null;
@@ -39,6 +41,7 @@ Game.goldenEvents = (function () {
             nextMushroomAt: this.nextMushroomAt,
             nextGoldenHourAt: this.nextGoldenHourAt,
             goldenHourEndsAt: this.goldenHourEndsAt,
+            goldenHourDurationMs: this.goldenHourDurationMs,
             mushroomsOpened: this.mushroomsOpened,
             goldenHoursActivated: this.goldenHoursActivated,
             lastReward: this.lastReward
@@ -49,9 +52,23 @@ Game.goldenEvents = (function () {
         if (!data || !data.goldenEvents) return;
         var saved = data.goldenEvents;
         if (Game.goldenEventData.planets[saved.currentPlanet]) this.currentPlanet = saved.currentPlanet;
+        var savedVersion = Math.max(1, number(saved.version, 1));
+        var current = now();
         this.nextMushroomAt = Math.max(0, number(saved.nextMushroomAt, this.nextMushroomAt));
         this.nextGoldenHourAt = Math.max(0, number(saved.nextGoldenHourAt, this.nextGoldenHourAt));
         this.goldenHourEndsAt = Math.max(0, number(saved.goldenHourEndsAt, 0));
+        this.goldenHourDurationMs = Math.max(0, number(saved.goldenHourDurationMs, 0));
+
+        // Alpha 0.10.1 balance migration: old short testing timers must not survive.
+        if (savedVersion < 2) {
+            this.nextMushroomAt = current + Game.goldenEventData.mushroomCooldown;
+            this.nextGoldenHourAt = current + Game.goldenEventData.goldenHourCooldown;
+            this.goldenHourEndsAt = 0;
+            this.goldenHourDurationMs = 0;
+        }
+        if (this.goldenHourEndsAt > now() && this.goldenHourDurationMs <= 0) {
+            this.goldenHourDurationMs = Game.goldenEventData.goldenHourMinDuration;
+        }
         this.mushroomsOpened = Math.max(0, number(saved.mushroomsOpened, 0));
         this.goldenHoursActivated = Math.max(0, number(saved.goldenHoursActivated, 0));
         this.lastReward = saved.lastReward || null;
@@ -87,16 +104,30 @@ Game.goldenEvents = (function () {
         return this.isGoldenHourActive() ? Game.goldenEventData.goldenHourMultiplier : 1;
     };
 
+    instance.getGoldenHourDurationMs = function () {
+        return this.goldenHourDurationMs > 0 ?
+            this.goldenHourDurationMs :
+            Game.goldenEventData.goldenHourMinDuration;
+    };
+
+    instance.rollGoldenHourDuration = function () {
+        var minMinutes = Math.round(Game.goldenEventData.goldenHourMinDuration / 60000);
+        var maxMinutes = Math.round(Game.goldenEventData.goldenHourMaxDuration / 60000);
+        var rolledMinutes = minMinutes + Math.floor(Math.random() * (maxMinutes - minMinutes + 1));
+        return rolledMinutes * 60 * 1000;
+    };
+
     instance.activateGoldenHour = function () {
         if (!this.isGoldenHourReady()) return false;
         var current = now();
-        this.goldenHourEndsAt = current + Game.goldenEventData.goldenHourDuration;
+        this.goldenHourDurationMs = this.rollGoldenHourDuration();
+        this.goldenHourEndsAt = current + this.goldenHourDurationMs;
         this.nextGoldenHourAt = current + Game.goldenEventData.goldenHourCooldown;
         this.goldenHoursActivated += 1;
         Game.notifySuccess(
             "Golden Hour activated",
             "All fungal miners produce x" + Game.goldenEventData.goldenHourMultiplier +
-            " resources for " + Math.round(Game.goldenEventData.goldenHourDuration / 60000) + " minutes."
+            " resources for " + Math.round(this.goldenHourDurationMs / 60000) + " minutes."
         );
         return true;
     };

@@ -34,11 +34,11 @@ Game.goldenEventUI = (function () {
             '<div class="myco-golden-planet"><span>Current planet</span><strong id="goldenPlanetName">Myco Prime</strong></div></section>' +
             '<div class="myco-golden-grid">' +
             '<article class="myco-event-card myco-mushroom-card"><div class="myco-event-icon">🍄</div><h3>Golden Mushroom</h3>' +
-            '<p>A living capsule containing one fungal miner specimen.</p><div id="goldenMushroomStatus" class="myco-event-status"></div>' +
+            '<p>A living capsule containing one fungal miner specimen. A new mushroom matures every 12 hours.</p><div id="goldenMushroomStatus" class="myco-event-status"></div>' +
             '<button id="openGoldenMushroom" class="btn btn-warning">Open Golden Mushroom</button>' +
             '<div id="goldenLastReward" class="myco-last-reward"></div></article>' +
             '<article class="myco-event-card myco-hour-card"><div class="myco-event-icon">☀</div><h3>Golden Hour</h3>' +
-            '<p>Temporarily multiplies production from every fungal miner by x' + Game.goldenEventData.goldenHourMultiplier + '.</p>' +
+            '<p>Once per day, multiplies production from every fungal miner for a random 40–60 minutes by x' + Game.goldenEventData.goldenHourMultiplier + '.</p>' +
             '<div id="goldenHourStatus" class="myco-event-status"></div>' +
             '<button id="activateGoldenHour" class="btn btn-success">Activate Golden Hour</button>' +
             '<div class="myco-hour-track"><span id="goldenHourTrackFill"></span></div></article>' +
@@ -87,7 +87,7 @@ Game.goldenEventUI = (function () {
         var active = events.isGoldenHourActive();
         var mushroomReady = events.isMushroomReady();
         var hourReady = events.isGoldenHourReady();
-        var durationSeconds = Game.goldenEventData.goldenHourDuration / 1000;
+        var durationSeconds = events.getGoldenHourDurationMs() / 1000;
 
         $("#goldenPlanetName").text(events.getPlanet().name);
         $("#openGoldenMushroom").prop("disabled", !mushroomReady);

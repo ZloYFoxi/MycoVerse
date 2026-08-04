@@ -1,3 +1,16 @@
+# Alpha 0.10.1 — Event Schedule Balance
+
+## Golden Hour
+- Cooldown: 24 hours.
+- Duration: randomly selected from 40 to 60 whole minutes on activation.
+- Production multiplier remains x2.5.
+
+## Myco Prime
+- Golden Mushroom maturation interval: 12 hours.
+
+## Save migration
+Alpha 0.10.0 event saves are migrated to the new schedule. Old short testing timers are reset once when loading this patch.
+
 # Alpha 0.10.0 — Golden Grove
 
 ## Golden Mushroom
