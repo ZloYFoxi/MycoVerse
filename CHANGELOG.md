@@ -1,3 +1,13 @@
+# MycoVerse Alpha 0.12.0 — Quests & Expeditions
+
+- Added six persistent story quests tied to Colony Power, species discovery, laboratory progress, and planetary leagues.
+- Added three daily objectives that reset at 00:00 UTC.
+- Added five timed expeditions across the living planets.
+- Added laboratory-based expedition slots, team requirements, launch costs, and claimable rewards.
+- Added expedition rewards including Spores, Gems, Science, DNA, and rare miner specimens.
+- Added persistent quest progress, daily statistics, expedition timers, and expedition history.
+- Preserved compatibility with Alpha 0.6–0.11 save data.
+
 # MycoVerse Alpha 0.11.0 — Planets & Leagues
 
 - Added five living planets and league progression.

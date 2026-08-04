@@ -1,3 +1,23 @@
+# Alpha 0.12.0 — Quests & Expeditions
+
+## Story quests
+Six progression quests guide the colony from its first harvest to Void Bloom. Completed rewards remain claimed permanently.
+
+## Daily objectives
+- Produce 5,000 resources through miners.
+- Upgrade miner species three times.
+- Complete one expedition.
+Daily progress resets at 00:00 UTC.
+
+## Expeditions
+- Spore Scout — Myco Prime, 10 minutes.
+- Crystal Survey — Crystal Grove, 45 minutes.
+- Toxic Gathering — Toxic Forest, 2 hours.
+- Ancient Memory Dive — Ancient Hive, 6 hours.
+- Void Pilgrimage — Void Bloom, 12 hours.
+
+Laboratory progress unlocks up to three simultaneous expedition slots. Expedition timers use real timestamps and continue while the game is closed.
+
 # Alpha 0.11.0 — Planets & Leagues
 
 ## Planets

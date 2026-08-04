@@ -258,6 +258,7 @@ Game.miners = (function () {
         Game.resources.takeResource(RESOURCE.Wood, cost);
         miner.level += 1;
         miner.experience += cost;
+        if (Game.quests && Game.quests.recordUpgrade) Game.quests.recordUpgrade();
         return true;
     };
 

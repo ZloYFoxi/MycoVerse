@@ -257,3 +257,81 @@
 .myco-planet-copy h3{margin:2px 0 8px}.myco-planet-bonus{margin:12px 0;padding:9px 11px;border-radius:10px;background:rgba(103,255,168,.08);color:#a8ffc9}
 .myco-planet-req{display:flex;flex-direction:column;gap:3px;margin-bottom:12px;font-size:12px;color:#c4c9d4}
 @media(max-width:700px){.myco-planets-hero{flex-direction:column;align-items:stretch}.myco-planet-card{flex-direction:column}.myco-planet-orb{width:60px;height:60px;min-width:60px}}
+
+
+/* MycoVerse Alpha 0.12.0 — Quests & Expeditions */
+.myco-quest-hero {
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    margin: 16px 0 22px; padding: 24px;
+    border: 1px solid rgba(126, 255, 185, .25); border-radius: 16px;
+    background: linear-gradient(135deg, rgba(12, 42, 35, .96), rgba(20, 24, 47, .96));
+}
+.myco-quest-hero h2 { margin: 4px 0 8px; }
+.myco-quest-hero p { max-width: 760px; margin: 0; color: #bac8c5; }
+.myco-quest-slots {
+    min-width: 150px; padding: 14px 18px; text-align: center;
+    border-radius: 12px; background: rgba(0,0,0,.25);
+}
+.myco-quest-slots span { display: block; font-size: 11px; letter-spacing: 1.5px; color: #8fb8aa; }
+.myco-quest-slots strong { display: block; margin-top: 5px; font-size: 25px; color: #8fffc0; }
+.myco-quest-tabs { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+.myco-quest-tabs button {
+    padding: 9px 18px; border: 1px solid rgba(126,255,185,.25); border-radius: 999px;
+    background: rgba(11,20,29,.85); color: #a9bdb6; transition: .2s;
+}
+.myco-quest-tabs button.active, .myco-quest-tabs button:hover {
+    color: #fff; border-color: #76ffad; background: rgba(50,145,91,.28);
+}
+.myco-quest-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;
+}
+.myco-quest-card, .myco-expedition-card {
+    padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 14px;
+    background: linear-gradient(145deg, rgba(20,30,38,.96), rgba(10,17,25,.96));
+    box-shadow: 0 10px 28px rgba(0,0,0,.2);
+}
+.myco-quest-card.claimed { opacity: .7; border-color: rgba(111,255,161,.28); }
+.myco-quest-card.daily { border-top: 2px solid rgba(92,176,255,.65); }
+.myco-quest-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.myco-quest-card-head h3 { margin: 4px 0 8px; }
+.myco-quest-card-head > span {
+    white-space: nowrap; font-size: 11px; letter-spacing: 1px; color: #8fffc0;
+}
+.myco-quest-card p { min-height: 42px; color: #aebcb8; }
+.myco-quest-progress {
+    height: 7px; overflow: hidden; margin: 13px 0 8px; border-radius: 99px;
+    background: rgba(255,255,255,.08);
+}
+.myco-quest-progress span {
+    display: block; height: 100%; border-radius: inherit;
+    background: linear-gradient(90deg, #30b96c, #b5ff73);
+}
+.myco-quest-meta, .myco-expedition-info {
+    display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    margin: 8px 0 14px; color: #91aaa1; font-size: 12px;
+}
+.myco-daily-note {
+    margin-bottom: 12px; padding: 10px 14px; border-radius: 10px;
+    color: #9eb8cc; background: rgba(46,99,142,.16);
+}
+.myco-expedition-list { display: grid; gap: 14px; }
+.myco-expedition-card { display: flex; gap: 18px; align-items: center; }
+.myco-expedition-card.active { border-color: rgba(255,201,75,.55); }
+.myco-expedition-orb {
+    display: flex; flex: 0 0 62px; width: 62px; height: 62px; align-items: center; justify-content: center;
+    border-radius: 50%; font-size: 22px; font-weight: bold; color: #fff;
+    background: radial-gradient(circle at 35% 30%, #7dffc4, #174d3b 58%, #071513);
+    box-shadow: 0 0 24px rgba(92,255,175,.24);
+}
+.myco-expedition-copy { flex: 1; }
+.myco-expedition-reward {
+    margin: 10px 0 14px; padding: 10px 12px; border-radius: 9px;
+    color: #d8c987; background: rgba(255,210,86,.08);
+}
+@media (max-width: 700px) {
+    .myco-quest-hero { align-items: stretch; flex-direction: column; padding: 18px; }
+    .myco-quest-slots { min-width: 0; }
+    .myco-quest-grid { grid-template-columns: 1fr; }
+    .myco-expedition-card { align-items: flex-start; }
+    .myco-expedition-orb { flex-basis: 48px; width: 48px; height: 48px; }
+}

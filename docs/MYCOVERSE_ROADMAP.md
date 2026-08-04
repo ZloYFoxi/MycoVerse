@@ -40,3 +40,8 @@
 - [x] Golden Hour
 - [ ] Planet-specific event pools
 - [ ] Seasonal events
+
+## Phase 6 - Missions
+- [x] Story quests
+- [x] Daily objectives
+- [x] Expeditions

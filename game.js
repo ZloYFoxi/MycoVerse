@@ -71,6 +71,8 @@ var Game = (function() {
         self.laboratoryUI.update(delta);
         self.planetUI.update(delta);
         self.goldenEventUI.update(delta);
+        self.quests.update(delta);
+        self.questUI.update(delta);
 
         self.updateAutoSave(delta);
 
@@ -150,6 +152,7 @@ var Game = (function() {
         this.laboratory.save(data);
         this.planets.save(data);
         this.goldenEvents.save(data);
+        this.quests.save(data);
         this.interstellar.save(data);
         this.stargaze.save(data);
         this.updates.save(data);
@@ -175,6 +178,7 @@ var Game = (function() {
             this.laboratory.load(data);
             this.planets.load(data);
             this.goldenEvents.load(data);
+            this.quests.load(data);
             this.stargaze.load(data);
             this.tech.load(data);
             this.interstellar.load(data); 
@@ -259,6 +263,7 @@ var Game = (function() {
         self.laboratory.initialise();
         self.planets.initialise();
         self.goldenEvents.initialise();
+        self.quests.initialise();
 
         // Now load
         self.load();
@@ -269,6 +274,7 @@ var Game = (function() {
         self.laboratoryUI.initialise();
         self.planetUI.initialise();
         self.goldenEventUI.initialise();
+        self.questUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {
             self.uiComponents[i].initialise();
