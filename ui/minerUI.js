@@ -70,7 +70,7 @@ Game.minerUI = (function () {
                     (maxed ? 'Maximum evolution' : 'Evolve — ' + formatNumber(cost) + ' Spores') + '</button>'
                     :
                     '<div class="myco-miner-undiscovered">Undiscovered organism</div>' +
-                    '<button class="btn btn-primary miner-discover-button" data-miner-id="' + id + '">Awaken — ' + formatNumber(unlockCost) + ' Spores</button>') +
+                    (definition.bossExclusive ? '<button class="btn btn-warning" disabled>Defeat Planet Boss</button>' : '<button class="btn btn-primary miner-discover-button" data-miner-id="' + id + '">Awaken — ' + formatNumber(unlockCost) + ' Spores</button>')) +
                 '</div>'
             );
         }

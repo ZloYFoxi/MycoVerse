@@ -111,6 +111,8 @@ Game.account = (function () {
         if (summary.power >= 250) titles.push("Mycelium Sovereign");
         if (summary.ascensions >= 1) titles.push("Ascended Network");
         if (Game.artifacts && Game.artifacts.getOwnedCount && Game.artifacts.getOwnedCount() >= 5) titles.push("Relic Weaver");
+        var bossTitles = instance.entries.unlockedBossTitles || [];
+        for (var i = 0; i < bossTitles.length; i++) if (titles.indexOf(bossTitles[i]) < 0) titles.push(bossTitles[i]);
         return titles;
     };
 

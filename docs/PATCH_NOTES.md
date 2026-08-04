@@ -1,3 +1,7 @@
+## Alpha 0.20.0 — Planet Bosses
+
+Each planetary league is now guarded by a unique boss. Assemble a squad of up to five miner species and defeat the guardian before the battle timer expires. Victories unlock the next league and grant exclusive organisms, relics, profile titles, and account currency. Battles use real timestamps and continue while the game is closed.
+
 ## Alpha 0.19.0 — Profile Expansion, Inventory & Backend Foundation
 
 Commander profiles now gain levels from real colony progress, support avatars and unlockable titles, and can create portable profile snapshots. A new Inventory Hub unifies miners and artifacts. The game also has a dedicated backend service boundary so future authentication and cloud sync can be added without rewriting the gameplay modules.

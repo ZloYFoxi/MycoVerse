@@ -49,7 +49,8 @@ Game.planetUI = (function () {
                 '<div class="myco-planet-copy"><div class="myco-eyebrow">LEAGUE ' + planet.league + '</div><h3>' + planet.name + '</h3>' +
                 '<p>' + planet.description + '</p><div class="myco-planet-bonus">' + Game.planets.getBonusText(id) + '</div>' +
                 (!unlocked ? '<div class="myco-planet-req"><span>Colony Power: ' + format(req.colonyPower.current) + ' / ' + format(req.colonyPower.required) + '</span>' +
-                '<span>Laboratory: ' + req.laboratoryLevel.current + ' / ' + req.laboratoryLevel.required + '</span></div>' : '') +
+                '<span>Laboratory: ' + req.laboratoryLevel.current + ' / ' + req.laboratoryLevel.required + '</span>' +
+                (req.previousBoss && req.previousBoss.planetId ? '<span>Previous guardian: ' + (req.previousBoss.met ? 'Defeated' : 'Not defeated') + '</span>' : '') + '</div>' : '') +
                 '<button class="btn ' + (active ? 'btn-success' : 'btn-primary') + '" data-action="' + (unlocked ? 'activate' : 'unlock') + '" data-planet="' + id + '"' +
                 ((active || (!unlocked && !Game.planets.canUnlock(id))) ? ' disabled' : '') + '>' +
                 (active ? 'Active planet' : (unlocked ? 'Activate planet' : 'Unlock league')) + '</button></div></article>');

@@ -76,6 +76,9 @@ Game.planets = (function () {
         var required = planet.unlock || {};
         var currentPower = this.getColonyPower();
         var currentLab = this.getLaboratoryLevel();
+        var orderIndex = Game.planetData.order.indexOf(id);
+        var previousPlanetId = orderIndex > 0 ? Game.planetData.order[orderIndex - 1] : null;
+        var previousBossMet = !previousPlanetId || !Game.bosses || Game.bosses.isPlanetBossDefeated(previousPlanetId);
         return {
             colonyPower: {
                 current: currentPower,
@@ -86,6 +89,10 @@ Game.planets = (function () {
                 current: currentLab,
                 required: number(required.laboratoryLevel, 1),
                 met: currentLab >= number(required.laboratoryLevel, 1)
+            },
+            previousBoss: {
+                planetId: previousPlanetId,
+                met: previousBossMet
             }
         };
     };
@@ -95,7 +102,8 @@ Game.planets = (function () {
         var requirements = this.getRequirements(id);
         return !!requirements &&
             requirements.colonyPower.met &&
-            requirements.laboratoryLevel.met;
+            requirements.laboratoryLevel.met &&
+            requirements.previousBoss.met;
     };
 
     instance.unlock = function (id) {

@@ -1,3 +1,14 @@
+# Alpha 0.20.0 — Planet Bosses
+
+- Added five planetary guardians, one for every MycoVerse league.
+- Added combat squads of up to five discovered miner species.
+- Added real-time boss battles with health, defense, phase changes, and strict time limits.
+- Boss battles continue while the game is closed.
+- Defeating a guardian unlocks the next planet and grants exclusive miners, artifacts, titles, MycoCoins, and Bloom Tokens.
+- Added five boss-exclusive miners and five boss-exclusive artifacts.
+- Planet progression now recognizes the previous guardian as an unlock requirement.
+- Added a complete Boss Arena interface and save compatibility with Alpha 0.6–0.19.
+
 # Alpha 0.19.0 — Profile Expansion, Inventory & Backend Foundation
 
 - Added Commander levels derived from colony progress, collection strength, and earned currency.

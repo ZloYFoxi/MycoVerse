@@ -240,6 +240,10 @@ Game.miners = (function () {
     instance.discover = function (id) {
         var miner = this.entries[id];
         if (!miner || miner.owned > 0) return false;
+        if (miner.definition.bossExclusive) {
+            Game.notifyInfo("Boss reward", "This organism can only be obtained by defeating its planetary guardian.");
+            return false;
+        }
         var cost = this.getUnlockCost(id);
         if (Game.resources.getResource(RESOURCE.Wood) < cost) {
             Game.notifyInfo("Not enough Spores", "You need " + cost + " Spores to awaken this miner.");

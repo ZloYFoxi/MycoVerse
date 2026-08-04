@@ -1,3 +1,9 @@
+# MycoVerse
+
+MycoVerse is a fungal-themed incremental strategy game with living miners, planetary leagues, artifacts, accounts, a marketplace prototype, and real-time planetary boss battles.
+
+Current version: **Alpha 0.20.0 — Planet Bosses**.
+
 # Overview:
 Space Company is a science-fiction incremental game where you start from humble beginnings on Earth, working your way up to travelling between star systems and building Dyson Spheres and pretty much colonising the entire galaxy(ies?)
 

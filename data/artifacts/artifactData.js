@@ -12,7 +12,8 @@ Game.artifactData = (function () {
         slots: ["core", "crown", "charm"],
         order: [
             "sporeHeart", "crystalLens", "toxicAmpoule", "ancientCrown", "voidSeed",
-            "mycelialCompass", "goldenCap", "memorySpindle", "nebulaCharm", "primeRelic"
+            "mycelialCompass", "goldenCap", "memorySpindle", "nebulaCharm", "primeRelic",
+            "motherCore", "titanShard", "sovereignGland", "overmindCrown", "voidHeart"
         ],
         entries: {
             sporeHeart: { name: "Spore Heart", slot: "core", rarity: "common", planetId: "mycoPrime", description: "A warm living node that strengthens basic fungal production.", bonus: { type: "resource", resource: "wood", percent: 8 } },
@@ -24,7 +25,12 @@ Game.artifactData = (function () {
             ancientCrown: { name: "Ancient Crown", slot: "crown", rarity: "legendary", planetId: "ancientHive", description: "A crown grown for the first sovereign of the Ancient Hive.", bonus: { type: "global", percent: 30 } },
             primeRelic: { name: "Prime Relic", slot: "core", rarity: "legendary", planetId: "ancientHive", description: "A relic that resonates with every living miner.", bonus: { type: "global", percent: 38 } },
             voidSeed: { name: "Void Seed", slot: "core", rarity: "mythic", planetId: "voidBloom", description: "A seed that germinated where light and time both fail.", bonus: { type: "global", percent: 60 } },
-            nebulaCharm: { name: "Nebula Charm", slot: "charm", rarity: "mythic", planetId: "voidBloom", description: "Condensed cosmic mycelium that empowers scientific miners.", bonus: { type: "resource", resource: "science", percent: 90 } }
+            nebulaCharm: { name: "Nebula Charm", slot: "charm", rarity: "mythic", planetId: "voidBloom", description: "Condensed cosmic mycelium that empowers scientific miners.", bonus: { type: "resource", resource: "science", percent: 90 } },
+            motherCore: { name: "Mother Core", slot: "core", rarity: "epic", planetId: "mycoPrime", description: "The warm central knot of the first planetary boss.", bonus: { type: "resource", resource: "wood", percent: 28 } },
+            titanShard: { name: "Titan Shard", slot: "charm", rarity: "legendary", planetId: "crystalGrove", description: "A flawless fragment broken from the Crystal Titan.", bonus: { type: "resource", resource: "gem", percent: 48 } },
+            sovereignGland: { name: "Sovereign Gland", slot: "core", rarity: "legendary", planetId: "toxicForest", description: "A stabilized organ that transforms poison into colony strength.", bonus: { type: "global", percent: 42 } },
+            overmindCrown: { name: "Overmind Crown", slot: "crown", rarity: "mythic", planetId: "ancientHive", description: "A living crown containing millions of coordinated memories.", bonus: { type: "global", percent: 72 } },
+            voidHeart: { name: "Void Heart", slot: "core", rarity: "mythic", planetId: "voidBloom", description: "The silent heart of the devourer, still bending time around itself.", bonus: { type: "global", percent: 110 } }
         },
         expeditionPools: {
             mycoPrime: ["sporeHeart", "mycelialCompass"],

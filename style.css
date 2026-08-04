@@ -818,3 +818,110 @@ div {
     .myco-profile-hero { grid-template-columns: 1fr; text-align: center; }
     .myco-profile-avatar { margin: 0 auto; }
 }
+
+/* ===== MycoVerse Alpha 0.20.0 Planet Bosses ===== */
+.myco-boss-hero {
+    display: grid;
+    grid-template-columns: 1.4fr .6fr;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.myco-boss-power {
+    background: linear-gradient(135deg, rgba(255, 170, 74, .13), rgba(117, 43, 27, .18));
+    border: 1px solid rgba(255, 183, 94, .2);
+    border-radius: 18px;
+    padding: 20px;
+}
+.myco-boss-power span { display: block; color: #e2b781; font-size: 12px; letter-spacing: .14em; }
+.myco-boss-power strong { display: block; font-size: 38px; color: #fff1d7; }
+.myco-boss-team-grid { display: grid; gap: 9px; margin-top: 14px; max-height: 390px; overflow: auto; }
+.myco-team-chip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.035);
+    border: 1px solid rgba(255,255,255,.08);
+    color: #dcebe1;
+    text-align: left;
+}
+.myco-team-chip span { color: #96b3a1; font-size: 12px; }
+.myco-team-chip.selected {
+    background: linear-gradient(135deg, rgba(55, 172, 111, .22), rgba(35, 92, 70, .25));
+    border-color: rgba(107, 255, 171, .38);
+    box-shadow: inset 0 0 0 1px rgba(109,255,169,.08);
+}
+.myco-boss-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+.myco-boss-card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(29, 24, 20, .88), rgba(14, 25, 20, .9));
+    border: 1px solid rgba(255, 182, 93, .18);
+    border-radius: 20px;
+    padding: 20px;
+    overflow: hidden;
+}
+.myco-boss-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at top right, rgba(255, 136, 69, .10), transparent 36%);
+}
+.myco-boss-card.locked { opacity: .58; filter: saturate(.55); }
+.myco-boss-card.defeated {
+    border-color: rgba(104,255,164,.34);
+    background: linear-gradient(180deg, rgba(22, 48, 35, .9), rgba(12, 29, 23, .92));
+}
+.myco-boss-card-icon, .myco-boss-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 34px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 14px;
+}
+.myco-boss-reward {
+    margin: 14px 0;
+    border-radius: 14px;
+    padding: 12px;
+    background: rgba(255, 188, 86, .07);
+    border: 1px solid rgba(255, 188, 86, .12);
+}
+.myco-boss-reward span { font-size: 11px; color: #d8af78; text-transform: uppercase; letter-spacing: .12em; }
+.myco-boss-reward p { margin: 6px 0 0; color: #efdfc6; font-size: 13px; }
+.myco-active-boss { display: flex; gap: 14px; align-items: center; }
+.myco-active-boss .myco-boss-icon { margin: 0; }
+.myco-boss-health-label { display: flex; justify-content: space-between; gap: 10px; margin: 16px 0 7px; }
+.myco-boss-health {
+    height: 18px;
+    border-radius: 99px;
+    overflow: hidden;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 14px;
+}
+.myco-boss-health span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #d34d41, #ff8b4d, #ffc55f);
+    box-shadow: 0 0 18px rgba(255, 118, 65, .35);
+    transition: width .3s ease;
+}
+.myco-boss-empty { text-align: center; padding: 34px 10px; color: #9bb1a3; }
+.myco-boss-empty span { display: block; font-size: 42px; margin-bottom: 10px; }
+@media (max-width: 900px) {
+    .myco-boss-hero { grid-template-columns: 1fr; }
+    .myco-team-chip { align-items: flex-start; flex-direction: column; }
+}
