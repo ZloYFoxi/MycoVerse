@@ -1,3 +1,7 @@
+## Alpha 0.28.0 — Responsive UI Foundation
+
+MycoVerse now adapts its layout across phones, tablets, laptops, and desktop monitors. Mobile players receive a bottom navigation bar and system drawer, while new accessibility and density controls allow the interface to be tailored without changing game progression.
+
 ## Alpha 0.27.0 — Guild Foundation
 
 Players can now found a persistent local guild, contribute resources, earn Guild XP and Contribution Points, unlock shared research, complete guild quests, and purchase exclusive rewards. Guild bonuses strengthen production, medicine, expeditions, World Boss raids, and trade. The current guild is a local prototype prepared for future backend synchronization.

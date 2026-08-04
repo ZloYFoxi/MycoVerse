@@ -19,7 +19,12 @@ Game.settings = (function(){
             redDestroyButtons: false,
             hideCompleted: false,
             theme: 'base',
-            autoSaveInterval: 30 * 1000
+            autoSaveInterval: 30 * 1000,
+            compactUI: false,
+            largeButtons: false,
+            reducedAnimations: false,
+            hudCollapsed: false,
+            uiScale: 1
         },
         elementCache: {},
         reapplyTheme: true

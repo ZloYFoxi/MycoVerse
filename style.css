@@ -1036,3 +1036,83 @@ div {
 /* Alpha 0.27.0 — Guild Foundation */
 .myco-guild-hero{display:grid;grid-template-columns:1.4fr .8fr;gap:18px;align-items:center;margin-bottom:18px;padding:22px;border-radius:20px;background:linear-gradient(135deg,rgba(19,55,43,.9),rgba(12,30,25,.85));border:1px solid rgba(122,255,185,.18)}
 .myco-guild-level{background:rgba(255,255,255,.045);border-radius:16px;padding:16px}.myco-guild-level span,.myco-guild-level small{display:block;color:#9ab4a5}.myco-guild-level strong{display:block;font-size:36px;color:#fff}.myco-guild-level progress,.myco-guild-quest progress{width:100%;height:14px;margin:8px 0}.myco-guild-quest{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.065)}.myco-guild-quest p{margin:4px 0;color:#bcd0c2}@media(max-width:900px){.myco-guild-hero,.myco-guild-quest{grid-template-columns:1fr}}
+
+/* ===== Alpha 0.28.0 Responsive UI Foundation ===== */
+:root{--myco-ui-scale:1;--myco-mobile-nav-height:70px}
+html{font-size:calc(16px * var(--myco-ui-scale))}
+body{overflow-x:hidden}
+img,svg,canvas,video{max-width:100%;height:auto}
+#game,.container{width:100%;max-width:1580px}
+#tabContent,.tab-content,.tab-pane{min-width:0}
+.table-responsive,.myco-table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{max-width:100%}
+input,select,textarea,button{max-width:100%}
+.myco-responsive-settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.myco-responsive-settings-grid label{display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;background:rgba(255,255,255,.04)}
+.myco-scale-setting{grid-column:1/-1}.myco-scale-setting input{flex:1}
+.myco-mobile-nav,.myco-responsive-drawer{display:none}
+.myco-responsive-drawer{position:fixed;z-index:12000;left:8px;right:8px;bottom:calc(var(--myco-mobile-nav-height) + 8px);max-height:68vh;overflow:auto;padding:16px;border-radius:20px;background:#0a1b16;border:1px solid rgba(121,255,184,.22);box-shadow:0 25px 70px #000}
+.myco-responsive-drawer.open{display:block}
+.myco-responsive-drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.myco-responsive-drawer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.myco-responsive-drawer-item{min-height:48px;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.05);color:#eef8f1;text-align:left}
+.myco-responsive-drawer-item.locked{opacity:.45}
+.myco-large-buttons .btn,.myco-large-buttons button,.myco-large-buttons select,.myco-large-buttons input[type="text"],.myco-large-buttons input[type="number"]{min-height:48px}
+.myco-compact-ui .tab-content>.tab-pane,.myco-compact-ui .myco-panel,.myco-compact-ui .myco-miner-card,.myco-compact-ui .myco-offer-card{padding:12px}
+.myco-compact-ui .myco-panel-grid,.myco-compact-ui .myco-market-grid,.myco-compact-ui .myco-miner-grid{gap:10px}
+.myco-hud-collapsed .myco-command-wallet,.myco-hud-collapsed .myco-hero-banner{display:none!important}
+.myco-hud-collapsed .myco-command-bar{grid-template-columns:1fr auto}
+.myco-reduced-motion *,.myco-reduced-motion *::before,.myco-reduced-motion *::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+@media (max-width:1199px){
+  #game.container{max-width:100%;padding-left:12px;padding-right:12px}
+  .myco-market-grid,.myco-miner-grid,.myco-artifact-grid,.myco-structure-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .myco-command-bar{grid-template-columns:1fr 1fr}.myco-command-actions{grid-column:1/-1}
+  .myco-hero-banner{grid-template-columns:1fr}.myco-hero-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:899px){
+  body{padding-bottom:calc(var(--myco-mobile-nav-height) + env(safe-area-inset-bottom,0px) + 8px)}
+  #tabList{display:flex;overflow-x:auto;white-space:nowrap;padding-bottom:5px;scrollbar-width:thin}
+  #tabList>li{float:none;flex:0 0 auto}
+  .myco-mobile-nav{position:fixed;z-index:11000;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(6,1fr);min-height:var(--myco-mobile-nav-height);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:rgba(5,16,12,.97);border-top:1px solid rgba(126,255,188,.2);box-shadow:0 -12px 35px rgba(0,0,0,.4)}
+  .myco-mobile-nav button{min-width:0;border:0;background:transparent;color:#d8eee0;font-size:10px;padding:4px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+  .myco-mobile-nav button span{font-size:20px;line-height:1}
+  .myco-command-bar,.myco-panel-grid,.myco-colony-columns,.myco-ascension-layout,.myco-guild-hero,.myco-market-head{grid-template-columns:1fr!important}
+  .myco-command-wallet,.myco-hero-stats,.myco-colony-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .myco-command-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+  .myco-command-actions .btn{width:100%;margin:0}
+  .myco-market-grid,.myco-miner-grid,.myco-artifact-grid,.myco-structure-grid,.myco-planet-grid,.myco-boss-grid{grid-template-columns:1fr!important}
+  .myco-title-card{max-height:92vh;overflow:auto;padding:22px}.myco-title-actions,.myco-title-grid{grid-template-columns:1fr}
+  .myco-gate-overlay{padding:6px}.myco-gate-arena{border-radius:16px;padding:12px}.myco-gate-header{grid-template-columns:1fr}
+  .myco-form-row,.myco-offer-footer,.myco-planet-actions,.myco-filter-row{flex-wrap:wrap}
+  .myco-form-row>*{flex:1 1 100%}
+  #uiTab .container,#saveTab .container{max-width:100%!important;padding:0}
+  #uiTab table,#saveTab table{display:block;overflow-x:auto}
+  #impexpField{width:100%!important}
+}
+@media (max-width:599px){
+  :root{--myco-mobile-nav-height:66px}
+  html{font-size:calc(15px * var(--myco-ui-scale))}
+  #game.container{padding-left:7px;padding-right:7px}
+  .navbar{margin-bottom:8px}.navbar-header{display:flex;align-items:center}
+  .myco-topbar .navbar-brand{font-size:17px}
+  .tab-content>.tab-pane{padding:10px!important;margin-top:8px;border-radius:14px}
+  .myco-command-bar,.myco-hero-banner,.myco-panel{padding:14px;border-radius:16px;margin-bottom:10px}
+  .myco-command-profile{min-width:0}.myco-command-profile strong,.myco-command-sub{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+  .myco-command-wallet,.myco-hero-stats,.myco-colony-stats,.myco-responsive-settings-grid{grid-template-columns:1fr}
+  .myco-scale-setting{grid-column:auto}
+  .myco-hero-banner h1{font-size:27px}.myco-title-card h1{font-size:30px}
+  .myco-wallet-chip strong,.myco-wallet-card strong{font-size:19px}
+  .myco-offer-card,.myco-miner-card{padding:14px;border-radius:14px}
+  .myco-offer-footer,.myco-sell-row,.myco-history-row,.myco-kv-list>div{align-items:flex-start;flex-direction:column}
+  .myco-offer-footer .btn,.myco-sell-row .btn,.myco-planet-actions .btn{width:100%}
+  .myco-responsive-drawer-grid{grid-template-columns:1fr}
+  .myco-responsive-drawer{left:5px;right:5px;padding:12px}
+  .myco-mobile-nav button{font-size:9px}.myco-mobile-nav button span{font-size:18px}
+  h1{font-size:28px}h2{font-size:23px}h3{font-size:19px}
+  .btn{white-space:normal}
+}
+@media (orientation:landscape) and (max-height:520px) and (max-width:899px){
+  :root{--myco-mobile-nav-height:52px}.myco-mobile-nav button span{font-size:16px}.myco-mobile-nav button{font-size:8px}.myco-responsive-drawer{max-height:72vh}
+}

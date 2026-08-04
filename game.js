@@ -98,6 +98,7 @@ var Game = (function() {
         self.guild.update(delta);
         self.worldBossUI.update(delta);
         self.guildUI.update(delta);
+        self.responsiveUI.update(delta);
 
         self.updateAutoSave(delta);
 
@@ -357,6 +358,7 @@ var Game = (function() {
         self.unionUI.initialise();
         self.economyUI.initialise();
         self.frontendUI.initialise();
+        self.responsiveUI.initialise();
         self.accessUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {

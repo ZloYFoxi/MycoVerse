@@ -1,3 +1,12 @@
+# Alpha 0.28.0 — Responsive UI Foundation
+
+- Added responsive phone, tablet, laptop, and desktop layout foundations.
+- Added a six-button mobile bottom navigation and an All Systems drawer.
+- Added Compact UI, Larger Buttons, Reduced Animations, Collapse HUD, and UI Scale settings.
+- Improved card grids, forms, boss overlays, tables, title screen, and HUD behavior on narrow screens.
+- Added safe-area spacing for mobile browser and system navigation bars.
+- Preserved all existing game systems and save compatibility.
+
 # Alpha 0.27.0 — Guild Foundation
 
 - Added a local Guild system with name, emblem, description, Guild ID, members, levels, and persistent Guild XP.
