@@ -348,3 +348,21 @@
 .myco-artifact-card h3{margin:5px 0 8px}.myco-artifact-card p{min-height:58px;color:#aeb8b5}.myco-artifact-bonus{margin:12px 0;padding:9px 11px;border-radius:9px;color:#f1d994;background:rgba(255,210,86,.08)}
 .myco-artifact-meta{display:flex;justify-content:space-between;gap:12px;margin:10px 0 14px;color:#8fa29e;font-size:12px}
 @media(max-width:700px){.myco-artifact-hero{flex-direction:column;align-items:stretch;padding:18px}.myco-artifact-count{min-width:0}.myco-artifact-slots{grid-template-columns:1fr}.myco-artifact-grid{grid-template-columns:1fr}}
+
+
+/* Alpha 0.14.0 — Mycelium Research */
+.myco-research-hero{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:28px;margin:18px 0;background:linear-gradient(135deg,rgba(45,96,63,.94),rgba(31,29,57,.96));border:1px solid rgba(151,235,168,.28);border-radius:18px;box-shadow:0 16px 40px rgba(0,0,0,.25)}
+.myco-research-hero h2{margin:4px 0 8px;font-size:32px}.myco-research-hero p{max-width:720px;margin:0;color:#cddbd1}
+.myco-research-currency{min-width:170px;text-align:center;padding:16px 22px;border-radius:16px;background:rgba(7,15,12,.48);border:1px solid rgba(151,235,168,.25)}
+.myco-research-currency span,.myco-research-currency small{display:block;color:#9edbb0}.myco-research-currency strong{display:block;font-size:30px;color:#f3fff4}
+.myco-research-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px}.myco-research-summary article{padding:16px;border-radius:14px;background:rgba(25,34,32,.8);border:1px solid rgba(255,255,255,.08)}
+.myco-research-summary span{display:block;color:#9caeaa}.myco-research-summary strong{display:block;margin-top:5px;font-size:20px}
+.myco-research-panel{margin:18px 0;padding:20px;border-radius:16px;background:rgba(13,20,19,.76);border:1px solid rgba(255,255,255,.07)}
+.myco-research-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:12px}
+.myco-research-node{position:relative;display:flex;flex-direction:column;min-height:250px;padding:18px;border-radius:15px;background:linear-gradient(160deg,rgba(35,46,43,.96),rgba(18,24,24,.96));border:1px solid rgba(255,255,255,.09);transition:.2s}
+.myco-research-node.available{border-color:rgba(121,219,145,.46);box-shadow:0 0 20px rgba(64,180,99,.08)}.myco-research-node.completed{border-color:#7adf96;background:linear-gradient(160deg,rgba(35,78,49,.95),rgba(17,38,28,.96))}
+.myco-research-node.locked{opacity:.58}.myco-research-node h3{margin:10px 0 8px}.myco-research-node p{flex:1;color:#b9c6c1}.myco-research-node small{display:block;min-height:32px;margin:10px 0;color:#8d9a96}
+.myco-research-node-top{display:flex;justify-content:space-between;font-size:11px;color:#9edbb0}.myco-research-bonus{padding:8px 10px;border-radius:8px;background:rgba(121,219,145,.09);color:#baf5c8;font-weight:600}
+.myco-spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}.myco-spec-card{padding:20px;border-radius:16px;background:linear-gradient(160deg,rgba(34,35,48,.96),rgba(18,19,28,.96));border:1px solid var(--spec-color)}
+.myco-spec-card.active{box-shadow:0 0 26px rgba(100,220,150,.18);border-color:var(--spec-color)}.myco-spec-card h3{color:var(--spec-color)}.myco-spec-card p{min-height:56px;color:#c0c3ce}.myco-spec-card strong{display:block;margin:10px 0 16px}
+@media(max-width:800px){.myco-research-hero{align-items:stretch;flex-direction:column}.myco-research-summary,.myco-spec-grid{grid-template-columns:1fr}.myco-research-currency{width:100%}}
