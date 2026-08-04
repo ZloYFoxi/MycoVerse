@@ -1,10 +1,14 @@
-# MycoVerse Alpha 0.32.0 — Visual Identity & Planet Themes
+# MycoVerse Alpha 0.35.0 — Production Visual Asset Framework
+
+The approved visual direction is now connected to a centralized runtime asset pipeline for screen backgrounds, miners, bosses, planets, and rarity treatments.
+
+# MycoVerse Alpha 0.34.2 — Visual Identity & Planet Themes
 
 The living archive now tracks modern achievements and the complete collection of miners, artifacts, planets, and bosses.
 
 # MycoVerse
 
-Current version: **Alpha 0.31.0 — Visual Identity & Planet Themes**.
+Current version: **Alpha 0.34.2 — Hidden Golden Events**.
 
 MycoVerse is a fungal incremental strategy game with living miners, planetary progression, gate bosses, a World Boss, guilds, quests, artifacts, accounts, and a local marketplace economy.
 

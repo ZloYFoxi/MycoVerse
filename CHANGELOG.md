@@ -1,3 +1,59 @@
+# Alpha 0.35.0 — Production Visual Asset Framework
+
+- Added a centralized visual asset registry for screens, planets, bosses, miners, and rarity frames.
+- Restored the missing planet and gate-boss artwork directories required by the current UI.
+- Added 23 lightweight responsive screen backgrounds and 41 generated miner portrait placeholders.
+- Added miner artwork to the Miners and Miner Shop interfaces with lazy loading and asynchronous decoding.
+- Added automatic screen-theme switching whenever the active game tab changes.
+- Added reduced-motion support and visual quality fallbacks for mobile devices.
+- Added the approved concept images to assets/reference as art-direction references, not runtime UI textures.
+
+# Alpha 0.34.2 — Hidden Golden Events
+
+- Removed the permanent Golden Grove tab from normal navigation.
+- Golden Hour now starts automatically at a randomized time approximately once per 24-hour cycle and lasts 40–60 minutes.
+- Added a hidden Golden Mushroom hunt that spawns in a random unlocked system, remains available for 30 minutes, and sends timed hints.
+- Added a secret Golden Mushroom page that can only be opened by finding the mushroom marker.
+- Added persistent event timestamps, random safe marker positions, mobile support, reduced-motion behavior, and Admin controls for both events.
+- Preserved compatibility with Alpha 0.34.1 saves through event-state migration.
+
+# Alpha 0.34.1 — Wallet & Currency Exchange
+
+- Added Spores, Gems, Science, and World Boss Tokens to the Account wallet overview.
+- Added two-way conversion between Spores and MycoCoins with previews and quick amount buttons.
+- Added a lower reverse exchange rate to prevent repeated exchange arbitrage.
+- Added a daily MycoCoin creation limit, first-exchange Commander XP, and persistent exchange history.
+- Added exchange rate and daily-limit controls to the local Admin Panel.
+- Preserved compatibility with Alpha 0.34.0 saves.
+
+# Alpha 0.34.0 — Stability, Testing & Diagnostics
+
+- Added runtime error capture for JavaScript errors and unhandled promise rejections.
+- Added an Admin health-check suite covering saves, access control, core systems, campaign, miners, and planets.
+- Added a copyable Debug Report with version, level, active planet, unlocked systems, owned miners, save size, viewport, and recent errors.
+- Added an isolated New Player Test mode that backs up the primary save, launches a clean level-1 profile, and restores the original save on exit.
+- Added explicit validation of the Commander Level 1 access matrix.
+- Preserved all Alpha 0.33.1 progression and admin functionality.
+
+# Alpha 0.33.1 — Access Control Fix
+
+- Added a central Game.access service as the single source of truth for Commander Level requirements.
+- Blocked locked systems at Bootstrap tab events, capture-phase clicks, HUD shortcuts, hero buttons, and mobile navigation.
+- Added inert locked panes so buttons and forms cannot be used even if another script makes a locked page visible.
+- Added automatic redirection from locked pages to the first available Level 1 system.
+- Kept Settings always available and the local Admin panel protected by its own passcode rather than Commander Level.
+
+# Alpha 0.33.0 — Admin Panel Foundation
+
+- Added a local passcode-protected Admin panel for managing the current browser save.
+- Added controls for Spores, Gems, Science, MycoCoins, Bloom Tokens, World Boss Tokens, Commander XP, and Commander Level.
+- Added miner ownership, level, and healing controls.
+- Added planet unlock, progress, completion, and reset controls.
+- Added Golden Hour, Golden Mushroom, daily quest, and World Boss attempt controls.
+- Added local save snapshots with restore/delete actions and a persistent admin audit log.
+- Kept admin credentials outside exported player saves.
+- This local panel is a development tool and is not secure enough for production online economy management without server-side validation.
+
 # Alpha 0.32.0 — Legacy Space Company Removal
 
 - Removed the remaining Space Company gameplay layer, tabs, resources, buildings, researches, rockets, Solar System, Stargaze, Interstellar, wonders, achievements, and legacy UI modules.

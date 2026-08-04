@@ -5,17 +5,18 @@ var Game = (function () {
         lastUpdate: Date.now(),
         lastSave: 0,
         activeNotifications: {},
-        uiComponents: []
+        uiComponents: [],
+        errorLog: []
     };
 
     var logicSystems = [
         'resources','miners','laboratory','planets','goldenEvents','quests','artifacts','research','ascension','structures','worldCycle',
-        'account','backend','market','minerShop','bosses','worldBoss','guild','campaign','mycoAchievements','unions','economy','settings'
+        'account','exchange','access','admin','backend','market','minerShop','bosses','worldBoss','guild','campaign','mycoAchievements','unions','economy','settings'
     ];
     var uiSystems = [
         'minerUI','colonyUI','laboratoryUI','planetUI','goldenEventUI','questUI','artifactUI','researchUI','ascensionUI','structureUI',
         'worldCycleUI','accountUI','inventoryUI','marketUI','minerShopUI','bossUI','worldBossUI','guildUI','campaignUI','collectionUI',
-        'unionUI','economyUI','frontendUI','designThemeUI','responsiveUI','accessUI'
+        'unionUI','economyUI','adminUI','frontendUI','visualAssets','designThemeUI','responsiveUI','accessUI'
     ];
 
     function call(name, method) {
@@ -40,8 +41,11 @@ var Game = (function () {
         for (var j = 0; j < uiSystems.length; j++) call(uiSystems[j], 'initialise');
         $('#versionLabel').text(typeof versionNumber !== 'undefined' ? versionNumber : 'MycoVerse');
         $('#loadScreen').addClass('hidden');
-        var firstTab = $('#tabList li:not(.myco-access-locked) a[data-toggle="tab"]').first();
-        if (firstTab.length) firstTab.tab('show');
+        if (this.access && this.access.open) this.access.open(this.access.getFirstAvailableTarget(), false);
+        else {
+            var firstTab = $('#tabList li:not(.myco-access-locked) a[data-toggle="tab"]').first();
+            if (firstTab.length) firstTab.tab('show');
+        }
         this.lastUpdate = Date.now();
         this.lastSave = Date.now();
         window.requestAnimationFrame(this.frame.bind(this));
@@ -114,6 +118,11 @@ var Game = (function () {
         }
     };
 
+    instance.captureError = function (source, message, detail) {
+        this.errorLog.unshift({ at: Date.now(), source: String(source || 'runtime'), message: String(message || 'Unknown error'), detail: String(detail || '') });
+        this.errorLog = this.errorLog.slice(0, 50);
+    };
+
     instance.start = function () {
         if (window.PNotify) PNotify.prototype.options.styling = 'bootstrap3';
         this.initialise();
@@ -122,4 +131,10 @@ var Game = (function () {
     return instance;
 }());
 
+window.addEventListener('error', function (event) {
+    if (window.Game && Game.captureError) Game.captureError('window.error', event.message, (event.filename || '') + ':' + (event.lineno || 0));
+});
+window.addEventListener('unhandledrejection', function (event) {
+    if (window.Game && Game.captureError) Game.captureError('promise', event.reason && event.reason.message ? event.reason.message : event.reason, 'Unhandled rejection');
+});
 window.onload = function () { Game.start(); };

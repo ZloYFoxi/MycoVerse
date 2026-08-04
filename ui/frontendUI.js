@@ -17,7 +17,9 @@ Game.frontendUI = (function () {
     }
 
     function showTab(target) {
+        if (Game.access && Game.access.open) return Game.access.open(target, true);
         $('#tabList a[href="#' + target + '"]').tab('show');
+        return true;
     }
 
     function closeTitle() {
@@ -111,7 +113,7 @@ Game.frontendUI = (function () {
         if (Game.goldenEvents && Game.goldenEvents.isGoldenHourActive && Game.goldenEvents.isGoldenHourActive()) {
             $("#mycoHeroGolden").text("Active");
         } else if (Game.goldenEvents && Game.goldenEvents.getGoldenHourTimeRemaining) {
-            $("#mycoHeroGolden").text(toTime(Game.goldenEvents.getGoldenHourTimeRemaining()));
+            $("#mycoHeroGolden").text("In " + toTime(Game.goldenEvents.getGoldenHourTimeRemaining() * 1000));
         }
 
         if (Game.market && Game.market.getRefreshRemaining) {

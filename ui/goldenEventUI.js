@@ -1,122 +1,119 @@
 Game.goldenEventUI = (function () {
-    "use strict";
+    'use strict';
 
-    var instance = { initialised: false, elapsed: 0 };
+    var instance = { initialised: false, elapsed: 0, returnPage: 'minersPage' };
 
     function formatTime(seconds) {
         seconds = Math.max(0, Math.ceil(seconds));
         var hours = Math.floor(seconds / 3600);
         var minutes = Math.floor((seconds % 3600) / 60);
         var secs = seconds % 60;
-        if (hours > 0) return hours + "h " + minutes + "m";
-        if (minutes > 0) return minutes + "m " + secs + "s";
-        return secs + "s";
+        if (hours > 0) return hours + 'h ' + minutes + 'm';
+        if (minutes > 0) return minutes + 'm ' + secs + 's';
+        return secs + 's';
+    }
+
+    function activePageId() {
+        var id = $('#tabContent > .tab-pane.active').attr('id');
+        return id || 'minersPage';
+    }
+
+    function openHiddenPage() {
+        instance.returnPage = activePageId();
+        $('#goldenMushroomHiddenTab a').tab('show');
+        instance.renderHiddenPage();
+    }
+
+    function returnToPreviousPage() {
+        var target = instance.returnPage || (Game.access && Game.access.getFirstAvailableTarget ? Game.access.getFirstAvailableTarget() : 'minersPage');
+        if (Game.access && Game.access.open && Game.access.open(target, false)) return;
+        $('#tabList a[href="#' + target + '"]').tab('show');
     }
 
     instance.initialise = function () {
         if (this.initialised) return;
 
-        var laboratoryTab = $("#laboratoryTopTab");
-        var tab = '<li role="presentation" id="eventsTopTab"><a href="#eventsPage" aria-controls="eventsPage" role="tab" data-toggle="tab">' +
-            '<span class="glyphicon glyphicon-star"></span> Golden Grove</a></li>';
-        if (laboratoryTab.length) laboratoryTab.after(tab); else $("#tabList").append(tab);
-
-        $("#game").prepend(
-            '<div id="goldenHourGlobalBanner" class="myco-golden-global hidden">' +
-            '<strong>GOLDEN HOUR</strong><span id="goldenHourGlobalTimer"></span>' +
-            '<span>x' + Game.goldenEventData.goldenHourMultiplier + ' miner production</span></div>'
-        );
-
-        $("#tabContent").append(
-            '<div role="tabpanel" class="tab-pane fade" id="eventsPage">' +
-            '<section class="myco-golden-hero"><div><div class="myco-eyebrow">CELESTIAL FUNGAL EVENTS</div>' +
-            '<h2>Golden Grove</h2><p>Open living Golden Mushrooms and awaken rare miners. Charge Golden Hour to temporarily amplify the entire colony.</p></div>' +
-            '<div class="myco-golden-planet"><span>Current planet</span><strong id="goldenPlanetName">Myco Prime</strong></div></section>' +
-            '<div class="myco-golden-grid">' +
-            '<article class="myco-event-card myco-mushroom-card"><div class="myco-event-icon">🍄</div><h3>Golden Mushroom</h3>' +
-            '<p>A living capsule containing one fungal miner specimen. A new mushroom matures every 12 hours.</p><div id="goldenMushroomStatus" class="myco-event-status"></div>' +
-            '<button id="openGoldenMushroom" class="btn btn-warning">Open Golden Mushroom</button>' +
-            '<div id="goldenLastReward" class="myco-last-reward"></div></article>' +
-            '<article class="myco-event-card myco-hour-card"><div class="myco-event-icon">☀</div><h3>Golden Hour</h3>' +
-            '<p>Once per day, multiplies production from every fungal miner for a random 40–60 minutes by x' + Game.goldenEventData.goldenHourMultiplier + '.</p>' +
-            '<div id="goldenHourStatus" class="myco-event-status"></div>' +
-            '<button id="activateGoldenHour" class="btn btn-success">Activate Golden Hour</button>' +
-            '<div class="myco-hour-track"><span id="goldenHourTrackFill"></span></div></article>' +
-            '</div>' +
-            '<section class="myco-drop-table"><h3 id="goldenDropTitle">Active planet drop chances</h3><div id="goldenDropRates"></div></section>' +
+        $('#eventsTopTab,#eventsPage').remove();
+        $('#game').prepend(
+            '<div id="goldenHourGlobalBanner" class="myco-golden-global hidden" role="status">' +
+                '<strong>GOLDEN HOUR</strong><span id="goldenHourGlobalTimer"></span>' +
+                '<span>x' + Game.goldenEventData.goldenHourMultiplier + ' miner production</span>' +
             '</div>'
         );
 
-        $("#openGoldenMushroom").on("click", function () {
-            Game.goldenEvents.openMushroom();
-            instance.render();
+        $('#tabList').append('<li role="presentation" id="goldenMushroomHiddenTab" class="myco-hidden-event-tab" aria-hidden="true"><a href="#goldenMushroomPage" aria-controls="goldenMushroomPage" role="tab" data-toggle="tab">Golden Mushroom</a></li>');
+        $('#tabContent').append(
+            '<div role="tabpanel" class="tab-pane fade" id="goldenMushroomPage">' +
+                '<section class="myco-hidden-mushroom-page">' +
+                    '<div class="myco-eyebrow">SECRET DISCOVERY</div>' +
+                    '<div class="myco-hidden-mushroom-art" aria-hidden="true">🍄</div>' +
+                    '<h2>Golden Mushroom</h2>' +
+                    '<p id="hiddenMushroomDescription">A living golden capsule has been discovered.</p>' +
+                    '<div class="myco-hidden-mushroom-meta"><span>Active planet</span><strong id="hiddenMushroomPlanet">Myco Prime</strong></div>' +
+                    '<div class="myco-hidden-mushroom-meta"><span>Time remaining</span><strong id="hiddenMushroomTimer">—</strong></div>' +
+                    '<button id="openHiddenGoldenMushroom" class="btn btn-warning btn-lg">Open Mushroom</button>' +
+                    '<button id="leaveHiddenGoldenMushroom" class="btn btn-default">Return</button>' +
+                    '<div id="hiddenMushroomLastReward" class="myco-last-reward"></div>' +
+                '</section>' +
+            '</div>'
+        );
+
+        $('body').append('<button id="hiddenGoldenMushroomMarker" class="myco-hidden-mushroom-marker hidden" type="button" aria-label="Hidden Golden Mushroom">🍄</button>');
+
+        $(document).on('click', '#hiddenGoldenMushroomMarker', function () {
+            if (!Game.goldenEvents.findMushroom()) return;
+            $(this).addClass('hidden');
+            openHiddenPage();
         });
-        $("#activateGoldenHour").on("click", function () {
-            Game.goldenEvents.activateGoldenHour();
-            instance.render();
+        $(document).on('click', '#openHiddenGoldenMushroom', function () {
+            var reward = Game.goldenEvents.openMushroom();
+            instance.renderHiddenPage();
+            if (reward) setTimeout(returnToPreviousPage, 900);
         });
+        $(document).on('click', '#leaveHiddenGoldenMushroom', function () { returnToPreviousPage(); });
 
         this.initialised = true;
-        this.renderDropRates();
         this.render();
     };
 
-    instance.renderDropRates = function () {
-        var planet = Game.goldenEvents.getPlanet();
-        var drops = planet.drops || [];
-        var html = [];
-        $("#goldenDropTitle").text(planet.name + " drop chances");
-        for (var i = 0; i < drops.length; i++) {
-            var definition = Game.minerData[drops[i].minerId];
-            if (!definition) continue;
-            html.push('<div class="myco-drop-row"><span style="color:' + definition.rarity.color + '">' +
-                definition.name + ' <small>(' + definition.rarity.name + ')</small></span><strong>' +
-                drops[i].weight + '%</strong></div>');
+    instance.renderMarker = function () {
+        var events = Game.goldenEvents;
+        var $marker = $('#hiddenGoldenMushroomMarker');
+        var currentPage = activePageId();
+        var show = events.isMushroomSearchActive() && !events.mushroomFound && currentPage === events.mushroomTargetPage;
+        if (!show) {
+            $marker.addClass('hidden');
+            return;
         }
-        $("#goldenDropRates").html(html.join(""));
+        var position = events.mushroomPosition || { top: 50, left: 50 };
+        $marker.css({ top: position.top + 'vh', left: position.left + 'vw' }).removeClass('hidden');
+    };
+
+    instance.renderHiddenPage = function () {
+        var events = Game.goldenEvents;
+        $('#hiddenMushroomPlanet').text(events.getPlanet().name);
+        $('#hiddenMushroomTimer').text(formatTime(events.getMushroomSearchRemaining()));
+        $('#openHiddenGoldenMushroom').prop('disabled', !events.mushroomFound || events.mushroomExpiresAt <= Date.now());
+        if (events.lastReward) {
+            $('#hiddenMushroomLastReward').html('<strong>Last reward:</strong> ' + events.lastReward.minerName + ' (' + events.lastReward.rarityName + ')');
+        } else {
+            $('#hiddenMushroomLastReward').text('The reward is determined by the active planet.');
+        }
     };
 
     instance.render = function () {
         if (!this.initialised) return;
-
         var events = Game.goldenEvents;
-        var active = events.isGoldenHourActive();
-        var mushroomReady = events.isMushroomReady();
-        var hourReady = events.isGoldenHourReady();
-        var durationSeconds = events.getGoldenHourDurationMs() / 1000;
-
-        $("#goldenPlanetName").text(events.getPlanet().name);
-        this.renderDropRates();
-        $("#openGoldenMushroom").prop("disabled", !mushroomReady);
-        $("#goldenMushroomStatus").text(
-            mushroomReady ? "A Golden Mushroom is ready." :
-            "Next organism matures in " + formatTime(events.getMushroomTimeRemaining()) + "."
-        );
-
-        if (events.lastReward) {
-            $("#goldenLastReward").html(
-                '<strong>Last reward:</strong> ' + events.lastReward.minerName +
-                ' <span>(' + events.lastReward.rarityName + ')</span>'
-            );
+        if (events.isGoldenHourActive()) {
+            $('#goldenHourGlobalBanner').removeClass('hidden');
+            $('#goldenHourGlobalTimer').text(formatTime(events.getGoldenHourTimeRemaining()));
         } else {
-            $("#goldenLastReward").text("No Golden Mushrooms opened yet.");
+            $('#goldenHourGlobalBanner').addClass('hidden');
         }
-
-        $("#activateGoldenHour").prop("disabled", !hourReady);
-        if (active) {
-            var remaining = events.getGoldenHourTimeRemaining();
-            $("#goldenHourStatus").text("ACTIVE — " + formatTime(remaining) + " remaining");
-            $("#activateGoldenHour").text("Golden Hour active");
-            $("#goldenHourTrackFill").css("width", Math.max(0, Math.min(100, remaining / durationSeconds * 100)) + "%");
-            $("#goldenHourGlobalBanner").removeClass("hidden");
-            $("#goldenHourGlobalTimer").text(formatTime(remaining));
-        } else {
-            var waiting = events.getGoldenHourTimeRemaining();
-            $("#goldenHourStatus").text(hourReady ? "The colony is fully charged." : "Ready in " + formatTime(waiting) + ".");
-            $("#activateGoldenHour").text(hourReady ? "Activate Golden Hour" : "Golden Hour charging");
-            var cooldownSeconds = Game.goldenEventData.goldenHourCooldown / 1000;
-            $("#goldenHourTrackFill").css("width", hourReady ? "100%" : Math.max(0, (1 - waiting / cooldownSeconds) * 100) + "%");
-            $("#goldenHourGlobalBanner").addClass("hidden");
+        this.renderMarker();
+        if ($('#goldenMushroomPage').hasClass('active')) {
+            if (!events.mushroomFound) returnToPreviousPage();
+            else this.renderHiddenPage();
         }
     };
 

@@ -1552,3 +1552,271 @@ progress::-moz-progress-bar { background: linear-gradient(90deg, var(--myco-prim
 .myco-modern-loader { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
 .myco-modern-loader-mark { font-size:64px; filter:drop-shadow(0 0 24px rgba(86,227,159,.6)); }
 @media(max-width:700px){ .myco-modern-header{align-items:flex-start;flex-direction:column}.myco-modern-header-meta{width:100%;justify-content:space-between} }
+
+/* Alpha 0.33.0 — Local Admin Panel */
+.myco-admin-warning{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid rgba(255,190,90,.35);background:rgba(255,164,60,.08);border-radius:16px;margin-bottom:16px}.myco-admin-warning span{flex:1;color:#f4dec0}.myco-admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.myco-admin-form{display:grid;gap:10px}.myco-admin-form label{display:grid;gap:5px}.myco-admin-check{display:flex!important;align-items:center;gap:8px}.myco-admin-button-row{display:flex;flex-wrap:wrap;gap:8px}.myco-admin-economy-row{display:grid;grid-template-columns:minmax(130px,1fr) minmax(90px,130px) auto auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.07)}.myco-admin-economy-row div{display:grid}.myco-admin-economy-row small,.myco-admin-list-row small{color:#9eb8aa}.myco-admin-list{display:grid;gap:8px;margin-top:12px}.myco-admin-list-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid rgba(120,255,190,.12);background:rgba(255,255,255,.03);border-radius:12px}.myco-admin-list-row>div:first-child{display:grid}.myco-admin-list-row time{font-size:12px;color:#9eb8aa}.myco-admin-modal{position:fixed;inset:0;z-index:12000;display:flex;align-items:center;justify-content:center;background:rgba(2,8,6,.84);backdrop-filter:blur(8px);padding:18px}.myco-admin-modal.hidden{display:none}.myco-admin-modal-card{width:min(460px,100%);display:grid;gap:14px;padding:26px;border-radius:22px;border:1px solid rgba(120,255,190,.22);background:linear-gradient(180deg,rgba(10,28,22,.98),rgba(6,18,14,.98));box-shadow:0 28px 80px rgba(0,0,0,.48)}.myco-admin-open{border-color:rgba(255,211,105,.3)!important}@media(max-width:900px){.myco-admin-grid{grid-template-columns:1fr}.myco-admin-warning{align-items:flex-start;flex-wrap:wrap}.myco-admin-economy-row{grid-template-columns:1fr 1fr}.myco-admin-economy-row div{grid-column:1/-1}.myco-admin-list-row{align-items:flex-start;flex-direction:column}}
+
+/* Alpha 0.33.1 — hard access-control states */
+#tabList li.myco-access-locked > a {
+    pointer-events: auto;
+    user-select: none;
+}
+#tabContent > .tab-pane.myco-system-locked {
+    pointer-events: none !important;
+    user-select: none;
+}
+#tabContent > .tab-pane.myco-system-locked.active {
+    display: none !important;
+}
+
+/* Alpha 0.34.0 — Stability & Diagnostics */
+.myco-admin-debug-preview {
+    max-height: 360px;
+    overflow: auto;
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(120,255,190,0.15);
+    background: rgba(0,0,0,0.3);
+    color: #dfffe9;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.myco-check-pass { border-left: 3px solid #56e39f; padding-left: 10px; }
+.myco-check-fail { border-left: 3px solid #ff6b78; padding-left: 10px; }
+.myco-check-fail strong, .myco-check-fail span { color: #ff9ba4; }
+.myco-check-pass strong, .myco-check-pass span { color: #8dffc0; }
+
+/* Alpha 0.34.1 — Wallet & Currency Exchange */
+.myco-exchange-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0 16px;
+}
+.myco-exchange-summary span {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(120,255,190,.16);
+    background: rgba(255,255,255,.04);
+    font-size: 12px;
+}
+.myco-exchange-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 16px;
+    margin-bottom: 18px;
+}
+.myco-exchange-card {
+    border: 1px solid rgba(120,255,190,.14);
+    border-radius: 16px;
+    background: rgba(255,255,255,.035);
+    padding: 16px;
+}
+.myco-exchange-card h4 { margin-top: 0; }
+.myco-exchange-quick {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+.myco-exchange-card > .btn { width: 100%; }
+.myco-history-row small { color: var(--myco-muted,#9ab4a5); }
+@media (max-width: 760px) {
+    .myco-exchange-grid { grid-template-columns: 1fr; }
+    .myco-exchange-summary { display: grid; }
+}
+
+/* Alpha 0.34.2 — Hidden Golden Events */
+.myco-hidden-event-tab {
+    display: none !important;
+}
+
+.myco-hidden-mushroom-marker {
+    position: fixed;
+    z-index: 9997;
+    width: 58px;
+    height: 58px;
+    margin: -29px 0 0 -29px;
+    border: 2px solid rgba(255, 223, 92, 0.9);
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff8b8, #f6bf36 48%, #8f5b00 100%);
+    color: #352000;
+    font-size: 30px;
+    line-height: 1;
+    box-shadow: 0 0 16px rgba(255, 217, 74, 0.85), 0 0 42px rgba(255, 193, 36, 0.45);
+    cursor: pointer;
+    transform: translateZ(0);
+    animation: mycoGoldenPulse 1.8s ease-in-out infinite;
+}
+
+.myco-hidden-mushroom-marker:hover,
+.myco-hidden-mushroom-marker:focus {
+    transform: scale(1.1);
+    outline: 3px solid rgba(255,255,255,0.8);
+    outline-offset: 3px;
+}
+
+.myco-hidden-mushroom-page {
+    max-width: 760px;
+    margin: 20px auto;
+    padding: 34px;
+    text-align: center;
+    border: 1px solid rgba(255, 220, 93, 0.35);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 50% 28%, rgba(255, 225, 104, 0.16), transparent 34%),
+        linear-gradient(160deg, rgba(45, 34, 10, 0.96), rgba(10, 27, 21, 0.96));
+    box-shadow: 0 20px 60px rgba(0,0,0,0.42), 0 0 42px rgba(255, 194, 52, 0.12);
+}
+
+.myco-hidden-mushroom-art {
+    font-size: clamp(90px, 18vw, 160px);
+    line-height: 1;
+    margin: 16px 0;
+    filter: drop-shadow(0 0 22px rgba(255, 215, 74, 0.7));
+}
+
+.myco-hidden-mushroom-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 420px;
+    margin: 10px auto;
+    padding: 12px 14px;
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+}
+
+.myco-hidden-mushroom-page .btn {
+    margin: 10px 5px 0;
+}
+
+@keyframes mycoGoldenPulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(255, 217, 74, 0.65), 0 0 32px rgba(255, 193, 36, 0.28); }
+    50% { box-shadow: 0 0 24px rgba(255, 235, 130, 0.95), 0 0 54px rgba(255, 193, 36, 0.55); }
+}
+
+body.myco-reduced-motion .myco-hidden-mushroom-marker { animation: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+    .myco-hidden-mushroom-marker { animation: none !important; }
+}
+
+@media (max-width: 767px) {
+    .myco-hidden-mushroom-marker {
+        width: 52px;
+        height: 52px;
+        margin: -26px 0 0 -26px;
+        font-size: 27px;
+    }
+    .myco-hidden-mushroom-page {
+        padding: 24px 16px;
+        margin: 8px auto;
+    }
+}
+
+/* ======================================================
+   Alpha 0.35.0 — Production Visual Asset Framework
+   ====================================================== */
+:root {
+    --myco-screen-background: none;
+    --myco-art-radius: 16px;
+    --myco-art-border: rgba(132, 255, 196, .22);
+}
+
+body.mycoverse-modern-core::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image: linear-gradient(180deg, rgba(2, 8, 7, .42), rgba(2, 8, 7, .92)), var(--myco-screen-background);
+    background-size: cover;
+    background-position: center;
+    opacity: .72;
+    transition: opacity .35s ease, background-image .35s ease;
+}
+
+body[data-myco-quality="medium"]::after { opacity: .52; }
+body[data-myco-quality="low"]::after,
+body.myco-backgrounds-off::after { opacity: 0; }
+
+.tab-pane > section:first-child,
+.tab-pane > .myco-miner-header:first-child,
+.tab-pane > .myco-planets-hero:first-child {
+    position: relative;
+    overflow: hidden;
+}
+
+.tab-pane > section:first-child::before,
+.tab-pane > .myco-miner-header:first-child::before,
+.tab-pane > .myco-planets-hero:first-child::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,.06), transparent 42%);
+}
+
+.myco-miner-art-frame,
+.myco-shop-miner-art {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--myco-art-border);
+    border-radius: var(--myco-art-radius);
+    background: rgba(2, 10, 8, .7);
+    box-shadow: inset 0 0 30px rgba(0,0,0,.45), 0 12px 28px rgba(0,0,0,.22);
+}
+
+.myco-miner-art-frame {
+    aspect-ratio: 16 / 11;
+    margin: -4px -4px 12px;
+}
+
+.myco-shop-miner-art {
+    aspect-ratio: 1 / 1;
+    margin: 10px auto 12px;
+    max-width: 190px;
+}
+
+.myco-miner-art,
+.myco-shop-miner-art img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .3s ease, filter .3s ease;
+}
+
+.myco-miner-card:hover .myco-miner-art,
+.myco-offer-card:hover .myco-shop-miner-art img {
+    transform: scale(1.035);
+    filter: saturate(1.12) contrast(1.05);
+}
+
+.myco-miner-card,
+.myco-offer-card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.visual-rarity-common { --rarity-glow: rgba(125,154,139,.34); }
+.visual-rarity-rare { --rarity-glow: rgba(86,185,255,.38); }
+.visual-rarity-epic { --rarity-glow: rgba(184,108,255,.42); }
+.visual-rarity-legendary { --rarity-glow: rgba(255,191,69,.48); }
+.visual-rarity-mythic { --rarity-glow: rgba(255,92,125,.52); }
+
+@media (prefers-reduced-motion: reduce) {
+    body.mycoverse-modern-core::after,
+    .myco-miner-art,
+    .myco-shop-miner-art img { transition: none !important; }
+    .myco-miner-card:hover .myco-miner-art,
+    .myco-offer-card:hover .myco-shop-miner-art img { transform: none; }
+}
+
+@media (max-width: 767px) {
+    .myco-miner-art-frame { aspect-ratio: 16 / 9; }
+    .myco-shop-miner-art { max-width: 150px; }
+}

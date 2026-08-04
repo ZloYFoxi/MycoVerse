@@ -4,8 +4,10 @@ Game.responsiveUI = (function () {
     var instance = { initialised: false, lastWidthMode: "" };
 
     function activateTarget(target) {
+        if (Game.access && Game.access.open) return Game.access.open(target, true);
         var link = $('#tabList a[href="#' + target + '"]');
         if (link.length && !link.closest('li').hasClass('myco-access-locked')) link.tab('show');
+        return true;
     }
 
     function visibleTabs() {
@@ -19,7 +21,7 @@ Game.responsiveUI = (function () {
             result.push({
                 target: href.substring(1),
                 label: $.trim(a.text()).replace(/\s+/g, ' '),
-                locked: li.hasClass('myco-access-locked') || a.attr('aria-disabled') === 'true'
+                locked: (Game.access && Game.access.canOpenTarget) ? !Game.access.canOpenTarget(href.substring(1)) : (li.hasClass('myco-access-locked') || a.attr('aria-disabled') === 'true')
             });
         });
         return result;

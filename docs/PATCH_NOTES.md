@@ -1,3 +1,27 @@
+## Alpha 0.35.0 — Production Visual Asset Framework
+
+This patch begins the direct production conversion toward the approved MycoVerse concept art. The game now has a centralized registry for all visual assets, per-screen environmental backgrounds, restored planet and boss artwork, and generated portrait slots for every current miner. Future final illustrations can replace these files without rewriting gameplay or UI modules.
+
+## Alpha 0.34.2 — Hidden Golden Events
+
+Golden Grove is no longer a permanent game tab. Golden Hour starts automatically at a random time roughly once per day and lasts 40–60 minutes. Golden Mushrooms now appear as hidden discoveries in random unlocked systems: players receive a notification, search the interface for a glowing mushroom marker, then enter a temporary secret page to open the reward. The event persists across reloads, expires after 30 minutes, and provides timed hints.
+
+## Alpha 0.34.1 — Wallet & Currency Exchange
+
+The Account page now displays the complete local wallet and resource balance. Players can exchange Spores for MycoCoins or convert MycoCoins back into Spores using a deliberately lower return rate, a daily creation limit, transaction previews, quick amount controls, and persistent exchange history. Local administrators can tune both rates and reset the daily limit.
+
+## Alpha 0.34.0 — Stability, Testing & Diagnostics
+
+The Admin Panel now includes a health-check dashboard, a copyable debug report, captured runtime errors, and an isolated New Player Test mode. The test mode temporarily backs up the primary browser save, starts a clean level-1 profile, and restores the original profile when testing ends.
+
+## Alpha 0.33.1 — Access Control Fix
+
+Commander Level restrictions are now enforced by one central access service. Locked tabs cannot be opened through Bootstrap, title-screen shortcuts, the top HUD, mobile navigation, URL hashes, or accidental programmatic tab calls. Locked page content is inert, and the game automatically returns the player to an available Level 1 system if a restricted page is active.
+
+## Alpha 0.33.0 — Admin Panel Foundation
+
+A local development admin panel now provides passcode-gated controls for player balances, Commander progression, miners, planets, events, quests, and snapshots. The panel is designed for balancing and testing the browser build. Because the game is still client-side, this is not a secure production moderation system; real online administration must be executed and validated by a backend.
+
 ## Alpha 0.32.0 — Legacy Space Company Removal
 
 The game now runs on a clean MycoVerse-only application shell. Legacy Space Company mechanics and UI no longer load. The remaining compatibility layer contains only the three modern resources—Spores, Gems, and Science—plus save migration for existing players.

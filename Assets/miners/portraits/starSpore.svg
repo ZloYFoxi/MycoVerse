@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Star Spore portrait">
+<defs><radialGradient id="bg"><stop stop-color="#b86cff" stop-opacity=".42"/><stop offset="1" stop-color="#04110d"/></radialGradient><linearGradient id="cap" x2="1" y2="1"><stop stop-color="#b86cff"/><stop offset="1" stop-color="#30164b"/></linearGradient><filter id="g"><feGaussianBlur stdDeviation="8"/></filter></defs>
+<rect width="512" height="512" rx="52" fill="url(#bg)"/><circle cx="256" cy="250" r="194" fill="none" stroke="#b86cff" stroke-opacity=".38" stroke-width="7"/>
+<g opacity=".28" filter="url(#g)"><circle cx="98" cy="104" r="34" fill="#b86cff"/><circle cx="420" cy="156" r="48" fill="#b86cff"/><circle cx="392" cy="408" r="30" fill="#b86cff"/></g>
+<path d="M116 226 Q256 62 396 226 Q348 278 256 274 Q164 278 116 226Z" fill="url(#cap)" stroke="#b86cff" stroke-width="10"/>
+<path d="M210 245 Q256 226 302 245 L324 412 Q256 450 188 412Z" fill="#d8f3df" stroke="#b86cff" stroke-width="8"/>
+<ellipse cx="224" cy="318" rx="15" ry="21" fill="#07130f"/><ellipse cx="288" cy="318" rx="15" ry="21" fill="#07130f"/><path d="M228 360 Q256 382 284 360" fill="none" stroke="#07130f" stroke-width="8" stroke-linecap="round"/>
+<text x="256" y="468" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="38" fill="#b86cff">SS</text></svg>
