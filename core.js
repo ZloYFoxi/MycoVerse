@@ -186,6 +186,9 @@ function refreshPerSec(delta){
 	gemps = gemMiner * gemMinerOutput * perSecondMultiplier;
 	charcoalps = 0;
 	woodps = woodcutter * woodcutterOutput * perSecondMultiplier;
+	if (Game.miners) {
+		woodps += Game.miners.getResourceIncome(RESOURCE.Wood);
+	}
 	lunariteps = moonWorker * moonWorkerOutput * perSecondMultiplier;
 	methaneps = vacuum * vacuumOutput * perSecondMultiplier;
 	titaniumps = explorer * explorerOutput * perSecondMultiplier;

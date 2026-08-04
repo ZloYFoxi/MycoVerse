@@ -66,6 +66,7 @@ var Game = (function() {
         self.buildings.update(delta);
         self.tech.update(delta);
         self.settings.update(delta);
+        self.minerUI.update(delta);
 
         self.updateAutoSave(delta);
 
@@ -141,6 +142,7 @@ var Game = (function() {
         this.buildings.save(data);
         this.tech.save(data);
         this.settings.save(data);
+        this.miners.save(data);
         this.interstellar.save(data);
         this.stargaze.save(data);
         this.updates.save(data);
@@ -162,6 +164,7 @@ var Game = (function() {
             this.statistics.load(data);
             this.resources.load(data);
             this.buildings.load(data);
+            this.miners.load(data);
             this.stargaze.load(data);
             this.tech.load(data);
             this.interstellar.load(data); 
@@ -242,11 +245,13 @@ var Game = (function() {
         self.tech.initialise();
         self.interstellar.initialise();
         self.stargaze.initialise();
+        self.miners.initialise();
 
         // Now load
         self.load();
 
         self.settings.initialise();
+        self.minerUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {
             self.uiComponents[i].initialise();
