@@ -58,6 +58,7 @@ Game.marketUI = (function () {
             var offer = offers[i];
             offerHtml.push(
                 '<div class="myco-offer-card"><div class="myco-offer-type">' + offer.itemType.toUpperCase() + ' • ' + offer.rarity + '</div>' +
+                (offer.itemType === 'miner' ? '<div class="myco-shop-miner-art"><img src="' + Game.visualAssets.getMinerPortrait(offer.itemId) + '" alt="' + offer.title + ' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"></div>' : '') +
                 '<h4>' + offer.title + '</h4><p>' + offer.description + '</p>' +
                 '<div class="myco-offer-footer"><strong>' + fmt(offer.price) + ' MycoCoins</strong>' +
                 '<button class="btn btn-success market-buy-button" data-offer-id="' + offer.id + '">Buy</button></div></div>'
@@ -72,7 +73,7 @@ Game.marketUI = (function () {
             if (miner.owned <= 1) continue;
             var price = Game.market.getSellPrice(miner.id);
             sellHtml.push(
-                '<div class="myco-sell-row"><div><strong>' + miner.definition.name + '</strong><div class="myco-small-note">Owned: ' + miner.owned + ' • Level ' + miner.level + '</div></div>' +
+                '<div class="myco-sell-row myco-sell-row-with-portrait"><img class="myco-sell-miner-portrait" src="' + Game.visualAssets.getMinerPortrait(miner.id) + '" alt="' + miner.definition.name + ' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"><div><strong>' + miner.definition.name + '</strong><div class="myco-small-note">Owned: ' + miner.owned + ' • Level ' + miner.level + '</div></div>' +
                 '<div><strong>' + fmt(price) + '</strong> <button class="btn btn-warning market-sell-button" data-miner-id="' + miner.id + '">Sell 1</button></div></div>'
             );
         }

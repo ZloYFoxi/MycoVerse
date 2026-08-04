@@ -1279,7 +1279,7 @@ input,select,textarea,button{max-width:100%}
     --myco-border: rgba(130, 255, 194, .18);
     --myco-text: #effcf4;
     --myco-muted: #9fc2ae;
-    --myco-planet-background: url("assets/themes/mycoPrime.svg");
+    --myco-planet-background: url("Assets/themes/mycoPrime.webp");
 }
 
 html, body { min-height: 100%; }
@@ -1819,4 +1819,143 @@ body.myco-backgrounds-off::after { opacity: 0; }
 @media (max-width: 767px) {
     .myco-miner-art-frame { aspect-ratio: 16 / 9; }
     .myco-shop-miner-art { max-width: 150px; }
+}
+
+/* ======================================================
+   Alpha 0.36.0 — Final Art Batch 1
+   ====================================================== */
+:root {
+    --myco-screen-background-mobile: var(--myco-screen-background);
+    --myco-planet-background-mobile: var(--myco-planet-background);
+}
+
+.myco-hidden-mushroom-art {
+    width: min(460px, 90vw);
+    aspect-ratio: 4 / 5;
+    margin: 18px auto;
+    overflow: hidden;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 211, 89, .55);
+    box-shadow: 0 0 38px rgba(255, 194, 45, .28), inset 0 0 30px rgba(0,0,0,.35);
+}
+
+.myco-hidden-mushroom-art img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.myco-hidden-mushroom-marker {
+    background: radial-gradient(circle at 50% 40%, #fff7ab 0 12%, #f5b900 34%, #8a4d00 70%, #2f1600 100%);
+    border-color: rgba(255, 229, 122, .9);
+    box-shadow: 0 0 16px #ffc600, 0 0 34px rgba(255, 187, 0, .8);
+}
+
+.myco-hidden-mushroom-marker span {
+    display: inline-block;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,.65));
+}
+
+.myco-planet-art img,
+.myco-gate-header img {
+    object-fit: cover;
+    object-position: center top;
+}
+
+.myco-gate-header img {
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 20px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.42);
+}
+
+body[data-myco-quality="high"] .myco-miner-art,
+body[data-myco-quality="high"] .myco-shop-miner-art img,
+body[data-myco-quality="high"] .myco-planet-art img,
+body[data-myco-quality="high"] .myco-gate-header img {
+    image-rendering: auto;
+}
+
+@media (max-width: 767px) {
+    body.mycoverse-modern-core::after {
+        background-image: linear-gradient(180deg, rgba(2, 8, 7, .48), rgba(2, 8, 7, .94)), var(--myco-screen-background-mobile);
+        background-position: center top;
+    }
+
+    body {
+        background-image: linear-gradient(180deg, rgba(3, 9, 7, .62), rgba(3, 10, 8, .94)), var(--myco-planet-background-mobile);
+        background-attachment: scroll;
+    }
+
+    .myco-hidden-mushroom-art {
+        width: min(330px, 88vw);
+        border-radius: 22px;
+    }
+}
+
+.myco-title-backdrop {
+    background:
+        linear-gradient(90deg, rgba(2,7,5,.94), rgba(2,8,6,.70) 55%, rgba(2,7,5,.38)),
+        url("Assets/ui/backgrounds/home.webp") center/cover !important;
+}
+
+@media (max-width: 767px) {
+    .myco-title-backdrop {
+        background:
+            linear-gradient(180deg, rgba(2,7,5,.82), rgba(2,8,6,.88)),
+            url("Assets/ui/backgrounds/home-mobile.webp") center top/cover !important;
+    }
+}
+
+/* ======================================================
+   Alpha 0.36.1 — Miner Portrait Rebuild
+   ====================================================== */
+.myco-miner-art-frame,
+.myco-shop-miner-art {
+    aspect-ratio: 1 / 1;
+}
+
+.myco-miner-art-frame {
+    margin: -4px -4px 12px;
+}
+
+.myco-miner-art,
+.myco-shop-miner-art img {
+    object-fit: cover;
+    object-position: 50% 50%;
+    image-rendering: auto;
+    filter: none;
+    cursor: default;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.myco-miner-card:hover .myco-miner-art,
+.myco-offer-card:hover .myco-shop-miner-art img {
+    transform: none;
+    filter: none;
+}
+
+.myco-sell-row-with-portrait {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+}
+
+.myco-sell-miner-portrait {
+    width: 58px;
+    height: 58px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid rgba(130, 220, 255, .34);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, .32);
+}
+
+@media (max-width: 767px) {
+    .myco-miner-art-frame { aspect-ratio: 1 / 1; }
+    .myco-shop-miner-art { max-width: 170px; }
+    .myco-sell-row-with-portrait { grid-template-columns: 48px minmax(0, 1fr); }
+    .myco-sell-row-with-portrait > div:last-child { grid-column: 1 / -1; }
+    .myco-sell-miner-portrait { width: 48px; height: 48px; }
 }

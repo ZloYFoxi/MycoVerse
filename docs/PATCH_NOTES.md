@@ -1,3 +1,11 @@
+## Alpha 0.36.1 — Miner Portrait Rebuild
+
+All 41 miners now use individual high-detail portraits rather than blurry crops or shared placeholders. Portraits remain static and do not open when clicked. The same artwork is used consistently in Miners, Miner Shop, Inventory, and Marketplace.
+
+## Alpha 0.36.0 — Final Art Batch 1
+
+The first production artwork wave replaces the placeholder visual pack with optimized WebP screen backgrounds, mobile variants, miner portraits, planetary scenes, gate-boss portraits, and a dedicated Golden Mushroom illustration. The runtime now switches between desktop and mobile art while retaining the approved concept boards as the visual reference for later batches.
+
 ## Alpha 0.35.0 — Production Visual Asset Framework
 
 This patch begins the direct production conversion toward the approved MycoVerse concept art. The game now has a centralized registry for all visual assets, per-screen environmental backgrounds, restored planet and boss artwork, and generated portrait slots for every current miner. Future final illustrations can replace these files without rewriting gameplay or UI modules.

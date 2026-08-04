@@ -4,11 +4,11 @@ Game.designThemeUI = (function () {
     var instance = { initialised: false, lastPlanetId: "", elapsed: 0 };
 
     var themes = {
-        mycoPrime: { label: "Myco Prime", accent: "#64f0a2", accent2: "#2b9d6a", danger: "#ff647c", image: "assets/themes/mycoPrime.svg" },
-        crystalGrove: { label: "Crystal Grove", accent: "#8ed7ff", accent2: "#7d67ff", danger: "#ff78c8", image: "assets/themes/crystalGrove.svg" },
-        toxicForest: { label: "Toxic Forest", accent: "#d5ff43", accent2: "#7fbb2f", danger: "#ff8c45", image: "assets/themes/toxicForest.svg" },
-        ancientHive: { label: "Ancient Hive", accent: "#ffbf5e", accent2: "#b56e2f", danger: "#ff6d4d", image: "assets/themes/ancientHive.svg" },
-        voidBloom: { label: "Void Bloom", accent: "#ff4d8e", accent2: "#8d4dff", danger: "#ff3e4d", image: "assets/themes/voidBloom.svg" }
+        mycoPrime: { label: "Myco Prime", accent: "#64f0a2", accent2: "#2b9d6a", danger: "#ff647c", image: "Assets/themes/mycoPrime.webp" },
+        crystalGrove: { label: "Crystal Grove", accent: "#8ed7ff", accent2: "#7d67ff", danger: "#ff78c8", image: "Assets/themes/crystalGrove.webp" },
+        toxicForest: { label: "Toxic Forest", accent: "#d5ff43", accent2: "#7fbb2f", danger: "#ff8c45", image: "Assets/themes/toxicForest.webp" },
+        ancientHive: { label: "Ancient Hive", accent: "#ffbf5e", accent2: "#b56e2f", danger: "#ff6d4d", image: "Assets/themes/ancientHive.webp" },
+        voidBloom: { label: "Void Bloom", accent: "#ff4d8e", accent2: "#8d4dff", danger: "#ff3e4d", image: "Assets/themes/voidBloom.webp" }
     };
 
     function currentPlanetId() {
@@ -51,6 +51,7 @@ Game.designThemeUI = (function () {
         root.style.setProperty("--myco-primary-2", theme.accent2);
         root.style.setProperty("--myco-danger", theme.danger);
         root.style.setProperty("--myco-planet-background", 'url("' + theme.image + '")');
+        root.style.setProperty("--myco-planet-background-mobile", 'url("' + theme.image.replace(/\.webp$/, "-mobile.webp") + '")');
         document.body.setAttribute("data-myco-planet", id);
         document.body.setAttribute("data-myco-quality", Game.settings.entries.visualQuality || "high");
         document.body.classList.toggle("myco-backgrounds-off", !Game.settings.entries.planetBackgrounds);

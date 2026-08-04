@@ -1,3 +1,23 @@
+# Alpha 0.36.1 — Miner Portrait Rebuild
+
+- Replaced all 41 legacy miner portraits with individually generated, sharp square character cards.
+- Added 1024×1024 master WebP art and optimized 768×768 gameplay portraits.
+- Changed miner card presentation to a true 1:1 ratio to prevent stretching and crop distortion.
+- Disabled portrait zoom/filter effects and kept portraits non-interactive.
+- Added miner portraits to Inventory and Marketplace cards.
+- Corrected case-sensitive visual asset paths from `assets/` to `Assets/`.
+- Added a fallback portrait for failed image loads.
+
+# Alpha 0.36.0 — Final Art Batch 1
+
+- Replaced the visual framework placeholders with production WebP artwork derived from the approved MycoVerse concept direction.
+- Added 24 desktop and 24 mobile screen backgrounds covering the complete current interface.
+- Added five responsive planet scenes, five gate-boss portraits, and a dedicated Golden Mushroom feature illustration.
+- Added 41 production miner portraits with rarity-aware presentation for Miners and Miner Shop.
+- Added mobile-specific background variants and automatic responsive switching.
+- Updated all visual registries, planet themes, boss data, and event UI to use optimized WebP assets.
+- Preserved the approved concept boards in assets/reference for future art consistency.
+
 # Alpha 0.35.0 — Production Visual Asset Framework
 
 - Added a centralized visual asset registry for screens, planets, bosses, miners, and rarity frames.

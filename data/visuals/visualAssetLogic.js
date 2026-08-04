@@ -10,6 +10,10 @@ Game.visualAssets = (function () {
         return fill(Game.visualAssetData.paths.minerPortrait, safeId(minerId));
     };
 
+    instance.getMinerPortraitFallback = function () {
+        return this.getMinerPortrait("sporeWorker");
+    };
+
     instance.getBossPortrait = function (bossId) {
         var file = Game.visualAssetData.bossFiles[bossId] || safeId(bossId);
         return fill(Game.visualAssetData.paths.bossPortrait, file);
@@ -17,6 +21,10 @@ Game.visualAssets = (function () {
 
     instance.getPlanetBackground = function (planetId) {
         return fill(Game.visualAssetData.paths.planetBackground, safeId(planetId || "mycoPrime"));
+    };
+
+    instance.getPlanetBackgroundMobile = function (planetId) {
+        return this.getPlanetBackground(planetId).replace(/\.webp$/, "-mobile.webp");
     };
 
     instance.getScreenIdFromPane = function (paneId) {
@@ -27,11 +35,16 @@ Game.visualAssets = (function () {
         return fill(Game.visualAssetData.paths.screenBackground, safeId(screenId || "settings"));
     };
 
+    instance.getScreenBackgroundMobile = function (screenId) {
+        return this.getScreenBackground(screenId).replace(/\.webp$/, "-mobile.webp");
+    };
+
     instance.applyScreen = function (screenId) {
         screenId = safeId(screenId || "settings");
         this.currentScreen = screenId;
         document.body.setAttribute("data-myco-screen", screenId);
         document.documentElement.style.setProperty("--myco-screen-background", 'url("' + this.getScreenBackground(screenId) + '")');
+        document.documentElement.style.setProperty("--myco-screen-background-mobile", 'url("' + this.getScreenBackgroundMobile(screenId) + '")');
     };
 
     instance.applyFromPane = function (paneId) {

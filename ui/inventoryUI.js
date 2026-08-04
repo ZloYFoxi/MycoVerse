@@ -16,7 +16,8 @@ Game.inventoryUI = (function () {
         for(var i=0;i<items.length;i++){
             var x=items[i]; if(this.filter!=="all"&&this.filter!==x.type)continue;
             var detail=x.type==="miner" ? ("Owned: "+x.owned+" • Level "+x.level+" • "+(x.income*60).toFixed(2)+"/min") : ("Copies: "+x.owned+" • "+x.slot+" • "+x.bonusText+(x.equipped?" • Equipped":""));
-            html.push('<article class="myco-offer-card" style="border-color:'+x.rarityColor+'"><div class="myco-offer-type">'+x.type.toUpperCase()+' • '+x.rarity+'</div><h4>'+x.name+'</h4><p>'+x.description+'</p><strong>'+detail+'</strong></article>');
+            var portrait=x.type==="miner" ? '<div class="myco-shop-miner-art"><img src="'+Game.visualAssets.getMinerPortrait(x.id)+'" alt="'+x.name+' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"></div>' : '';
+            html.push('<article class="myco-offer-card" style="border-color:'+x.rarityColor+'"><div class="myco-offer-type">'+x.type.toUpperCase()+' • '+x.rarity+'</div>'+portrait+'<h4>'+x.name+'</h4><p>'+x.description+'</p><strong>'+detail+'</strong></article>');
         }
         $("#inventoryGrid").html(html.join("")||'<p class="text-muted">Nothing collected yet.</p>');
     };

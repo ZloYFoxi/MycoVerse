@@ -62,7 +62,7 @@ Game.minerUI = (function () {
 
             cards.push(
                 '<div class="myco-miner-card ' + (!owned ? 'miner-locked' : '') + '" style="border-color:' + definition.rarity.color + '">' +
-                '<div class="myco-miner-art-frame"><img class="myco-miner-art" src="' + Game.visualAssets.getMinerPortrait(id) + '" alt="' + definition.name + ' portrait" loading="lazy" decoding="async"></div>' +
+                '<div class="myco-miner-art-frame"><img class="myco-miner-art" src="' + Game.visualAssets.getMinerPortrait(id) + '" alt="' + definition.name + ' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"></div>' +
                 '<div class="myco-miner-rarity" style="color:' + definition.rarity.color + '">' + definition.rarity.name + '</div>' +
                 '<h3>' + definition.name + '</h3><p>' + definition.description + '</p>' +
                 '<div><strong>Owned:</strong> ' + miner.owned + '</div>' +

@@ -11,12 +11,12 @@ Game.visualAssetData = (function () {
     };
 
     return {
-        version: 1,
+        version: 2,
         paths: {
-            screenBackground: "assets/ui/backgrounds/{id}.svg",
-            minerPortrait: "assets/miners/portraits/{id}.svg",
-            planetBackground: "assets/themes/{id}.svg",
-            bossPortrait: "assets/bosses/{id}.svg"
+            screenBackground: "Assets/ui/backgrounds/{id}.webp",
+            minerPortrait: "Assets/miners/portraits/{id}.webp",
+            planetBackground: "Assets/themes/{id}.webp",
+            bossPortrait: "Assets/bosses/{id}.webp"
         },
         screenBackgrounds: screenBackgrounds,
         bossFiles: {

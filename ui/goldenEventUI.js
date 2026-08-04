@@ -46,7 +46,7 @@ Game.goldenEventUI = (function () {
             '<div role="tabpanel" class="tab-pane fade" id="goldenMushroomPage">' +
                 '<section class="myco-hidden-mushroom-page">' +
                     '<div class="myco-eyebrow">SECRET DISCOVERY</div>' +
-                    '<div class="myco-hidden-mushroom-art" aria-hidden="true">🍄</div>' +
+                    '<div class="myco-hidden-mushroom-art" aria-hidden="true"><img src="Assets/ui/backgrounds/goldenMushroomFeature.webp" alt="" loading="lazy" decoding="async"></div>' +
                     '<h2>Golden Mushroom</h2>' +
                     '<p id="hiddenMushroomDescription">A living golden capsule has been discovered.</p>' +
                     '<div class="myco-hidden-mushroom-meta"><span>Active planet</span><strong id="hiddenMushroomPlanet">Myco Prime</strong></div>' +
@@ -58,7 +58,7 @@ Game.goldenEventUI = (function () {
             '</div>'
         );
 
-        $('body').append('<button id="hiddenGoldenMushroomMarker" class="myco-hidden-mushroom-marker hidden" type="button" aria-label="Hidden Golden Mushroom">🍄</button>');
+        $('body').append('<button id="hiddenGoldenMushroomMarker" class="myco-hidden-mushroom-marker hidden" type="button" aria-label="Hidden Golden Mushroom"><span aria-hidden="true">🍄</span></button>');
 
         $(document).on('click', '#hiddenGoldenMushroomMarker', function () {
             if (!Game.goldenEvents.findMushroom()) return;

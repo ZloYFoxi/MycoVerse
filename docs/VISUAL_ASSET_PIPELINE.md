@@ -29,3 +29,16 @@ Alpha 0.35.0 introduces stable runtime paths so final generated artwork can repl
 ## Current status
 
 The current portraits and screen backgrounds are production placeholders. They prove the complete loading and theme-switching pipeline. Final generated artwork can now be integrated one batch at a time.
+
+## Alpha 0.36.0 production batch
+
+The approved MycoVerse concept boards are now converted into optimized runtime WebP assets.
+
+- `assets/ui/backgrounds/*.webp` — desktop screen art at 1920×1080.
+- `assets/ui/backgrounds/*-mobile.webp` — portrait mobile variants at 900×1400.
+- `assets/themes/*.webp` — five planet scenes.
+- `assets/themes/*-mobile.webp` — portrait planet scenes.
+- `assets/bosses/*.webp` — five gate-boss portraits.
+- `assets/miners/portraits/*.webp` — all current miner portraits.
+
+Future illustrations should keep the same filenames. Replacing a file updates every connected screen without changing game logic.

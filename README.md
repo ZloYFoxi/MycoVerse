@@ -1,4 +1,4 @@
-# MycoVerse Alpha 0.35.0 — Production Visual Asset Framework
+# MycoVerse Alpha 0.36.1 — Miner Portrait Rebuild
 
 The approved visual direction is now connected to a centralized runtime asset pipeline for screen backgrounds, miners, bosses, planets, and rarity treatments.
 
