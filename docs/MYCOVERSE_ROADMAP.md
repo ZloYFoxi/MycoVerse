@@ -22,11 +22,11 @@
 - [ ] Evolution
 
 ## Phase 4 - Miners
-- [ ] Common
-- [ ] Rare
-- [ ] Epic
-- [ ] Legendary
-- [ ] Mythic
+- [x] Common
+- [x] Rare
+- [x] Epic
+- [x] Legendary
+- [x] Mythic
 
 ## Phase 5 - Galaxy
 - [ ] Mushroom Prime
