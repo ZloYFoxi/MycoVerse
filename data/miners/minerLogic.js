@@ -166,7 +166,9 @@ Game.miners = (function () {
         var bonuses = this.getPassiveBonuses();
         var percent = bonuses.global + (bonuses.resources[miner.definition.resource] || 0);
         var mutationPercent = this.getMutationPercent(id);
-        return base * (1 + percent / 100) * (1 + mutationPercent / 100);
+        var eventMultiplier = (Game.goldenEvents && Game.goldenEvents.getProductionMultiplier) ?
+            Game.goldenEvents.getProductionMultiplier() : 1;
+        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier;
     };
 
     instance.getResourceIncome = function (resourceId) {

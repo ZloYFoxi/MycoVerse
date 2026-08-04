@@ -1,3 +1,12 @@
+# MycoVerse Alpha 0.10.0 — Golden Grove
+
+- Added the Golden Grove events tab.
+- Added Golden Mushrooms that award miner specimens using rarity-weighted drops.
+- Added Golden Hour with a temporary x2.5 multiplier to all miner production.
+- Added persistent event timers, reward history, and event statistics.
+- Added Myco Prime as the first planet-specific drop table.
+- Preserved compatibility with Alpha 0.6–0.9 save data.
+
 # MycoVerse Changelog
 
 ## Alpha 0.9.0 — Laboratory & Miner Fusion

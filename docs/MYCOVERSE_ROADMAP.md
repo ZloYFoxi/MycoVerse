@@ -34,3 +34,9 @@
 - [ ] Toxic Forest
 - [ ] Ancient Hive
 - [ ] Void Bloom
+
+## Phase 6 - Live Events
+- [x] Golden Mushroom
+- [x] Golden Hour
+- [ ] Planet-specific event pools
+- [ ] Seasonal events

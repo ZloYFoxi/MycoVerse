@@ -1,3 +1,20 @@
+# Alpha 0.10.0 — Golden Grove
+
+## Golden Mushroom
+- The first mushroom becomes available shortly after a new game begins.
+- Later mushrooms mature every 15 minutes.
+- Each mushroom awards one miner specimen.
+- Drops use the Myco Prime rarity table: Common 70%, Rare 20%, Epic 7%, Legendary 2.5%, Mythic 0.5%.
+
+## Golden Hour
+- The first charge becomes ready after five minutes.
+- Activating it grants x2.5 production to all fungal miners for five minutes.
+- The event recharges over one hour.
+- Active status appears in a global banner.
+
+## Save compatibility
+Event state uses its own versioned save block. Older saves receive fresh event timers without losing existing progress.
+
 # Patch Notes
 
 ## Alpha 0.9.0 — Laboratory & Miner Fusion

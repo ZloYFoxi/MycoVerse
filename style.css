@@ -142,3 +142,100 @@
     .myco-lab-stats { grid-template-columns: 1fr; }
     .myco-lab-grid { grid-template-columns: 1fr; }
 }
+
+
+/* MycoVerse Golden Grove */
+.myco-golden-global {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin: 8px 0 14px;
+    padding: 10px 16px;
+    border: 1px solid rgba(255, 220, 92, .65);
+    border-radius: 10px;
+    color: #fff2ad;
+    background: linear-gradient(90deg, rgba(122, 78, 4, .92), rgba(207, 142, 13, .88), rgba(122, 78, 4, .92));
+    box-shadow: 0 0 24px rgba(255, 191, 35, .28);
+    letter-spacing: .5px;
+}
+.myco-golden-global strong { color: #fff; letter-spacing: 1.4px; }
+.myco-golden-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 22px;
+    align-items: center;
+    margin: 20px 0 18px;
+    padding: 24px;
+    border: 1px solid rgba(255, 211, 91, .38);
+    border-radius: 16px;
+    background:
+        radial-gradient(circle at top right, rgba(255, 209, 88, .2), transparent 38%),
+        rgba(25, 22, 10, .95);
+    box-shadow: 0 16px 38px rgba(0, 0, 0, .3);
+}
+.myco-golden-hero h2 { margin: 4px 0 8px; font-size: 32px; color: #ffe594; }
+.myco-golden-planet {
+    min-width: 170px;
+    text-align: center;
+    padding: 16px;
+    border-radius: 14px;
+    background: rgba(255, 213, 95, .1);
+}
+.myco-golden-planet span { display: block; font-size: 11px; opacity: .72; text-transform: uppercase; letter-spacing: 1px; }
+.myco-golden-planet strong { display: block; margin-top: 6px; font-size: 22px; color: #ffe594; }
+.myco-golden-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+.myco-event-card, .myco-drop-table {
+    padding: 20px;
+    border: 1px solid rgba(255, 220, 112, .24);
+    border-radius: 14px;
+    background: rgba(20, 19, 12, .92);
+}
+.myco-event-card h3 { margin-top: 4px; color: #ffe594; }
+.myco-event-icon { font-size: 48px; line-height: 1; margin-bottom: 8px; }
+.myco-event-status {
+    min-height: 42px;
+    margin: 14px 0 10px;
+    padding: 10px;
+    border-radius: 9px;
+    color: #ffeda8;
+    background: rgba(255, 216, 99, .08);
+}
+.myco-event-card .btn { width: 100%; }
+.myco-last-reward { margin-top: 13px; font-size: 12px; opacity: .85; }
+.myco-last-reward span { color: #ffe594; }
+.myco-hour-track {
+    height: 8px;
+    margin-top: 14px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(255,255,255,.1);
+}
+.myco-hour-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #ffb72e, #fff4a8);
+    transition: width .25s linear;
+}
+.myco-drop-table { margin-bottom: 30px; }
+.myco-drop-table h3 { margin-top: 0; color: #ffe594; }
+.myco-drop-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.myco-drop-row:last-child { border-bottom: 0; }
+@media (max-width: 760px) {
+    .myco-golden-hero { align-items: flex-start; flex-direction: column; padding: 18px; }
+    .myco-golden-planet { width: 100%; }
+    .myco-golden-grid { grid-template-columns: 1fr; }
+    .myco-golden-global { flex-wrap: wrap; gap: 8px 14px; font-size: 12px; }
+}
