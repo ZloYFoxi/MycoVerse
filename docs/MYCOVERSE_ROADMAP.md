@@ -16,9 +16,9 @@
 - [ ] Spore Nest
 
 ## Phase 3 - Laboratory
-- [ ] Mutations
-- [ ] DNA
-- [ ] Fusion
+- [x] Mutations
+- [x] DNA
+- [x] Fusion
 - [ ] Evolution
 
 ## Phase 4 - Miners

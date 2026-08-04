@@ -1,5 +1,10 @@
 # Patch Notes
 
+## Alpha 0.9.0 — Laboratory & Miner Fusion
+
+The colony can now cultivate duplicate specimens, fuse three matching specimens into a stronger species level, and spend fusion-produced DNA on permanent mutations. Laboratory research progress raises the laboratory level and unlocks up to three mutation slots per species. Existing saves remain compatible.
+
+
 ## Alpha 0.8.0 — Colony & Miner UI
 
 ### New

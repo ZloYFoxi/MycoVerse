@@ -1,5 +1,14 @@
 # MycoVerse Changelog
 
+## Alpha 0.9.0 — Laboratory & Miner Fusion
+- Added the Mycelium Laboratory tab.
+- Added persistent DNA and laboratory experience.
+- Added specimen cloning for discovered miners.
+- Added deterministic three-specimen fusion that evolves a species and rewards DNA.
+- Added random permanent income mutations with laboratory-level mutation slots.
+- Added save migration support for Alpha 0.6–0.8 miner saves.
+- Updated the displayed version to Alpha 0.9.0.
+
 ## Alpha 0.8.0 — Colony & Miner UI
 - Added a dedicated Colony dashboard with colony power, species, specimens, and combined levels.
 - Added passive miner traits that boost resource-specific or global miner production.

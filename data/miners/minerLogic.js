@@ -2,7 +2,7 @@ Game.miners = (function () {
     "use strict";
 
     var instance = {
-        dataVersion: 3,
+        dataVersion: 4,
         entries: {}
     };
 
@@ -22,7 +22,8 @@ Game.miners = (function () {
                 definition: definition,
                 owned: startOwned,
                 level: startOwned > 0 ? 1 : 0,
-                experience: 0
+                experience: 0,
+                mutations: []
             };
         }
     };
@@ -35,7 +36,8 @@ Game.miners = (function () {
             data.miners.entries[id] = {
                 owned: miner.owned,
                 level: miner.level,
-                experience: miner.experience
+                experience: miner.experience,
+                mutations: miner.mutations || []
             };
         }
     };
@@ -48,6 +50,7 @@ Game.miners = (function () {
             this.entries[id].owned = Math.max(0, normaliseNumber(saved.owned, 0));
             this.entries[id].level = Math.max(0, normaliseNumber(saved.level, 0));
             this.entries[id].experience = Math.max(0, normaliseNumber(saved.experience, 0));
+            this.entries[id].mutations = Array.isArray(saved.mutations) ? saved.mutations.slice(0, 3) : [];
             if (this.entries[id].owned > 0 && this.entries[id].level < 1) this.entries[id].level = 1;
         }
     };
@@ -88,6 +91,68 @@ Game.miners = (function () {
         return result;
     };
 
+    instance.getMutationPercent = function (id) {
+        var miner = this.entries[id];
+        if (!miner || !Array.isArray(miner.mutations)) return 0;
+        var total = 0;
+        for (var i = 0; i < miner.mutations.length; i++) {
+            total += Math.max(0, normaliseNumber(miner.mutations[i].incomePercent, 0));
+        }
+        return total;
+    };
+
+    instance.getMutationText = function (id) {
+        var miner = this.entries[id];
+        if (!miner || !miner.mutations || !miner.mutations.length) return "No mutations";
+        var result = [];
+        for (var i = 0; i < miner.mutations.length; i++) {
+            result.push(miner.mutations[i].name + " (+" + miner.mutations[i].incomePercent + "%)");
+        }
+        return result.join(" • ");
+    };
+
+    instance.getCloneCost = function (id) {
+        var miner = this.entries[id];
+        if (!miner || miner.owned <= 0) return Infinity;
+        var base = Math.max(10, normaliseNumber(miner.definition.upgradeBaseCost, 10) * 2);
+        return Math.floor(base * Math.pow(1.35, Math.max(0, miner.owned - 1)));
+    };
+
+    instance.clone = function (id) {
+        var miner = this.entries[id];
+        if (!miner || miner.owned <= 0) return false;
+        var cost = this.getCloneCost(id);
+        if (Game.resources.getResource(RESOURCE.Wood) < cost) {
+            Game.notifyInfo("Not enough Spores", "Cloning this organism requires " + cost + " Spores.");
+            return false;
+        }
+        Game.resources.takeResource(RESOURCE.Wood, cost);
+        miner.owned += 1;
+        Game.notifySuccess("Clone cultivated", miner.definition.name + " now has " + miner.owned + " specimens.");
+        return true;
+    };
+
+    instance.canFuse = function (id) {
+        var miner = this.entries[id];
+        return !!miner && miner.owned >= 3 && miner.level < miner.definition.maxLevel;
+    };
+
+    instance.fuse = function (id) {
+        var miner = this.entries[id];
+        if (!miner || miner.owned < 3) {
+            Game.notifyInfo("More specimens required", "Fusion requires 3 specimens of the same species.");
+            return false;
+        }
+        if (miner.level >= miner.definition.maxLevel) {
+            Game.notifyInfo("Maximum evolution", "This species cannot evolve any further.");
+            return false;
+        }
+        miner.owned -= 2;
+        miner.level += 1;
+        miner.experience += miner.level * 25;
+        return true;
+    };
+
     instance.getBaseMinerIncome = function (id) {
         var miner = this.entries[id];
         if (!miner || miner.owned <= 0 || miner.level <= 0) return 0;
@@ -100,7 +165,8 @@ Game.miners = (function () {
         var base = this.getBaseMinerIncome(id);
         var bonuses = this.getPassiveBonuses();
         var percent = bonuses.global + (bonuses.resources[miner.definition.resource] || 0);
-        return base * (1 + percent / 100);
+        var mutationPercent = this.getMutationPercent(id);
+        return base * (1 + percent / 100) * (1 + mutationPercent / 100);
     };
 
     instance.getResourceIncome = function (resourceId) {
