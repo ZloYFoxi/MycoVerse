@@ -1,3 +1,7 @@
+## Alpha 0.36.2 — Miner Cards & Rarity UI Polish
+
+Miner presentation is now consistent across the roster, shop, inventory, and marketplace. Cards clearly show rarity, status, level, ownership, resource, income per minute, and health. Injured miners receive a visible warning when their production is reduced below half health.
+
 ## Alpha 0.36.1 — Miner Portrait Rebuild
 
 All 41 miners now use individual high-detail portraits rather than blurry crops or shared placeholders. Portraits remain static and do not open when clicked. The same artwork is used consistently in Miners, Miner Shop, Inventory, and Marketplace.

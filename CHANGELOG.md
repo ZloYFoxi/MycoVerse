@@ -1,3 +1,12 @@
+# Alpha 0.36.2 — Miner Cards & Rarity UI Polish
+
+- Unified miner cards across Miners, Miner Shop, Inventory, and Marketplace.
+- Added rarity frames, compact stat blocks, resource and per-minute income labels.
+- Added Mining, Injured, Healing, Available, and Locked visual states.
+- Added HP progress and a below-50% production warning.
+- Added responsive two-column mobile cards and wider desktop layouts.
+- Added fixed image dimensions, square aspect ratios, contain scaling, lazy loading, and asynchronous decoding.
+
 # Alpha 0.36.1 — Miner Portrait Rebuild
 
 - Replaced all 41 legacy miner portraits with individually generated, sharp square character cards.

@@ -56,13 +56,17 @@ Game.marketUI = (function () {
         var offerHtml = [];
         for (var i = 0; i < offers.length; i++) {
             var offer = offers[i];
-            offerHtml.push(
-                '<div class="myco-offer-card"><div class="myco-offer-type">' + offer.itemType.toUpperCase() + ' • ' + offer.rarity + '</div>' +
-                (offer.itemType === 'miner' ? '<div class="myco-shop-miner-art"><img src="' + Game.visualAssets.getMinerPortrait(offer.itemId) + '" alt="' + offer.title + ' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"></div>' : '') +
-                '<h4>' + offer.title + '</h4><p>' + offer.description + '</p>' +
-                '<div class="myco-offer-footer"><strong>' + fmt(offer.price) + ' MycoCoins</strong>' +
-                '<button class="btn btn-success market-buy-button" data-offer-id="' + offer.id + '">Buy</button></div></div>'
-            );
+            if (offer.itemType === 'miner' && Game.minerData[offer.itemId]) {
+                var d = Game.minerData[offer.itemId];
+                var ownedCount = 0;
+                var allMiners = Game.miners.getEntriesSorted();
+                for (var oi = 0; oi < allMiners.length; oi++) if (allMiners[oi].id === offer.itemId) { ownedCount = allMiners[oi].owned; break; }
+                var shopLike = { id: offer.itemId, definition: d, free: false, unlocked: true, owned: ownedCount, unlockLevel: 0, xp: 0 };
+                var buy = '<div class="myco-card-footer"><strong>' + fmt(offer.price) + ' MycoCoins</strong><button class="btn btn-success market-buy-button" data-offer-id="' + offer.id + '">Buy</button></div>';
+                offerHtml.push(Game.minerCardUI.shopCard(shopLike, buy));
+            } else {
+                offerHtml.push('<div class="myco-offer-card"><div class="myco-offer-type">' + offer.itemType.toUpperCase() + ' • ' + offer.rarity + '</div><h4>' + offer.title + '</h4><p>' + offer.description + '</p><div class="myco-offer-footer"><strong>' + fmt(offer.price) + ' MycoCoins</strong><button class="btn btn-success market-buy-button" data-offer-id="' + offer.id + '">Buy</button></div></div>');
+            }
         }
         $("#marketOffers").html(offerHtml.join("") || '<p class="text-muted">No offers available.</p>');
 
@@ -73,7 +77,7 @@ Game.marketUI = (function () {
             if (miner.owned <= 1) continue;
             var price = Game.market.getSellPrice(miner.id);
             sellHtml.push(
-                '<div class="myco-sell-row myco-sell-row-with-portrait"><img class="myco-sell-miner-portrait" src="' + Game.visualAssets.getMinerPortrait(miner.id) + '" alt="' + miner.definition.name + ' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"><div><strong>' + miner.definition.name + '</strong><div class="myco-small-note">Owned: ' + miner.owned + ' • Level ' + miner.level + '</div></div>' +
+                '<div class="myco-sell-row myco-sell-row-with-portrait rarity-' + miner.definition.rarity.id + '" style="--rarity:' + miner.definition.rarity.color + '"><img class="myco-sell-miner-portrait" src="' + Game.visualAssets.getMinerPortrait(miner.id) + '" alt="' + miner.definition.name + ' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"><div><strong>' + miner.definition.name + '</strong><div class="myco-small-note">Owned: ' + miner.owned + ' • Level ' + miner.level + '</div></div>' +
                 '<div><strong>' + fmt(price) + '</strong> <button class="btn btn-warning market-sell-button" data-miner-id="' + miner.id + '">Sell 1</button></div></div>'
             );
         }

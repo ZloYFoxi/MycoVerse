@@ -1,4 +1,4 @@
-# MycoVerse Alpha 0.36.1 — Miner Portrait Rebuild
+# MycoVerse Alpha 0.36.2 — Miner Cards & Rarity UI Polish
 
 The approved visual direction is now connected to a centralized runtime asset pipeline for screen backgrounds, miners, bosses, planets, and rarity treatments.
 

@@ -60,23 +60,12 @@ Game.minerUI = (function () {
             var maxHp = Game.miners.getMaxHealth(id);
             var healthText = Game.miners.getHealthStatusText(id);
 
-            cards.push(
-                '<div class="myco-miner-card ' + (!owned ? 'miner-locked' : '') + '" style="border-color:' + definition.rarity.color + '">' +
-                '<div class="myco-miner-art-frame"><img class="myco-miner-art" src="' + Game.visualAssets.getMinerPortrait(id) + '" alt="' + definition.name + ' portrait" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=Game.visualAssets.getMinerPortraitFallback();"></div>' +
-                '<div class="myco-miner-rarity" style="color:' + definition.rarity.color + '">' + definition.rarity.name + '</div>' +
-                '<h3>' + definition.name + '</h3><p>' + definition.description + '</p>' +
-                '<div><strong>Owned:</strong> ' + miner.owned + '</div>' +
-                '<div><strong>Level:</strong> ' + miner.level + ' / ' + definition.maxLevel + '</div>' +
-                '<div><strong>Income:</strong> ' + (income * 60).toFixed(2) + ' ' + resourceName(definition.resource) + '/min</div>' +
-                    '<div class="myco-boss-health-label"><span>HP</span><strong>' + Math.floor(currentHp) + ' / ' + Math.floor(maxHp) + '</strong></div>' +
-                    '<progress class="myco-native-progress team" value="' + currentHp + '" max="' + Math.max(1,maxHp) + '">' + Math.round(maxHp?currentHp/maxHp*100:0) + '%</progress>' +
-                    '<div class="myco-small-note">' + healthText + '</div>' +
+            var extraHtml =
                 '<div class="myco-miner-passive"><strong>Passive:</strong> ' + Game.miners.getPassiveBonusText(id) + '</div>' +
                 '<div class="myco-level-track"><span style="width:' + Math.min(100, (miner.level / definition.maxLevel) * 100) + '%"></span></div>' +
-                '<button class="btn btn-success miner-upgrade-button" data-miner-id="' + id + '" ' + (maxed ? 'disabled' : '') + '>' +
-                (maxed ? 'Maximum evolution' : 'Evolve — ' + formatNumber(cost) + ' Spores') + '</button>' +
-                '</div>'
-            );
+                '<button class="btn btn-success miner-upgrade-button myco-card-action" data-miner-id="' + id + '" ' + (maxed ? 'disabled' : '') + '>' +
+                (maxed ? 'Maximum evolution' : 'Evolve — ' + formatNumber(cost) + ' Spores') + '</button>';
+            cards.push(Game.minerCardUI.ownedCard(id, miner, { extraHtml: extraHtml }));
         }
 
         $("#minerCardGrid").html(cards.join("") || '<div class="myco-miner-empty">No active miners. Visit the Miner Shop to recruit your first organism.</div>');
