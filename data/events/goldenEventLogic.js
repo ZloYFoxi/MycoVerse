@@ -159,6 +159,10 @@ Game.goldenEvents = (function () {
         var entry = Game.miners.getEntry(minerId);
         var wasDiscovered = entry && entry.owned > 0;
         Game.miners.unlock(minerId, 1);
+        if (Game.account) {
+            var rarityXp = { common:20, rare:40, epic:80, legendary:150, mythic:250 };
+            Game.account.addXp(rarityXp[Game.minerData[minerId].rarity.id] || 20, "Golden Mushroom", true);
+        }
 
         this.mushroomsOpened += 1;
         this.nextMushroomAt = now() + Game.goldenEventData.mushroomCooldown;

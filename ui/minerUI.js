@@ -51,6 +51,7 @@ Game.minerUI = (function () {
             var id = miner.id;
             var definition = miner.definition;
             var owned = miner.owned > 0;
+            if (!owned) continue;
             var income = Game.miners.getMinerIncome(id);
             var maxed = miner.level >= definition.maxLevel;
             var cost = Game.miners.getUpgradeCost(id);
@@ -60,22 +61,18 @@ Game.minerUI = (function () {
                 '<div class="myco-miner-card ' + (!owned ? 'miner-locked' : '') + '" style="border-color:' + definition.rarity.color + '">' +
                 '<div class="myco-miner-rarity" style="color:' + definition.rarity.color + '">' + definition.rarity.name + '</div>' +
                 '<h3>' + definition.name + '</h3><p>' + definition.description + '</p>' +
-                (owned ?
-                    '<div><strong>Owned:</strong> ' + miner.owned + '</div>' +
-                    '<div><strong>Level:</strong> ' + miner.level + ' / ' + definition.maxLevel + '</div>' +
-                    '<div><strong>Income:</strong> ' + income.toFixed(2) + ' ' + resourceName(definition.resource) + '/s</div>' +
-                    '<div class="myco-miner-passive"><strong>Passive:</strong> ' + Game.miners.getPassiveBonusText(id) + '</div>' +
-                    '<div class="myco-level-track"><span style="width:' + Math.min(100, (miner.level / definition.maxLevel) * 100) + '%"></span></div>' +
-                    '<button class="btn btn-success miner-upgrade-button" data-miner-id="' + id + '" ' + (maxed ? 'disabled' : '') + '>' +
-                    (maxed ? 'Maximum evolution' : 'Evolve — ' + formatNumber(cost) + ' Spores') + '</button>'
-                    :
-                    '<div class="myco-miner-undiscovered">Undiscovered organism</div>' +
-                    (definition.bossExclusive ? '<button class="btn btn-warning" disabled>Defeat Planet Boss</button>' : '<button class="btn btn-primary miner-discover-button" data-miner-id="' + id + '">Awaken — ' + formatNumber(unlockCost) + ' Spores</button>')) +
+                '<div><strong>Owned:</strong> ' + miner.owned + '</div>' +
+                '<div><strong>Level:</strong> ' + miner.level + ' / ' + definition.maxLevel + '</div>' +
+                '<div><strong>Income:</strong> ' + income.toFixed(2) + ' ' + resourceName(definition.resource) + '/s</div>' +
+                '<div class="myco-miner-passive"><strong>Passive:</strong> ' + Game.miners.getPassiveBonusText(id) + '</div>' +
+                '<div class="myco-level-track"><span style="width:' + Math.min(100, (miner.level / definition.maxLevel) * 100) + '%"></span></div>' +
+                '<button class="btn btn-success miner-upgrade-button" data-miner-id="' + id + '" ' + (maxed ? 'disabled' : '') + '>' +
+                (maxed ? 'Maximum evolution' : 'Evolve — ' + formatNumber(cost) + ' Spores') + '</button>' +
                 '</div>'
             );
         }
 
-        $("#minerCardGrid").html(cards.join(""));
+        $("#minerCardGrid").html(cards.join("") || '<div class="myco-miner-empty">No active miners. Visit the Miner Shop to recruit your first organism.</div>');
         var progress = Game.miners.getCollectionProgress();
         $("#minerCollection").text("Collection: " + progress.owned + " / " + progress.total);
 

@@ -47,7 +47,9 @@ Game.artifacts = (function () {
 
     instance.add = function (id, amount) {
         if (!Game.artifactData.entries[id]) return false;
+        var firstDiscovery = this.getCount(id) <= 0;
         this.inventory[id] = this.getCount(id) + Math.max(1, Math.floor(num(amount, 1)));
+        if (firstDiscovery && Game.account) Game.account.addXp(45, "Artifact discovered", true);
         this.history.push({ id: id, foundAt: Date.now() });
         return true;
     };

@@ -1,3 +1,7 @@
+## Alpha 0.23.0 — Miner Shop, Owned Miners & Commander XP
+
+The Miners screen now shows only active owned miners. Undiscovered miners have moved into a dedicated Miner Shop. Commander progression now uses explicit XP earned across purchases, quests, expeditions, upgrades, fusion, bosses, discoveries, research, and daily activity. Early access starts with Account, Inventory, Miner Shop, Miners, and Quests at level 1.
+
 ## Alpha 0.22.0 — Economy Rebalance & ROI
 
 The new Economy Center converts every miner output into a shared Spore Equivalent value. This makes upgrade payback comparable across Spores, Gems, Science, and later resources. Marketplace prices now use the same fair-value model, while all upgrades and trades are recorded in a persistent economy history.

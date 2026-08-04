@@ -114,6 +114,7 @@ Game.planets = (function () {
             return false;
         }
         this.unlocked[id] = true;
+        if (Game.account) Game.account.addXp(120, "New planet discovered", true);
         Game.notifySuccess("New planet discovered", planet.name + " has joined the MycoVerse.");
         return true;
     };

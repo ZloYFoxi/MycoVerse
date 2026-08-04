@@ -5,7 +5,7 @@ Game.quests = (function () {
         dataVersion: 1,
         completedStory: {},
         claimedDaily: {},
-        dailyStats: { production: 0, upgrades: 0, expeditions: 0 },
+        dailyStats: { production: 0, upgrades: 0, expeditions: 0, purchases: 0, fusions: 0, bosses: 0 },
         dailyKey: "",
         activeExpeditions: [],
         history: []
@@ -43,7 +43,7 @@ Game.quests = (function () {
     instance.initialise = function () {
         this.completedStory = {};
         this.claimedDaily = {};
-        this.dailyStats = { production: 0, upgrades: 0, expeditions: 0 };
+        this.dailyStats = { production: 0, upgrades: 0, expeditions: 0, purchases: 0, fusions: 0, bosses: 0 };
         this.dailyKey = dayKey();
         this.activeExpeditions = [];
         this.history = [];
@@ -69,7 +69,7 @@ Game.quests = (function () {
         var saved = data.quests;
         this.completedStory = saved.completedStory || {};
         this.claimedDaily = saved.claimedDaily || {};
-        this.dailyStats = saved.dailyStats || { production: 0, upgrades: 0, expeditions: 0 };
+        this.dailyStats = saved.dailyStats || { production: 0, upgrades: 0, expeditions: 0, purchases: 0, fusions: 0, bosses: 0 };
         this.dailyKey = saved.dailyKey || dayKey();
         this.activeExpeditions = Array.isArray(saved.activeExpeditions) ? saved.activeExpeditions : [];
         this.history = Array.isArray(saved.history) ? saved.history.slice(-20) : [];
@@ -81,7 +81,7 @@ Game.quests = (function () {
         if (this.dailyKey === current) return;
         this.dailyKey = current;
         this.claimedDaily = {};
-        this.dailyStats = { production: 0, upgrades: 0, expeditions: 0 };
+        this.dailyStats = { production: 0, upgrades: 0, expeditions: 0, purchases: 0, fusions: 0, bosses: 0 };
     };
 
     instance.recordUpgrade = function () {
@@ -89,10 +89,10 @@ Game.quests = (function () {
         this.dailyStats.upgrades += 1;
     };
 
-    instance.recordProduction = function (amount) {
-        this.ensureDailyReset();
-        this.dailyStats.production += Math.max(0, number(amount, 0));
-    };
+    instance.recordProduction = function (amount) { this.ensureDailyReset(); this.dailyStats.production += Math.max(0, number(amount, 0)); };
+    instance.recordMinerPurchase = function () { this.ensureDailyReset(); this.dailyStats.purchases = (this.dailyStats.purchases || 0) + 1; };
+    instance.recordFusion = function () { this.ensureDailyReset(); this.dailyStats.fusions = (this.dailyStats.fusions || 0) + 1; };
+    instance.recordBossDefeat = function () { this.ensureDailyReset(); this.dailyStats.bosses = (this.dailyStats.bosses || 0) + 1; };
 
     instance.getObjectiveProgress = function (objective) {
         if (!objective) return 0;
@@ -113,9 +113,15 @@ Game.quests = (function () {
             case "dailyUpgrades":
                 this.ensureDailyReset();
                 return this.dailyStats.upgrades;
-            case "dailyExpeditions":
-                this.ensureDailyReset();
-                return this.dailyStats.expeditions;
+            case "dailyExpeditions": this.ensureDailyReset(); return this.dailyStats.expeditions;
+            case "dailyPurchases": this.ensureDailyReset(); return this.dailyStats.purchases || 0;
+            case "dailyFusions": this.ensureDailyReset(); return this.dailyStats.fusions || 0;
+            case "dailyBosses": this.ensureDailyReset(); return this.dailyStats.bosses || 0;
+            case "profileLevel": return Game.account.getLevelInfo().level;
+            case "minersPurchased": return Game.account.getStat("minersPurchased");
+            case "fusionsCompleted": return Game.account.getStat("fusionsCompleted");
+            case "bossesDefeated": return Game.account.getStat("bossesDefeated");
+            case "coinsEarned": return Game.account.getSummary().totalCoinsEarned;
             default:
                 return 0;
         }
@@ -132,12 +138,10 @@ Game.quests = (function () {
             if (!rewards.hasOwnProperty(key) || key === "minerId" || key === "minerAmount" || key === "minerChance") continue;
             var amount = randomInt(rewards[key]);
             if (amount <= 0) continue;
-            if (key === "dna") {
-                Game.laboratory.addDNA(amount);
-            } else {
-                Game.resources.addResource(resourceId(key), amount);
-            }
-            summary.push(amount + " " + resourceName(key));
+            if (key === "dna") Game.laboratory.addDNA(amount);
+            else if (key === "xp") Game.account.addXp(amount, "Quest reward", true);
+            else Game.resources.addResource(resourceId(key), amount);
+            summary.push(amount + " " + (key === "xp" ? "Commander XP" : resourceName(key)));
         }
 
         if (rewards.minerId) {
@@ -155,6 +159,7 @@ Game.quests = (function () {
         var quest = Game.questData.story[id];
         if (!quest || this.completedStory[id] || !this.isObjectiveComplete(quest.objective)) return false;
         this.completedStory[id] = true;
+        if (Game.account) Game.account.recordStat("questsClaimed", 1);
         var rewards = this.grantRewards(quest.rewards);
         Game.notifySuccess("Story quest complete", quest.name + ": " + rewards.join(", "));
         return true;
@@ -168,6 +173,7 @@ Game.quests = (function () {
         }
         if (!quest || this.claimedDaily[id] || !this.isObjectiveComplete(quest.objective)) return false;
         this.claimedDaily[id] = true;
+        if (Game.account) Game.account.recordStat("questsClaimed", 1);
         var rewards = this.grantRewards(quest.rewards);
         Game.notifySuccess("Daily quest complete", quest.name + ": " + rewards.join(", "));
         return true;
@@ -246,6 +252,7 @@ Game.quests = (function () {
             if (artifactId && Game.artifactData.entries[artifactId]) rewards.push(Game.artifactData.entries[artifactId].name + " artifact");
         }
         this.dailyStats.expeditions += 1;
+        if (Game.account) { Game.account.addXp(Math.max(40, Math.floor(expedition.durationSeconds / 90)), "Expedition completed", true); Game.account.recordStat("expeditionsCompleted", 1); }
         this.history.push({ id: id, completedAt: Date.now(), rewards: rewards });
         this.activeExpeditions = this.activeExpeditions.filter(function (entry) { return entry.id !== id; });
         Game.notifySuccess("Expedition returned", expedition.name + ": " + rewards.join(", "));

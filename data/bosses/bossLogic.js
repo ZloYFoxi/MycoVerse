@@ -205,6 +205,8 @@ Game.bosses = (function () {
         var boss = this.getBoss(this.activeBattle.bossId);
         this.defeated[boss.id] = { defeatedAt: now(), damage: this.activeBattle.totalDamage };
         this.applyRewards(boss);
+        if (Game.account) { Game.account.addXp(250 + ((boss.league || 1) * 100), "Boss victory", true); Game.account.recordStat("bossesDefeated", 1); }
+        if (Game.quests && Game.quests.recordBossDefeat) Game.quests.recordBossDefeat();
         this.history.unshift({ bossId: boss.id, result: "victory", at: now(), damage: this.activeBattle.totalDamage });
         this.history = this.history.slice(0, 20);
         this.activeBattle = null;

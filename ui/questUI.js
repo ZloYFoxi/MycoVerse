@@ -25,8 +25,8 @@ Game.questUI = (function () {
             if (!rewards.hasOwnProperty(key) || key === "minerChance" || key === "minerId" || key === "minerAmount") continue;
             var value = rewards[key];
             var display = Array.isArray(value) ? value[0] + "–" + value[1] : value;
-            var name = key === "spores" ? "Spores" : (key === "dna" ? "DNA" :
-                (Game.resourceData[key] ? Game.resourceData[key].name : key));
+            var name = key === "spores" ? "Spores" : (key === "dna" ? "DNA" : (key === "xp" ? "Commander XP" :
+                (Game.resourceData[key] ? Game.resourceData[key].name : key)));
             parts.push(display + " " + name);
         }
         if (rewards.minerId && Game.minerData[rewards.minerId]) {

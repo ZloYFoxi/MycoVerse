@@ -82,12 +82,14 @@ var Game = (function() {
         self.accountUI.update(delta);
         self.inventoryUI.update(delta);
         self.marketUI.update(delta);
+        self.minerShopUI.update(delta);
         self.bossUI.update(delta);
         self.unionUI.update(delta);
         self.unions.update(delta);
         self.economy.update(delta);
         self.economyUI.update(delta);
         self.frontendUI.update(delta);
+        self.accessUI.update(delta);
         self.market.update(delta);
         self.bosses.update(delta);
 
@@ -178,6 +180,7 @@ var Game = (function() {
         this.account.save(data);
         this.backend.save(data);
         this.market.save(data);
+        this.minerShop.save(data);
         this.bosses.save(data);
         this.unions.save(data);
         this.economy.save(data);
@@ -215,6 +218,7 @@ var Game = (function() {
             this.account.load(data);
             this.backend.load(data);
             this.market.load(data);
+            this.minerShop.load(data);
             this.bosses.load(data);
             this.unions.load(data);
             this.economy.load(data);
@@ -311,6 +315,7 @@ var Game = (function() {
         self.account.initialise();
         self.backend.initialise();
         self.market.initialise();
+        self.minerShop.initialise();
         self.bosses.initialise();
         self.unions.initialise();
         self.economy.initialise();
@@ -333,10 +338,12 @@ var Game = (function() {
         self.accountUI.initialise();
         self.inventoryUI.initialise();
         self.marketUI.initialise();
+        self.minerShopUI.initialise();
         self.bossUI.initialise();
         self.unionUI.initialise();
         self.economyUI.initialise();
         self.frontendUI.initialise();
+        self.accessUI.initialise();
 
         for(var i = 0; i < self.uiComponents.length; i++) {
             self.uiComponents[i].initialise();

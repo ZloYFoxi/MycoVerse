@@ -41,6 +41,7 @@ Game.research = (function () {
         for (var id in loaded) {
             if (loaded.hasOwnProperty(id) && Game.researchData.nodes[id] && loaded[id]) {
                 this.purchased[id] = true;
+        if (Game.account) Game.account.addXp(35, "Research completed", true);
             }
         }
         this.specialization = Game.researchData.specializations[saved.specialization] ? saved.specialization : null;
@@ -123,6 +124,7 @@ Game.research = (function () {
         }
         this.insight -= node.cost;
         this.purchased[id] = true;
+        if (Game.account) Game.account.addXp(35, "Research completed", true);
         Game.notifySuccess("Research completed", node.name + " now strengthens the colony.");
         return true;
     };

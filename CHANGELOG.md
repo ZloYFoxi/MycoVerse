@@ -1,3 +1,15 @@
+# Alpha 0.23.0 — Miner Shop, Owned Miners & Commander XP
+
+- Miners tab now displays only miners owned by the player and available for production.
+- Added a dedicated Miner Shop for purchasing undiscovered non-boss miners with MycoCoins.
+- Added rarity-based Commander XP rewards for miner purchases: Common 50, Rare 90, Epic 170, Legendary 320, Mythic 550.
+- Reworked Commander Level to use explicit persistent XP with migration from older profile scores.
+- Made Account, Inventory, Miner Shop, Miners, and Quests available at Commander Level 1.
+- Added staged profile-level access for later systems.
+- Expanded story quests from 6 to 12 and daily quests from 3 to 6.
+- Added XP rewards for quests, expeditions, upgrades, fusion, bosses, planets, research, artifacts, Golden Mushrooms, and daily rewards.
+- Preserved compatibility with Alpha 0.6–0.22 saves.
+
 # Alpha 0.22.0 — Economy Rebalance & ROI
 
 - Added a dedicated Economy tab with production, market, investment, and transaction metrics.

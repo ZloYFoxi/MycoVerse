@@ -153,6 +153,8 @@ Game.miners = (function () {
         miner.owned -= 2;
         miner.level += 1;
         miner.experience += miner.level * 25;
+        if (Game.account) { Game.account.addXp(30, "Miner fusion", true); Game.account.recordStat("fusionsCompleted", 1); }
+        if (Game.quests && Game.quests.recordFusion) Game.quests.recordFusion();
         return true;
     };
 
@@ -274,6 +276,7 @@ Game.miners = (function () {
         miner.level += 1;
         miner.experience += cost;
         if (Game.quests && Game.quests.recordUpgrade) Game.quests.recordUpgrade();
+        if (Game.account) { Game.account.addXp(5, "Miner evolution", true); Game.account.recordStat("upgradesPurchased", 1); }
         return true;
     };
 
