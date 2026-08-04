@@ -23,7 +23,7 @@ Game.laboratoryUI = (function () {
             '<div class="myco-lab-stats"><article><span>Laboratory level</span><strong id="laboratoryLevel">1</strong></article>' +
             '<article><span>Mutation slots</span><strong id="laboratorySlots">1</strong></article>' +
             '<article><span>Research progress</span><strong id="laboratoryProgress">0%</strong></article></div>' +
-            '<div id="laboratoryMinerGrid" class="myco-lab-grid"></div></div>'
+            '<section class="myco-panel myco-medical-panel"><div class="myco-eyebrow">MEDICAL CHAMBER</div><h3>Combat Recovery</h3><p>Heal injured miners after planetary gate battles. Miners below 50% HP mine more slowly.</p><div id="medicalSummary"></div><button id="healAllMiners" class="btn btn-danger">Heal All Miners</button></section><div id="laboratoryMinerGrid" class="myco-lab-grid"></div></div>'
         );
 
         $("#laboratoryMinerGrid").on("click", ".lab-clone-button", function () {
@@ -38,6 +38,10 @@ Game.laboratoryUI = (function () {
             Game.laboratory.mutate($(this).attr("data-miner-id"));
             instance.render();
         });
+
+        $(document).on("click", ".lab-heal-quarter", function () { Game.laboratory.healMiner($(this).attr("data-miner-id"), false); instance.render(); });
+        $(document).on("click", ".lab-heal-full", function () { Game.laboratory.healMiner($(this).attr("data-miner-id"), true); instance.render(); });
+        $(document).on("click", "#healAllMiners", function () { Game.laboratory.healAll(); instance.render(); });
 
         this.initialised = true;
         this.render();
@@ -64,6 +68,10 @@ Game.laboratoryUI = (function () {
             var fuseDisabled = !Game.miners.canFuse(id);
             var mutationDisabled = miner.mutations.length >= slots;
 
+            var hp = Game.miners.getCurrentHealth(id);
+            var maxHp = Game.miners.getMaxHealth(id);
+            var healQuarter = Game.laboratory.getHealCost(id, false);
+            var healFull = Game.laboratory.getHealCost(id, true);
             cards.push(
                 '<article class="myco-lab-card" style="border-color:' + miner.definition.rarity.color + '">' +
                 '<div class="myco-miner-rarity" style="color:' + miner.definition.rarity.color + '">' + miner.definition.rarity.name + '</div>' +
@@ -71,12 +79,21 @@ Game.laboratoryUI = (function () {
                 '<div class="myco-lab-row"><span>Specimens</span><strong>' + miner.owned + '</strong></div>' +
                 '<div class="myco-lab-row"><span>Species level</span><strong>' + miner.level + '</strong></div>' +
                 '<div class="myco-lab-mutations"><strong>Mutations:</strong> ' + Game.miners.getMutationText(id) + '</div>' +
+                '<div class="myco-boss-health-label"><span>Health</span><strong>' + format(hp) + ' / ' + format(maxHp) + '</strong></div>' +
+                '<progress class="myco-native-progress team" value="' + hp + '" max="' + Math.max(1,maxHp) + '">' + Math.round(maxHp?hp/maxHp*100:0) + '%</progress>' +
+                '<div class="myco-small-note">' + Game.miners.getHealthStatusText(id) + '</div>' +
                 '<button class="btn btn-info lab-clone-button" data-miner-id="' + id + '">Clone — ' + format(cloneCost) + ' Spores</button>' +
                 '<button class="btn btn-warning lab-fuse-button" data-miner-id="' + id + '" ' + (fuseDisabled ? 'disabled' : '') + '>Fuse 3 — +' + fusionReward + ' DNA</button>' +
                 '<button class="btn btn-success lab-mutate-button" data-miner-id="' + id + '" ' + (mutationDisabled ? 'disabled' : '') + '>Mutate — ' + format(mutationCost) + ' DNA</button>' +
+                '<button class="btn btn-warning lab-heal-quarter" data-miner-id="' + id + '" ' + (healQuarter.healAmount<=0?'disabled':'') + '>Heal 25% — ' + format(healQuarter.spores) + ' Spores, ' + format(healQuarter.science) + ' Science, ' + healQuarter.dna + ' DNA</button>' +
+                '<button class="btn btn-danger lab-heal-full" data-miner-id="' + id + '" ' + (healFull.healAmount<=0?'disabled':'') + '>Heal Fully — ' + format(healFull.spores) + ' Spores, ' + format(healFull.science) + ' Science, ' + healFull.dna + ' DNA</button>' +
                 '</article>'
             );
         }
+        var totalHealth = Game.miners.getTotalHealth();
+        var allCost = Game.laboratory.getHealAllCost();
+        $("#medicalSummary").html("<div class=\"myco-boss-health-label\"><span>Colony health</span><strong>" + format(totalHealth.current) + " / " + format(totalHealth.max) + "</strong></div><progress class=\"myco-native-progress team\" value=\"" + totalHealth.current + "\" max=\"" + Math.max(1,totalHealth.max) + "\"></progress><div class=\"myco-small-note\">Heal all cost: " + format(allCost.spores) + " Spores, " + format(allCost.science) + " Science, " + allCost.dna + " DNA</div>");
+        $("#healAllMiners").prop("disabled", allCost.healAmount <= 0);
         $("#laboratoryMinerGrid").html(cards.length ? cards.join("") : '<p class="text-muted">Awaken a miner species before beginning laboratory work.</p>');
     };
 

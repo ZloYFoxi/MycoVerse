@@ -68,6 +68,78 @@ Game.laboratory = (function () {
         return Math.floor(base * Math.pow(1.75, entry.mutations.length));
     };
 
+
+    instance.getHealCost = function (minerId, full) {
+        var entry = Game.miners.getEntry(minerId);
+        if (!entry || entry.owned <= 0) return null;
+        var maxHealth = Game.miners.getMaxHealth(minerId);
+        var currentHealth = Game.miners.getCurrentHealth(minerId);
+        var missing = Math.max(0, maxHealth - currentHealth);
+        if (!full) missing = Math.min(missing, maxHealth * 0.25);
+        var rarity = entry.definition.rarity && entry.definition.rarity.incomeMultiplier ? entry.definition.rarity.incomeMultiplier : 1;
+        var efficiency = Math.max(0.45, 1 - (this.getLevel() - 1) * 0.04);
+        if (Game.guild && Game.guild.getHealingCostMultiplier) efficiency *= Game.guild.getHealingCostMultiplier();
+        return {
+            healAmount: Math.ceil(missing),
+            spores: Math.ceil(missing * rarity * 0.65 * efficiency),
+            dna: Math.ceil(missing * 0.012 * rarity * efficiency),
+            science: Math.ceil(missing * 0.08 * efficiency)
+        };
+    };
+
+    instance.canAffordHeal = function (cost) {
+        if (!cost || cost.healAmount <= 0) return false;
+        return Game.resources.getResource(RESOURCE.Wood) >= cost.spores &&
+            Game.resources.getResource(RESOURCE.Science) >= cost.science &&
+            this.dna >= cost.dna;
+    };
+
+    instance.healMiner = function (minerId, full) {
+        var cost = this.getHealCost(minerId, full);
+        if (!cost || cost.healAmount <= 0) return false;
+        if (!this.canAffordHeal(cost)) {
+            Game.notifyInfo("Treatment unavailable", "Medical treatment requires " + cost.spores + " Spores, " + cost.science + " Science and " + cost.dna + " DNA.");
+            return false;
+        }
+        Game.resources.takeResource(RESOURCE.Wood, cost.spores);
+        Game.resources.takeResource(RESOURCE.Science, cost.science);
+        this.dna -= cost.dna;
+        var healed = Game.miners.healMiner(minerId, cost.healAmount);
+        this.addExperience(Math.max(2, Math.floor(healed / 10)));
+        Game.notifySuccess("Miner treated", Game.miners.getEntry(minerId).definition.name + " recovered " + Math.floor(healed) + " HP.");
+        return true;
+    };
+
+    instance.getHealAllCost = function () {
+        var total = { healAmount: 0, spores: 0, dna: 0, science: 0 };
+        var miners = Game.miners.getEntriesSorted();
+        for (var i = 0; i < miners.length; i++) {
+            if (miners[i].owned <= 0) continue;
+            var cost = this.getHealCost(miners[i].id, true);
+            if (!cost) continue;
+            total.healAmount += cost.healAmount;
+            total.spores += cost.spores;
+            total.dna += cost.dna;
+            total.science += cost.science;
+        }
+        return total;
+    };
+
+    instance.healAll = function () {
+        var cost = this.getHealAllCost();
+        if (!this.canAffordHeal(cost)) {
+            Game.notifyInfo("Treatment unavailable", "Healing the colony requires " + cost.spores + " Spores, " + cost.science + " Science and " + cost.dna + " DNA.");
+            return false;
+        }
+        Game.resources.takeResource(RESOURCE.Wood, cost.spores);
+        Game.resources.takeResource(RESOURCE.Science, cost.science);
+        this.dna -= cost.dna;
+        var healed = Game.miners.healAll();
+        this.addExperience(Math.max(5, Math.floor(healed / 12)));
+        Game.notifySuccess("Colony treatment complete", "All available miners were restored to full health.");
+        return true;
+    };
+
     instance.fuse = function (minerId) {
         var reward = this.getFusionReward(minerId);
         if (!Game.miners.fuse(minerId)) return false;

@@ -165,6 +165,7 @@ Game.structures = (function () {
         }
         for (var key in cost) if (cost.hasOwnProperty(key)) this.spendCurrency(key, cost[key]);
         this.levels[id] = this.getLevel(id) + 1;
+        if (Game.planets) Game.planets.addProgress(1.5, "Living structure");
         Game.notifySuccess("Structure grown", definition.name + " reached level " + this.levels[id] + ".");
         return true;
     };

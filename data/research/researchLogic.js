@@ -125,6 +125,7 @@ Game.research = (function () {
         this.insight -= node.cost;
         this.purchased[id] = true;
         if (Game.account) Game.account.addXp(35, "Research completed", true);
+        if (Game.planets) Game.planets.addProgress(2, "Research");
         Game.notifySuccess("Research completed", node.name + " now strengthens the colony.");
         return true;
     };

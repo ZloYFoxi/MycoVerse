@@ -146,6 +146,7 @@ Game.worldBoss = (function () {
         var variance = 0.9 + Math.random() * 0.2;
         var crit = Math.random() < 0.12;
         var damage = teamPower * Game.worldBossData.boss.attackSeconds * (1 - Game.worldBossData.boss.defense) * variance * (crit ? 1.75 : 1);
+        if (Game.guild && Game.guild.getWorldBossMultiplier) damage *= Game.guild.getWorldBossMultiplier();
         damage = Math.max(1, Math.floor(damage));
         this.personalDamage += damage;
         this.attemptsUsed += 1;

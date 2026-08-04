@@ -161,6 +161,7 @@ Game.quests = (function () {
         this.completedStory[id] = true;
         if (Game.account) Game.account.recordStat("questsClaimed", 1);
         var rewards = this.grantRewards(quest.rewards);
+        if (Game.planets) Game.planets.addProgress(2.5, "Story quest");
         Game.notifySuccess("Story quest complete", quest.name + ": " + rewards.join(", "));
         return true;
     };
@@ -175,6 +176,7 @@ Game.quests = (function () {
         this.claimedDaily[id] = true;
         if (Game.account) Game.account.recordStat("questsClaimed", 1);
         var rewards = this.grantRewards(quest.rewards);
+        if (Game.planets) Game.planets.addProgress(1, "Daily quest");
         Game.notifySuccess("Daily quest complete", quest.name + ": " + rewards.join(", "));
         return true;
     };
@@ -236,7 +238,7 @@ Game.quests = (function () {
         this.activeExpeditions.push({
             id: id,
             startedAt: Date.now(),
-            endsAt: Date.now() + expedition.durationSeconds * 1000 * ((Game.worldCycle && Game.worldCycle.getExpeditionDurationMultiplier) ? Game.worldCycle.getExpeditionDurationMultiplier() : 1) * ((Game.unions && Game.unions.getExpeditionDurationMultiplier) ? Game.unions.getExpeditionDurationMultiplier() : 1)
+            endsAt: Date.now() + expedition.durationSeconds * 1000 * ((Game.worldCycle && Game.worldCycle.getExpeditionDurationMultiplier) ? Game.worldCycle.getExpeditionDurationMultiplier() : 1) * ((Game.unions && Game.unions.getExpeditionDurationMultiplier) ? Game.unions.getExpeditionDurationMultiplier() : 1) * ((Game.guild && Game.guild.getExpeditionDurationMultiplier) ? Game.guild.getExpeditionDurationMultiplier() : 1)
         });
         Game.notifySuccess("Expedition launched", expedition.name + " has departed.");
         return true;
@@ -255,6 +257,7 @@ Game.quests = (function () {
         if (Game.account) { Game.account.addXp(Math.max(40, Math.floor(expedition.durationSeconds / 90)), "Expedition completed", true); Game.account.recordStat("expeditionsCompleted", 1); }
         this.history.push({ id: id, completedAt: Date.now(), rewards: rewards });
         this.activeExpeditions = this.activeExpeditions.filter(function (entry) { return entry.id !== id; });
+        if (Game.planets) Game.planets.addProgress(Math.min(5, Math.max(1, expedition.durationSeconds / 3600)), "Expedition");
         Game.notifySuccess("Expedition returned", expedition.name + ": " + rewards.join(", "));
         return true;
     };

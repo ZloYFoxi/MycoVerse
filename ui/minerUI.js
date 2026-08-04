@@ -56,6 +56,9 @@ Game.minerUI = (function () {
             var maxed = miner.level >= definition.maxLevel;
             var cost = Game.miners.getUpgradeCost(id);
             var unlockCost = Game.miners.getUnlockCost(id);
+            var currentHp = Game.miners.getCurrentHealth(id);
+            var maxHp = Game.miners.getMaxHealth(id);
+            var healthText = Game.miners.getHealthStatusText(id);
 
             cards.push(
                 '<div class="myco-miner-card ' + (!owned ? 'miner-locked' : '') + '" style="border-color:' + definition.rarity.color + '">' +
@@ -64,6 +67,9 @@ Game.minerUI = (function () {
                 '<div><strong>Owned:</strong> ' + miner.owned + '</div>' +
                 '<div><strong>Level:</strong> ' + miner.level + ' / ' + definition.maxLevel + '</div>' +
                 '<div><strong>Income:</strong> ' + (income * 60).toFixed(2) + ' ' + resourceName(definition.resource) + '/min</div>' +
+                    '<div class="myco-boss-health-label"><span>HP</span><strong>' + Math.floor(currentHp) + ' / ' + Math.floor(maxHp) + '</strong></div>' +
+                    '<progress class="myco-native-progress team" value="' + currentHp + '" max="' + Math.max(1,maxHp) + '">' + Math.round(maxHp?currentHp/maxHp*100:0) + '%</progress>' +
+                    '<div class="myco-small-note">' + healthText + '</div>' +
                 '<div class="myco-miner-passive"><strong>Passive:</strong> ' + Game.miners.getPassiveBonusText(id) + '</div>' +
                 '<div class="myco-level-track"><span style="width:' + Math.min(100, (miner.level / definition.maxLevel) * 100) + '%"></span></div>' +
                 '<button class="btn btn-success miner-upgrade-button" data-miner-id="' + id + '" ' + (maxed ? 'disabled' : '') + '>' +

@@ -1,3 +1,29 @@
+# Alpha 0.27.0 — Guild Foundation
+
+- Added a local Guild system with name, emblem, description, Guild ID, members, levels, and persistent Guild XP.
+- Added donations of Spores, Science, DNA, MycoCoins, and World Boss Tokens.
+- Added Contribution Points and Commander XP rewards for guild activity.
+- Added five shared research branches affecting production, healing, World Boss damage, expeditions, and marketplace costs.
+- Added five Guild Quests tied to donations, expeditions, and World Boss participation.
+- Added a Guild Shop with consumables, currency bundles, an exclusive miner, and an exclusive artifact.
+- Added Commander Level 12 access for the Guild tab.
+- Integrated Guild bonuses into miner production, Laboratory treatment costs, expedition duration, World Boss damage, and Marketplace fees.
+- Preserved Guild progress through Ascension and repaired unresolved Alpha 0.26 merge markers from the uploaded project.
+
+# Alpha 0.26.0 — Planet Progression, Gate Bosses & Miner Health
+
+- Removed the standalone Planet Bosses tab and integrated guardians directly into planetary progression.
+- Added 0–100% progress for every planet, earned through mining, quests, expeditions, research, and structures.
+- Added gate battles that begin only after the current planet reaches 100% progress.
+- Added persistent health for every owned miner species and total squad HP during battles.
+- Bosses now damage miners; incapacitated miners stop attacking and producing resources.
+- Injured miners below 50% HP produce at 75%, while critically injured miners below 25% produce at 40%.
+- Added a Medical Chamber to the Laboratory with 25%, full, and heal-all treatments using Spores, Science, and DNA.
+- Added slow free health regeneration outside battle.
+- Added five integrated SVG guardian portraits and semantic progress bars for planet, boss, and team health.
+- Preserved World Boss as a separate global raid system and migrated older boss victories into completed planet progress.
+
+
 # Alpha 0.25.0 — World Boss Prototype
 
 - Added the global Mushroom Titan raid prototype.

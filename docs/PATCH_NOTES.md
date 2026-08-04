@@ -1,3 +1,12 @@
+## Alpha 0.27.0 — Guild Foundation
+
+Players can now found a persistent local guild, contribute resources, earn Guild XP and Contribution Points, unlock shared research, complete guild quests, and purchase exclusive rewards. Guild bonuses strengthen production, medicine, expeditions, World Boss raids, and trade. The current guild is a local prototype prepared for future backend synchronization.
+
+## Alpha 0.26.0 — Planet Progression, Gate Bosses & Miner Health
+
+Planets now advance from 0% to 100% through colony activity. At 100%, the player challenges the current planet guardian to open the next passage. Miners have persistent health, suffer battle injuries, lose production below half health, and can be treated in the Laboratory Medical Chamber.
+
+
 ## Alpha 0.25.0 — World Boss Prototype
 
 The Mushroom Titan now appears in a repeating global raid simulation. Players receive three attacks per UTC day, contribute damage with their Planet Boss squad, rise through Bronze to Mythic ranks, and claim World Boss Tokens, MycoCoins, XP, and exclusive rewards.

@@ -1,8 +1,8 @@
 # MycoVerse
 
-Current version: **Alpha 0.25.0 — World Boss Prototype**.
+Current version: **Alpha 0.27.0 — Guild Foundation**.
 
-The Mushroom Titan global raid prototype adds repeating community events, daily attacks, rank rewards, World Boss Tokens, and exclusive collectibles.
+MycoVerse is a fungal incremental strategy game with living miners, planetary progression, gate bosses, a World Boss, guilds, quests, artifacts, accounts, and a local marketplace economy.
 
 # MycoVerse
 

@@ -2,7 +2,7 @@ Game.miners = (function () {
     "use strict";
 
     var instance = {
-        dataVersion: 4,
+        dataVersion: 5,
         entries: {}
     };
 
@@ -23,8 +23,10 @@ Game.miners = (function () {
                 owned: startOwned,
                 level: startOwned > 0 ? 1 : 0,
                 experience: 0,
-                mutations: []
+                mutations: [],
+                currentHealth: 0
             };
+            this.entries[id].currentHealth = this.getMaxHealth(id);
         }
     };
 
@@ -37,7 +39,8 @@ Game.miners = (function () {
                 owned: miner.owned,
                 level: miner.level,
                 experience: miner.experience,
-                mutations: miner.mutations || []
+                mutations: miner.mutations || [],
+                currentHealth: this.getCurrentHealth(id)
             };
         }
     };
@@ -52,6 +55,92 @@ Game.miners = (function () {
             this.entries[id].experience = Math.max(0, normaliseNumber(saved.experience, 0));
             this.entries[id].mutations = Array.isArray(saved.mutations) ? saved.mutations.slice(0, 3) : [];
             if (this.entries[id].owned > 0 && this.entries[id].level < 1) this.entries[id].level = 1;
+            var maxHealth = this.getMaxHealth(id);
+            this.entries[id].currentHealth = Math.max(0, Math.min(maxHealth, normaliseNumber(saved.currentHealth, maxHealth)));
+        }
+    };
+
+
+    instance.getMaxHealth = function (id) {
+        var miner = this.entries[id];
+        if (!miner || miner.owned <= 0) return 0;
+        var rarity = miner.definition.rarity && miner.definition.rarity.incomeMultiplier ? miner.definition.rarity.incomeMultiplier : 1;
+        var perSpecimen = 100 + (Math.max(1, miner.level) - 1) * 18;
+        return Math.max(1, Math.floor(perSpecimen * rarity * miner.owned));
+    };
+
+    instance.getCurrentHealth = function (id) {
+        var miner = this.entries[id];
+        if (!miner || miner.owned <= 0) return 0;
+        var maxHealth = this.getMaxHealth(id);
+        if (!isFinite(miner.currentHealth)) miner.currentHealth = maxHealth;
+        miner.currentHealth = Math.max(0, Math.min(maxHealth, miner.currentHealth));
+        return miner.currentHealth;
+    };
+
+    instance.getHealthRatio = function (id) {
+        var maxHealth = this.getMaxHealth(id);
+        return maxHealth > 0 ? this.getCurrentHealth(id) / maxHealth : 0;
+    };
+
+    instance.getHealthProductionMultiplier = function (id) {
+        var ratio = this.getHealthRatio(id);
+        if (ratio <= 0) return 0;
+        if (ratio <= 0.25) return 0.40;
+        if (ratio <= 0.50) return 0.75;
+        return 1;
+    };
+
+    instance.getHealthStatusText = function (id) {
+        var ratio = this.getHealthRatio(id);
+        if (ratio <= 0) return "Incapacitated — no production";
+        if (ratio <= 0.25) return "Critical injury — 60% production penalty";
+        if (ratio <= 0.50) return "Injured — 25% production penalty";
+        return "Healthy — full production";
+    };
+
+    instance.damageMiner = function (id, amount) {
+        var miner = this.entries[id];
+        if (!miner || miner.owned <= 0) return 0;
+        amount = Math.max(0, normaliseNumber(amount, 0));
+        var before = this.getCurrentHealth(id);
+        miner.currentHealth = Math.max(0, before - amount);
+        return before - miner.currentHealth;
+    };
+
+    instance.healMiner = function (id, amount) {
+        var miner = this.entries[id];
+        if (!miner || miner.owned <= 0) return 0;
+        amount = Math.max(0, normaliseNumber(amount, 0));
+        var before = this.getCurrentHealth(id);
+        miner.currentHealth = Math.min(this.getMaxHealth(id), before + amount);
+        return miner.currentHealth - before;
+    };
+
+    instance.healAll = function () {
+        var total = 0;
+        for (var id in this.entries) if (this.entries.hasOwnProperty(id)) total += this.healMiner(id, this.getMaxHealth(id));
+        return total;
+    };
+
+    instance.getTotalHealth = function (team) {
+        var current = 0, max = 0;
+        var ids = Array.isArray(team) ? team : Object.keys(this.entries);
+        for (var i = 0; i < ids.length; i++) {
+            current += this.getCurrentHealth(ids[i]);
+            max += this.getMaxHealth(ids[i]);
+        }
+        return { current: current, max: max };
+    };
+
+    instance.update = function (delta) {
+        if (Game.bosses && Game.bosses.activeBattle) return;
+        delta = Math.max(0, normaliseNumber(delta, 0));
+        for (var id in this.entries) {
+            if (!this.entries.hasOwnProperty(id) || this.entries[id].owned <= 0) continue;
+            var maxHealth = this.getMaxHealth(id);
+            if (this.getCurrentHealth(id) >= maxHealth) continue;
+            this.healMiner(id, maxHealth * 0.0025 * (delta / 60));
         }
     };
 
@@ -130,7 +219,9 @@ Game.miners = (function () {
         }
         Game.resources.takeResource(RESOURCE.Wood, cost);
         if (Game.economy && Game.economy.recordSporeSpend) Game.economy.recordSporeSpend('clone', cost, miner.definition.name);
+        var oldMax = this.getMaxHealth(id);
         miner.owned += 1;
+        miner.currentHealth = this.getCurrentHealth(id) + Math.max(1, this.getMaxHealth(id) - oldMax);
         Game.notifySuccess("Clone cultivated", miner.definition.name + " now has " + miner.owned + " specimens.");
         return true;
     };
@@ -150,8 +241,10 @@ Game.miners = (function () {
             Game.notifyInfo("Maximum evolution", "This species cannot evolve any further.");
             return false;
         }
+        var healthRatio = this.getHealthRatio(id);
         miner.owned -= 2;
         miner.level += 1;
+        miner.currentHealth = this.getMaxHealth(id) * healthRatio;
         miner.experience += miner.level * 25;
         if (Game.account) { Game.account.addXp(30, "Miner fusion", true); Game.account.recordStat("fusionsCompleted", 1); }
         if (Game.quests && Game.quests.recordFusion) Game.quests.recordFusion();
@@ -182,7 +275,9 @@ Game.miners = (function () {
         var structureMultiplier = (Game.structures && Game.structures.getProductionMultiplier) ? Game.structures.getProductionMultiplier(miner.definition.resource) : 1;
         var worldCycleMultiplier = (Game.worldCycle && Game.worldCycle.getProductionMultiplier) ? Game.worldCycle.getProductionMultiplier(miner.definition.resource) : 1;
         var unionMultiplier = (Game.unions && Game.unions.getProductionMultiplier) ? Game.unions.getProductionMultiplier(miner.definition.resource) : 1;
-        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier * planetMultiplier * artifactMultiplier * researchMultiplier * ascensionMultiplier * structureMultiplier * worldCycleMultiplier * unionMultiplier;
+        var healthMultiplier = this.getHealthProductionMultiplier(id);
+        var guildMultiplier = (Game.guild && Game.guild.getProductionMultiplier) ? Game.guild.getProductionMultiplier() : 1;
+        return base * (1 + percent / 100) * (1 + mutationPercent / 100) * eventMultiplier * planetMultiplier * artifactMultiplier * researchMultiplier * ascensionMultiplier * structureMultiplier * worldCycleMultiplier * unionMultiplier * guildMultiplier * healthMultiplier;
     };
 
     instance.getResourceIncome = function (resourceId) {
@@ -261,6 +356,7 @@ Game.miners = (function () {
         if (Game.economy && Game.economy.recordSporeSpend) Game.economy.recordSporeSpend('awaken', cost, miner.definition.name);
         miner.owned = 1;
         miner.level = 1;
+        miner.currentHealth = this.getMaxHealth(id);
         Game.notifySuccess("Miner awakened", miner.definition.name + " has joined your colony.");
         return true;
     };
@@ -285,8 +381,10 @@ Game.miners = (function () {
     instance.unlock = function (id, amount) {
         var miner = this.entries[id];
         if (!miner) return false;
+        var previousMax = this.getMaxHealth(id);
         miner.owned += Math.max(1, normaliseNumber(amount, 1));
         if (miner.level <= 0) miner.level = 1;
+        miner.currentHealth = this.getCurrentHealth(id) + Math.max(0, this.getMaxHealth(id) - previousMax);
         return true;
     };
 

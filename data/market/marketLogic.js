@@ -124,7 +124,8 @@ Game.market = (function () {
     };
 
     instance.refreshNow = function () {
-        var cost = 60;
+        var reduction = (Game.guild && Game.guild.getMarketplaceFeeReduction) ? Game.guild.getMarketplaceFeeReduction() : 0;
+        var cost = Math.max(20, Math.floor(60 * (1 - reduction / 100)));
         if (!Game.account || !Game.account.spend("mycoCoins", cost)) {
             Game.notifyInfo("Not enough MycoCoins", "Refreshing the marketplace costs " + cost + " MycoCoins.");
             return false;
@@ -161,7 +162,11 @@ Game.market = (function () {
     instance.getSellPrice = function (minerId) {
         var entry = Game.miners.getEntry(minerId);
         if (!entry || entry.owned <= 1) return 0;
-        if (Game.economy && Game.economy.getMinerSellPrice) return Game.economy.getMinerSellPrice(minerId);
+        if (Game.economy && Game.economy.getMinerSellPrice) {
+            var gross = Game.economy.getMinerSellPrice(minerId);
+            var reduction = (Game.guild && Game.guild.getMarketplaceFeeReduction) ? Game.guild.getMarketplaceFeeReduction() : 0;
+            return Math.floor(gross * Math.min(1, 0.9 + reduction / 100));
+        }
         var base = Math.max(10, minerPrice(entry.definition) * 0.35);
         return Math.floor(base * (1 + Math.max(0, entry.level - 1) * 0.08));
     };
