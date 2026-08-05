@@ -1,3 +1,36 @@
+## Alpha 0.37.6 — Cinematic Boss Chamber & Pink Forager
+
+- Rebuilt the hidden planetary Boss Chamber as a full-screen cinematic battle.
+- Added large boss art, arena backgrounds, squad cards, boss HP, timer, damage numbers, attack animations and responsive mobile layout.
+- Added Pink Forager as a new Common miner with its own portrait and combat stats.
+
+## Alpha 0.37.5 — Tab Layout & Boss Chamber Fix
+
+- Moved Backup & Restore fully inside the Settings tab.
+- Prevented local save tools from appearing below every system page.
+- Added a dedicated Boss Chamber renderer with an explicit empty state.
+- Rendered the active battle before and after hidden-tab activation to avoid blank chambers.
+- Added a visible recovery message when a chamber rendering error occurs.
+
+## Alpha 0.37.4 — Gate Progress Admin Fix
+
+- Fixed Admin Panel 100% planet progress appearing to fail when opening a guardian challenge.
+- Planet challenge buttons now open squad preparation instead of trying to start combat immediately.
+- Added separate messages for missing progress, missing squad, and injured squad.
+- Admin-set progress is normalized and marked as coming from Admin Panel.
+
+## Alpha 0.37.3 — Planet Boss Rebalance
+
+Planetary Gate Boss HP is now 50,000 / 200,000 / 550,000 / 1,450,000 / 3,950,000. Gate guardians cannot counterattack. The Global Mushroom Titan strikes the selected living raid squad every 30 seconds after the first player raid attack.
+
+## Alpha 0.37.1 — Manual Gate Boss Combat
+
+Gate battles now require the player to start the encounter and press **Attack Boss**. Miner upgrades directly increase squad strike damage, while stronger bosses continuously damage the selected team.
+
+## Alpha 0.37.1 — Unique Boss & Planet Art Rebuild
+
+Five unique Gate Bosses and five unique worlds are now fully integrated. Every gate battle uses a matching desktop/mobile arena background, while planet cards combine the environment art with the guardian portrait.
+
 ## Alpha 0.36.2 — Miner Cards & Rarity UI Polish
 
 Miner presentation is now consistent across the roster, shop, inventory, and marketplace. Cards clearly show rarity, status, level, ownership, resource, income per minute, and health. Injured miners receive a visible warning when their production is reduced below half health.

@@ -16,7 +16,8 @@ Game.visualAssetData = (function () {
             screenBackground: "Assets/ui/backgrounds/{id}.webp",
             minerPortrait: "Assets/miners/portraits/{id}.webp",
             planetBackground: "Assets/themes/{id}.webp",
-            bossPortrait: "Assets/bosses/{id}.webp"
+            bossPortrait: "Assets/bosses/{id}.webp",
+            battleArena: "Assets/arenas/{id}.webp"
         },
         screenBackgrounds: screenBackgrounds,
         bossFiles: {

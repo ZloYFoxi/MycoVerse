@@ -1,3 +1,57 @@
+# Alpha 0.38.0 — Core Systems Visual Rebuild
+
+- Rebuilt Laboratory, Research, Structures, Quests, Campaign and Achievements visual presentation.
+- Added responsive cinematic backgrounds and unified system cards.
+- Preserved gameplay logic and save compatibility.
+
+## Alpha 0.38.0 — Cinematic Boss Chamber & Pink Forager
+
+- Rebuilt the hidden planetary Boss Chamber as a full-screen cinematic battle.
+- Added large boss art, arena backgrounds, squad cards, boss HP, timer, damage numbers, attack animations and responsive mobile layout.
+- Added Pink Forager as a new Common miner with its own portrait and combat stats.
+
+## Alpha 0.37.5 — Tab Layout & Boss Chamber Fix
+
+- Moved Backup & Restore fully inside the Settings tab.
+- Prevented local save tools from appearing below every system page.
+- Added a dedicated Boss Chamber renderer with an explicit empty state.
+- Rendered the active battle before and after hidden-tab activation to avoid blank chambers.
+- Added a visible recovery message when a chamber rendering error occurs.
+
+## Alpha 0.37.4 — Gate Progress Admin Fix
+
+- Fixed Admin Panel 100% planet progress appearing to fail when opening a guardian challenge.
+- Planet challenge buttons now open squad preparation instead of trying to start combat immediately.
+- Added separate messages for missing progress, missing squad, and injured squad.
+- Admin-set progress is normalized and marked as coming from Admin Panel.
+
+# Alpha 0.37.3 — Planet Boss Rebalance
+
+- Reduced every Planetary Gate Boss by 50,000 HP.
+- Planetary bosses no longer attack or damage miners.
+- Gate battles remain manual DPS checks with a time limit.
+- The Global Mushroom Titan now counterattacks the selected raid squad every 30 seconds after the first raid strike.
+- Added a persistent countdown, five-second warning state, strike history, and miner HP display to World Boss UI.
+- Global Boss timing uses an absolute next-attack timestamp so the countdown recovers correctly after throttled or hidden browser tabs.
+
+# Alpha 0.37.1 — Manual Gate Boss Combat
+
+- Added an explicit Begin Gate Battle button and active Attack Boss button.
+- Every miner now has computed strike power that increases with level, rarity, copies, mutations and health.
+- Boss combat is manual: the squad damages the boss only when the player attacks, while bosses continuously damage the squad.
+- Boss HP: 100,000 / 250,000 / 600,000 / 1,500,000 / 4,000,000.
+- Boss attack power increased for all five guardians.
+- Miner cards and team selection now display attack strength.
+
+# Alpha 0.37.1 — Unique Boss & Planet Art Rebuild
+
+- Replaced all five Gate Boss portraits with unique high-resolution artwork.
+- Rebuilt all five planet environment images with individual world art.
+- Added desktop and mobile battle-arena backgrounds for every planet.
+- Planet cards now show the world environment and its guardian together.
+- Gate battles now open inside the matching planetary arena.
+- Added responsive image loading, asynchronous decoding, and stable aspect ratios.
+
 # Alpha 0.36.2 — Miner Cards & Rarity UI Polish
 
 - Unified miner cards across Miners, Miner Shop, Inventory, and Marketplace.

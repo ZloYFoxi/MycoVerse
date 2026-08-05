@@ -2134,3 +2134,373 @@ body[data-myco-quality="high"] .myco-gate-header img {
     .myco-miner-grid,
     .myco-market-grid { grid-template-columns: 1fr; }
 }
+
+/* Alpha 0.37.0 — Unique Boss & Planet Art Rebuild */
+.myco-planet-card{position:relative;overflow:hidden;min-height:330px;background-image:linear-gradient(90deg,rgba(5,10,18,.96) 0%,rgba(5,10,18,.78) 48%,rgba(5,10,18,.52) 100%),var(--planet-card-bg);background-size:cover;background-position:center}
+.myco-planet-card .myco-planet-art{position:relative;flex:0 0 min(42%,430px);max-width:430px;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:20px;border:1px solid rgba(255,255,255,.18);box-shadow:0 18px 45px rgba(0,0,0,.55)}
+.myco-planet-card .myco-planet-art picture,.myco-planet-card .myco-planet-art picture img{display:block;width:100%;height:100%}
+.myco-planet-card .myco-planet-art picture img{object-fit:cover;object-position:center}
+.myco-planet-card .myco-planet-guardian{position:absolute!important;right:8px;bottom:8px;width:38%!important;height:38%!important;object-fit:cover!important;border-radius:16px!important;border:2px solid var(--myco-accent,#8bffb6)!important;box-shadow:0 8px 28px rgba(0,0,0,.72)!important;background:#05080d!important}
+.myco-planet-copy{position:relative;z-index:2;flex:1}
+.myco-gate-arena{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(5,12,18,.96),rgba(7,18,22,.98))}
+.myco-gate-visual{position:relative;min-height:430px;border-radius:22px;overflow:hidden;margin-bottom:22px;background-image:var(--gate-arena);background-size:cover;background-position:center;isolation:isolate}
+.myco-gate-visual::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(1,5,10,.92) 0%,rgba(1,5,10,.65) 50%,rgba(1,5,10,.30) 100%);z-index:-1}
+.myco-gate-visual-shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(1,5,10,.82));pointer-events:none}
+.myco-gate-visual .myco-gate-header{position:relative;z-index:1;min-height:430px;padding:28px;margin:0;grid-template-columns:minmax(260px,420px) 1fr}
+.myco-gate-visual .myco-gate-header img{width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center;border:2px solid rgba(255,255,255,.28);box-shadow:0 24px 70px rgba(0,0,0,.75)}
+.myco-gate-visual .myco-gate-header h2{font-size:clamp(34px,5vw,68px);text-shadow:0 4px 24px #000;margin:.15em 0}
+.myco-gate-visual .myco-gate-header p{max-width:620px;font-size:18px;line-height:1.6;text-shadow:0 2px 12px #000}
+.myco-gate-world{display:inline-flex;margin-top:12px;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.58);border:1px solid rgba(255,255,255,.2);font-weight:800;letter-spacing:.04em}
+@media(max-width:800px){.myco-gate-visual{background-image:var(--gate-arena-mobile)}.myco-planet-card{min-height:0}.myco-planet-card .myco-planet-art{max-width:none;flex-basis:auto}.myco-gate-visual{background-image:var(--gate-arena);min-height:0}.myco-gate-visual .myco-gate-header{min-height:0;padding:14px;grid-template-columns:1fr}.myco-gate-visual .myco-gate-header img{max-height:70vh}.myco-gate-visual .myco-gate-header h2{font-size:34px}}
+
+
+/* Alpha 0.37.1 — Manual Gate Boss Combat */
+.myco-boss-attack-button{width:100%;margin:14px 0 10px;padding:14px 18px;font-size:18px;font-weight:800;letter-spacing:.04em;box-shadow:0 0 22px rgba(44,160,255,.35)}
+.myco-boss-attack-button:not(:disabled){animation:mycoAttackPulse 1.6s ease-in-out infinite}
+.myco-boss-attack-result{min-height:42px;margin-top:12px;padding:10px 12px;border:1px solid rgba(86,189,255,.35);border-radius:8px;background:rgba(3,20,35,.72);color:#9fe6ff;font-weight:700;text-align:center}
+@keyframes mycoAttackPulse{50%{transform:translateY(-1px);box-shadow:0 0 32px rgba(44,160,255,.6)}}
+@media (prefers-reduced-motion:reduce){.myco-boss-attack-button:not(:disabled){animation:none}}
+
+/* Alpha 0.37.2 — Planet Boss Rebalance */
+.myco-worldboss-counter {
+    margin: 18px 0;
+    padding: 14px 18px;
+    border: 1px solid rgba(96, 190, 255, 0.45);
+    border-radius: 12px;
+    background: rgba(3, 17, 29, 0.82);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 16px;
+    align-items: center;
+}
+.myco-worldboss-counter span { color: #8fdcff; font-weight: 800; letter-spacing: .09em; }
+.myco-worldboss-counter strong { color: #fff; font-size: 1.8rem; font-variant-numeric: tabular-nums; }
+.myco-worldboss-counter small { grid-column: 1 / -1; color: #9eb2c2; }
+.myco-worldboss-counter.armed { box-shadow: inset 0 0 20px rgba(0, 169, 255, .08); }
+.myco-worldboss-counter.warning {
+    border-color: #ff4a59;
+    background: rgba(70, 4, 12, .88);
+    animation: mycoBossWarning 1s ease-in-out infinite alternate;
+}
+.myco-worldboss-counter.warning span,
+.myco-worldboss-counter.warning strong,
+.myco-worldboss-counter.warning small { color: #ffd7db; }
+@keyframes mycoBossWarning { from { box-shadow: 0 0 8px rgba(255, 51, 72, .25); } to { box-shadow: 0 0 24px rgba(255, 51, 72, .7); } }
+@media (prefers-reduced-motion: reduce) { .myco-worldboss-counter.warning { animation: none; } }
+
+/* Alpha 0.37.3 — hidden planetary Boss Chamber */
+.myco-hidden-system-tab { display: none !important; }
+.myco-boss-chamber-page { min-height: 75vh; }
+.myco-boss-chamber-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border: 1px solid rgba(183,118,255,.28);
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(21,12,38,.96), rgba(8,24,31,.94));
+    box-shadow: 0 12px 34px rgba(0,0,0,.28);
+}
+.myco-boss-chamber-toolbar > div { text-align: right; }
+#bossChamberPage .myco-gate-visual { min-height: 360px; border-radius: 20px; overflow: hidden; }
+#bossChamberPage .myco-panel-grid { margin-top: 16px; }
+@media (max-width: 700px) {
+    .myco-boss-chamber-toolbar { align-items: stretch; flex-direction: column; }
+    .myco-boss-chamber-toolbar > div { text-align: left; }
+    #bossChamberPage .myco-gate-visual { min-height: 440px; }
+}
+
+/* Alpha 0.37.5 — tab layout and Boss Chamber rendering fix */
+#uiTab > .myco-save-tools { margin: 24px 0 100px; }
+#tabContent > #bossChamberPage { min-height: calc(100vh - 190px); }
+#bossChamberContent:empty::before {
+  content: "Preparing Boss Chamber…";
+  display: block;
+  padding: 32px;
+  color: #91f2c2;
+  text-align: center;
+}
+.myco-empty-chamber { margin-top: 18px; text-align: center; }
+
+/* Alpha 0.37.6 — Cinematic planetary Boss Chamber */
+body.myco-in-boss-chamber #tabList,body.myco-in-boss-chamber .myco-mobile-nav,body.myco-in-boss-chamber .navbar,body.myco-in-boss-chamber footer{display:none!important}
+body.myco-in-boss-chamber{overflow:hidden;background:#02040a}
+#bossChamberPage{padding:0!important;margin:0!important;position:fixed;inset:0;z-index:2500;background:#02040a;overflow:auto}
+#bossChamberContent{min-height:100vh}
+.myco-cinematic-chamber{position:relative;min-height:100vh;color:#fff;background-image:linear-gradient(180deg,rgba(2,4,12,.18),rgba(2,4,12,.72) 72%,#03050a 100%),var(--arena-desktop);background-size:cover;background-position:center;overflow:hidden;padding:18px 22px 26px}
+.myco-chamber-vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 50% 46%,transparent 18%,rgba(0,0,0,.25) 60%,rgba(0,0,0,.78) 100%)}
+.myco-chamber-header,.myco-boss-hud,.myco-squad-status,.myco-boss-stage,.myco-combat-squad,.myco-chamber-actions{position:relative;z-index:2}
+.myco-chamber-header{display:grid;grid-template-columns:180px 1fr 180px;align-items:center;gap:16px}
+.myco-chamber-retreat{border:1px solid #ff6f78;background:rgba(54,5,15,.8);color:#ffd9dc;padding:12px 16px;border-radius:14px;font-weight:800}
+.myco-boss-title{text-align:center;text-shadow:0 2px 14px #000}.myco-boss-title span{color:#b6e9ff;letter-spacing:.24em;font-size:12px}.myco-boss-title h1{margin:2px 0;font-size:clamp(24px,4vw,48px)}.myco-boss-title small{color:#d7c5ff}
+.myco-chamber-timer{justify-self:end;text-align:center;background:rgba(4,11,27,.82);border:1px solid #66c8ff;border-radius:14px;padding:10px 18px}.myco-chamber-timer span{display:block;color:#a9c7df;text-transform:uppercase;font-size:11px}.myco-chamber-timer strong{font-size:28px;color:#ffe38a}
+.myco-boss-hud{max-width:1050px;margin:12px auto 0}.myco-boss-hp-row{display:grid;grid-template-columns:1fr auto 70px;align-items:center;gap:12px;font-weight:800;text-shadow:0 2px 8px #000}.myco-boss-hp-row em{text-align:right;font-style:normal}.myco-boss-hp-track{height:27px;border:3px solid #d9c3ff;border-radius:16px;padding:3px;background:#130713;box-shadow:0 0 18px rgba(255,43,87,.35)}.myco-boss-hp-track i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#8b0d25,#ff294f,#ff6c68);transition:width .28s ease}.myco-phase-badges{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-top:8px}.myco-phase-badges span{background:rgba(4,10,25,.76);border:1px solid rgba(133,202,255,.45);padding:5px 10px;border-radius:999px;font-size:12px}
+.myco-squad-status{position:absolute;left:22px;top:120px;width:220px;background:rgba(3,12,25,.88);border:1px solid #55caff;border-radius:16px;padding:14px;box-shadow:0 0 24px rgba(0,150,255,.2)}.myco-squad-status h3{margin:0 0 10px;color:#eaf9ff}.myco-squad-status div{display:flex;justify-content:space-between;gap:8px;margin:8px 0}.myco-squad-status progress{width:100%;accent-color:#39dd74}
+.myco-boss-stage{min-height:48vh;display:flex;align-items:flex-end;justify-content:center;margin-top:4px}.myco-stage-boss{max-width:min(58vw,720px);height:45vh;object-fit:contain;filter:drop-shadow(0 20px 28px rgba(0,0,0,.8)) drop-shadow(0 0 22px rgba(139,94,255,.45));transform-origin:50% 85%}.myco-stage-floor{position:absolute;bottom:0;width:58%;height:70px;border-radius:50%;background:radial-gradient(ellipse,rgba(82,187,255,.45),rgba(111,44,235,.18) 45%,transparent 72%);filter:blur(3px)}
+.myco-floating-damage{position:absolute;top:23%;left:50%;transform:translateX(-50%);font-size:clamp(28px,5vw,58px);font-weight:1000;color:#fff;text-shadow:0 0 8px #ff182f,0 3px 3px #000;animation:mycoDamageFloat .75s ease-out both}.myco-floating-damage.critical{color:#ffe256;text-shadow:0 0 12px #ff8400,0 3px 3px #000}
+.myco-combat-squad{display:flex;justify-content:center;align-items:flex-end;gap:10px;flex-wrap:wrap;margin:-55px auto 0;max-width:920px}.myco-combat-miner{width:145px;background:rgba(4,10,22,.9);border:2px solid #7ea7c8;border-radius:16px;overflow:hidden;box-shadow:0 8px 20px #000}.myco-combat-miner img{width:100%;aspect-ratio:1/1;object-fit:cover}.myco-combat-miner-meta{padding:7px}.myco-combat-miner-meta strong,.myco-combat-miner-meta span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.myco-combat-miner-meta span{font-size:11px;color:#cddaea}.myco-combat-miner-meta progress{width:100%;height:7px;accent-color:#45db75}.myco-combat-miner.rarity-rare{border-color:#39a8ff}.myco-combat-miner.rarity-epic{border-color:#aa55ff}.myco-combat-miner.rarity-legendary{border-color:#ffc63a}.myco-combat-miner.rarity-mythic{border-color:#ff4fc8}
+.myco-chamber-actions{text-align:center;margin-top:14px}.myco-attack-boss{min-width:min(92vw,420px);border:2px solid #ffe5a0;border-radius:18px;background:linear-gradient(#ffca48,#b65b06);box-shadow:0 0 18px rgba(255,180,34,.55),inset 0 2px #fff3b0;color:#fff;font-size:25px;font-weight:1000;padding:14px 28px;text-shadow:0 2px 2px #6a2700}.myco-attack-boss small{display:block;font-size:12px;font-weight:700}.myco-attack-boss:disabled{filter:grayscale(.65);opacity:.7}.myco-last-strike{margin-top:8px;color:#dcecff}
+.myco-attack-pulse .myco-stage-boss{animation:mycoBossHit .5s ease}.myco-attack-pulse .myco-combat-miner{animation:mycoMinerStrike .42s ease}
+@keyframes mycoBossHit{0%,100%{transform:translateX(0) scale(1)}25%{transform:translateX(-10px) scale(.985);filter:brightness(1.8) saturate(1.5)}55%{transform:translateX(9px) scale(1.01)}}
+@keyframes mycoMinerStrike{0%,100%{transform:translateY(0)}45%{transform:translateY(-15px) scale(1.04)}}
+@keyframes mycoDamageFloat{0%{opacity:0;transform:translate(-50%,15px) scale(.7)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-55px) scale(1.08)}}
+.myco-team-chip img{width:44px;height:44px;object-fit:cover;border-radius:8px;margin-right:8px;vertical-align:middle}
+@media(max-width:800px){body.myco-in-boss-chamber{overflow:auto}.myco-cinematic-chamber{min-height:100svh;padding:9px 8px 18px;background-image:linear-gradient(180deg,rgba(2,4,12,.2),rgba(2,4,12,.78) 70%,#03050a),var(--arena-mobile)}.myco-chamber-header{grid-template-columns:80px 1fr 82px;gap:5px}.myco-chamber-retreat{padding:8px 6px;font-size:11px}.myco-boss-title h1{font-size:21px}.myco-boss-title span{font-size:8px}.myco-chamber-timer{padding:6px 5px}.myco-chamber-timer strong{font-size:19px}.myco-boss-hud{margin-top:7px}.myco-boss-hp-row{font-size:11px;grid-template-columns:1fr auto 36px}.myco-boss-hp-track{height:19px}.myco-phase-badges span{font-size:9px;padding:3px 6px}.myco-squad-status{position:relative;left:auto;top:auto;width:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:8px 0;padding:8px}.myco-squad-status h3{grid-column:1/-1;font-size:13px}.myco-squad-status div{display:block;margin:0;font-size:10px}.myco-squad-status progress{grid-column:1/-1}.myco-boss-stage{min-height:35vh;margin-top:-12px}.myco-stage-boss{max-width:96vw;height:36vh}.myco-combat-squad{margin:-38px auto 0;gap:5px;flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding:0 4px}.myco-combat-miner{min-width:92px;width:92px;border-radius:10px}.myco-combat-miner-meta{padding:4px}.myco-combat-miner-meta strong{font-size:10px}.myco-combat-miner-meta span{font-size:8px}.myco-attack-boss{font-size:19px;padding:11px 18px}.myco-chamber-actions{position:sticky;bottom:4px}}
+
+
+/* ==========================================================================
+   Alpha 0.38.0 — Core Systems Visual Rebuild
+   Laboratory · Research · Structures · Quests · Campaign · Achievements
+   ========================================================================== */
+#laboratoryPage,
+#researchPage,
+#structuresPage,
+#questsPage,
+#campaignPage,
+#achievementsPage,
+#achievementPage {
+    position: relative;
+    min-height: 72vh;
+    padding: clamp(12px, 2vw, 24px);
+    overflow: hidden;
+    isolation: isolate;
+}
+#laboratoryPage::before,
+#researchPage::before,
+#structuresPage::before,
+#questsPage::before,
+#campaignPage::before,
+#achievementsPage::before,
+#achievementPage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    opacity: .24;
+    filter: saturate(1.15) contrast(1.05);
+}
+#laboratoryPage::after,
+#researchPage::after,
+#structuresPage::after,
+#questsPage::after,
+#campaignPage::after,
+#achievementsPage::after,
+#achievementPage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 5%, rgba(120,255,202,.13), transparent 38%),
+      linear-gradient(180deg, rgba(2,12,10,.34), rgba(2,11,9,.9) 72%);
+}
+#laboratoryPage::before { background-image: url("Assets/ui/backgrounds/laboratory.webp"); }
+#researchPage::before { background-image: url("Assets/ui/backgrounds/research.webp"); }
+#structuresPage::before { background-image: url("Assets/ui/backgrounds/structures.webp"); }
+#questsPage::before { background-image: url("Assets/ui/backgrounds/quests.webp"); }
+#campaignPage::before { background-image: url("Assets/ui/backgrounds/campaign.webp"); }
+#achievementsPage::before,
+#achievementPage::before { background-image: url("Assets/ui/backgrounds/collections.webp"); }
+
+.myco-lab-hero,
+.myco-research-hero,
+.myco-structures-hero,
+.myco-quest-hero,
+.myco-campaign-hero {
+    min-height: 210px;
+    border: 1px solid rgba(123,255,203,.27);
+    border-radius: 24px;
+    padding: clamp(22px, 4vw, 42px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    background:
+      linear-gradient(90deg, rgba(1,18,14,.94), rgba(4,24,20,.58) 55%, rgba(4,10,15,.28)),
+      radial-gradient(circle at 80% 20%, rgba(121,255,208,.16), transparent 36%);
+    box-shadow: 0 18px 48px rgba(0,0,0,.38), inset 0 1px rgba(255,255,255,.06);
+    backdrop-filter: blur(8px);
+}
+.myco-lab-hero h2,
+.myco-research-hero h2,
+.myco-structures-hero h2,
+.myco-quest-hero h2,
+.myco-campaign-hero h2 {
+    margin: 4px 0 10px;
+    font-size: clamp(28px, 5vw, 52px);
+    line-height: .98;
+    color: #f5fff9;
+    text-shadow: 0 4px 20px rgba(0,0,0,.65);
+}
+.myco-lab-hero p,
+.myco-research-hero p,
+.myco-structures-hero p,
+.myco-quest-hero p,
+.myco-campaign-hero p { max-width: 700px; color: #b9d2c7; font-size: 15px; }
+
+.myco-lab-dna,
+.myco-research-currency,
+.myco-structure-rank,
+.myco-quest-slots,
+.myco-campaign-score {
+    min-width: 180px;
+    padding: 18px 20px;
+    border-radius: 18px;
+    border: 1px solid rgba(139,255,215,.35);
+    background: rgba(4,20,16,.8);
+    box-shadow: inset 0 0 30px rgba(66,255,184,.08);
+}
+.myco-lab-dna strong,
+.myco-research-currency strong,
+.myco-structure-rank strong,
+.myco-quest-slots strong,
+.myco-campaign-score strong {
+    display:block;
+    font-size: 30px;
+    color:#8effcf;
+}
+
+.myco-lab-stats,
+.myco-research-summary,
+.myco-wallet-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:12px;
+    margin:16px 0;
+}
+.myco-lab-stats article,
+.myco-research-summary article,
+.myco-wallet-card {
+    border:1px solid rgba(130,255,210,.18);
+    border-radius:16px;
+    padding:16px;
+    background:linear-gradient(145deg,rgba(10,31,25,.9),rgba(4,16,14,.88));
+    box-shadow:0 8px 22px rgba(0,0,0,.25);
+}
+.myco-lab-stats span,
+.myco-research-summary span,
+.myco-wallet-card span { color:#87a99b; text-transform:uppercase; font-size:11px; letter-spacing:.12em; }
+.myco-lab-stats strong,
+.myco-research-summary strong,
+.myco-wallet-card strong { display:block; color:#effff7; font-size:22px; margin-top:5px; }
+
+.myco-lab-card,
+.myco-research-node,
+.myco-spec-card,
+.myco-structure-card,
+.myco-quest-card,
+.myco-expedition-card,
+.myco-campaign-chapter,
+.myco-campaign-mission {
+    position:relative;
+    overflow:hidden;
+    border-radius:18px !important;
+    border:1px solid rgba(128,255,208,.2) !important;
+    background:linear-gradient(150deg,rgba(9,29,23,.96),rgba(4,13,12,.94)) !important;
+    box-shadow:0 12px 30px rgba(0,0,0,.3), inset 0 1px rgba(255,255,255,.035);
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.myco-lab-card:hover,
+.myco-research-node:hover,
+.myco-spec-card:hover,
+.myco-structure-card:hover,
+.myco-quest-card:hover,
+.myco-expedition-card:hover,
+.myco-campaign-chapter:hover {
+    transform:translateY(-3px);
+    border-color:rgba(111,255,199,.55) !important;
+    box-shadow:0 18px 36px rgba(0,0,0,.38),0 0 24px rgba(64,255,179,.08);
+}
+.myco-research-node.completed,
+.myco-structure-card:not(.locked) { box-shadow:inset 3px 0 #55efad,0 12px 28px rgba(0,0,0,.28); }
+.myco-research-node.locked,
+.myco-structure-card.locked { filter:saturate(.55); opacity:.72; }
+
+.myco-quest-tabs {
+    position:sticky;
+    top:8px;
+    z-index:4;
+    display:flex;
+    gap:8px;
+    margin:16px 0;
+    padding:7px;
+    border:1px solid rgba(126,255,207,.18);
+    border-radius:16px;
+    background:rgba(3,15,12,.84);
+    backdrop-filter:blur(12px);
+}
+.myco-quest-tabs button {
+    flex:1;
+    border:0;
+    border-radius:11px;
+    padding:11px 14px;
+    color:#92b5a7;
+    background:transparent;
+    font-weight:700;
+}
+.myco-quest-tabs button.active {
+    color:#04110d;
+    background:linear-gradient(135deg,#79f6bd,#56cfff);
+    box-shadow:0 5px 18px rgba(80,238,183,.22);
+}
+
+.myco-campaign-layout { gap:16px; }
+.myco-campaign-sidebar,
+.myco-campaign-main,
+.myco-research-panel,
+.myco-medical-panel {
+    border-radius:20px !important;
+    border:1px solid rgba(130,255,211,.2) !important;
+    background:rgba(3,18,14,.9) !important;
+    backdrop-filter:blur(10px);
+}
+.myco-medical-panel { box-shadow:inset 4px 0 #ff6b7e,0 14px 34px rgba(0,0,0,.28); }
+
+/* Achievement legacy table transformed into a collection wall */
+#achievementContent,
+.achievementContent {
+    display:block;
+    padding:18px;
+    border-radius:22px;
+    border:1px solid rgba(126,255,208,.19);
+    background:rgba(4,18,15,.9);
+}
+#achievementContent table,
+.achievementContent table { width:100%; background:transparent !important; }
+#achievementContent td,
+.achievementContent td { border-color:rgba(135,255,211,.08) !important; }
+.achievementTD > div {
+    border-radius:14px !important;
+    background:linear-gradient(145deg,rgba(18,42,34,.95),rgba(5,16,14,.95));
+    box-shadow:0 8px 20px rgba(0,0,0,.3),inset 0 0 18px rgba(84,255,190,.04);
+    transition:transform .18s ease,box-shadow .18s ease;
+}
+.achievementTD > div:hover { transform:scale(1.06); box-shadow:0 10px 26px rgba(0,0,0,.38),0 0 18px rgba(91,255,196,.15); }
+#rankProgress { height:22px; border-radius:12px; overflow:hidden; background:#071510; }
+#rankBar { background:linear-gradient(90deg,#55eaa9,#52c8ff,#b875ff); }
+
+@media (max-width: 767px) {
+  #laboratoryPage,#researchPage,#structuresPage,#questsPage,#campaignPage,#achievementsPage,#achievementPage { padding:10px; }
+  #laboratoryPage::before { background-image:url("Assets/ui/backgrounds/laboratory-mobile.webp"); }
+  #researchPage::before { background-image:url("Assets/ui/backgrounds/research-mobile.webp"); }
+  #structuresPage::before { background-image:url("Assets/ui/backgrounds/structures-mobile.webp"); }
+  #questsPage::before { background-image:url("Assets/ui/backgrounds/quests-mobile.webp"); }
+  #campaignPage::before { background-image:url("Assets/ui/backgrounds/campaign-mobile.webp"); }
+  #achievementsPage::before,#achievementPage::before { background-image:url("Assets/ui/backgrounds/collections-mobile.webp"); }
+  .myco-lab-hero,.myco-research-hero,.myco-structures-hero,.myco-quest-hero,.myco-campaign-hero {
+      min-height:180px; padding:20px; flex-direction:column; align-items:stretch;
+  }
+  .myco-lab-dna,.myco-research-currency,.myco-structure-rank,.myco-quest-slots,.myco-campaign-score {
+      min-width:0; display:grid; grid-template-columns:1fr auto; align-items:center;
+  }
+  .myco-lab-dna strong,.myco-research-currency strong,.myco-structure-rank strong,.myco-quest-slots strong,.myco-campaign-score strong { font-size:24px; }
+  .myco-quest-tabs { overflow-x:auto; }
+  .myco-quest-tabs button { min-width:100px; }
+  .myco-campaign-layout { display:block; }
+  .myco-campaign-sidebar { margin-bottom:14px; }
+}

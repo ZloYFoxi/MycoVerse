@@ -2,7 +2,7 @@ Game.bosses = (function () {
     "use strict";
 
     var instance = {
-        dataVersion: 2,
+        dataVersion: 4,
         defeated: {},
         selectedTeam: [],
         activeBattle: null,
@@ -38,6 +38,11 @@ Game.bosses = (function () {
             var entry = Game.miners.getEntry(id); return entry && entry.owned > 0;
         }).slice(0, Game.bossData.teamSize) : [];
         this.activeBattle = saved.activeBattle || null;
+        if (this.activeBattle) {
+            var activeBoss = this.getBoss(this.activeBattle.bossId);
+            if (activeBoss) this.activeBattle.health = Math.min(activeBoss.maxHealth, Math.max(0, num(this.activeBattle.health, activeBoss.maxHealth)));
+            this.activeBattle.totalDamageTaken = 0;
+        }
         this.history = Array.isArray(saved.history) ? saved.history.slice(-20) : [];
         if (!this.selectedTeam.length) this.autoSelectTeam();
         this.update(0);
@@ -48,14 +53,24 @@ Game.bosses = (function () {
     instance.isDefeated = function (bossId) { return !!this.defeated[bossId]; };
     instance.isPlanetBossDefeated = function (planetId) { var boss = this.getBossForPlanet(planetId); return !boss || this.isDefeated(boss.id); };
 
-    instance.getMinerCombatPower = function (minerId) {
+    instance.getMinerAttackPower = function (minerId) {
         var entry = Game.miners.getEntry(minerId);
         if (!entry || entry.owned <= 0 || Game.miners.getCurrentHealth(minerId) <= 0) return 0;
-        var rarity = entry.definition.rarity.incomeMultiplier || 1;
+        var definition = entry.definition;
+        var rarity = definition.rarity.incomeMultiplier || 1;
         var mutation = Game.miners.getMutationPercent ? Game.miners.getMutationPercent(minerId) : 0;
-        var healthFactor = 0.45 + Game.miners.getHealthRatio(minerId) * 0.55;
-        var base = entry.level * rarity * Math.sqrt(entry.owned) * 2.8;
-        return base * (1 + mutation / 100) * healthFactor;
+        var healthFactor = 0.40 + Game.miners.getHealthRatio(minerId) * 0.60;
+        var baseAttack = Number(definition.attackPower);
+        if (!isFinite(baseAttack) || baseAttack <= 0) {
+            baseAttack = Math.max(5, Math.round(Math.sqrt(Math.max(1, definition.incomePerMinute || 1)) * 8 * rarity + (definition.order || 1) * 4));
+        }
+        var levelMultiplier = 1 + Math.max(0, entry.level - 1) * 0.12;
+        var ownedMultiplier = Math.sqrt(Math.max(1, entry.owned));
+        return baseAttack * levelMultiplier * ownedMultiplier * (1 + mutation / 100) * healthFactor;
+    };
+
+    instance.getMinerCombatPower = function (minerId) {
+        return this.getMinerAttackPower(minerId);
     };
 
     instance.autoSelectTeam = function () {
@@ -105,10 +120,25 @@ Game.bosses = (function () {
     };
 
     instance.startBattle = function (bossId) {
-        if (!this.canStart(bossId)) {
-            Game.notifyInfo("Battle unavailable", "Reach 100% planetary progress and assemble a healthy living team.");
+        var bossCheck = this.getBoss(bossId);
+        if (!bossCheck) {
+            Game.notifyInfo("Battle unavailable", "The selected guardian does not exist.");
             return false;
         }
+        if (!Game.planets.isGateReady(bossCheck.planetId)) {
+            var gateProgress = Game.planets.getProgress(bossCheck.planetId);
+            Game.notifyInfo("Passage sealed", "Reach 100% planetary progress before starting the battle. Current progress: " + gateProgress.toFixed(1) + "%.");
+            return false;
+        }
+        if (!this.selectedTeam.length || this.getTeamPower() <= 0) {
+            Game.notifyInfo("Squad required", "Select at least one living miner before starting the Gate Battle.");
+            return false;
+        }
+        if (this.getTeamHealth().current <= 0) {
+            Game.notifyInfo("Squad unavailable", "Your selected miners need healing before the Gate Battle.");
+            return false;
+        }
+        if (!this.canStart(bossId)) return false;
         var boss = this.getBoss(bossId), t = now();
         this.activeBattle = {
             bossId: bossId,
@@ -118,9 +148,43 @@ Game.bosses = (function () {
             health: boss.maxHealth,
             totalDamage: 0,
             totalDamageTaken: 0,
-            team: this.selectedTeam.slice(0, Game.bossData.teamSize)
+            team: this.selectedTeam.slice(0, Game.bossData.teamSize),
+            lastAttackAt: 0,
+            lastAttackDamage: 0,
+            lastAttackCritical: false,
+            attacks: 0
         };
         Game.notifySuccess("Gate battle started", "Your squad has engaged " + boss.name + ".");
+        return true;
+    };
+
+    instance.getTeamAttackPower = function (team) {
+        team = team || this.selectedTeam;
+        var total = 0;
+        for (var i = 0; i < team.length; i++) total += this.getMinerAttackPower(team[i]);
+        var artifactMultiplier = Game.artifacts && Game.artifacts.getBonuses ? 1 + (Game.artifacts.getBonuses().global || 0) / 200 : 1;
+        var unionMultiplier = Game.unions && Game.unions.getBossMultiplier ? Game.unions.getBossMultiplier(team) : 1;
+        return total * artifactMultiplier * unionMultiplier;
+    };
+
+    instance.attackBoss = function () {
+        if (!this.activeBattle) return false;
+        var boss = this.getBoss(this.activeBattle.bossId);
+        if (!boss || !this.getLivingTeam().length) return false;
+        var t = now(), cooldown = 650;
+        if (t - (this.activeBattle.lastAttackAt || 0) < cooldown) return false;
+        var phase = this.getPhase(boss, this.activeBattle.health);
+        var rawDamage = this.getTeamAttackPower(this.getLivingTeam());
+        var critical = Math.random() < 0.10;
+        var damage = rawDamage * (1 - boss.defense) * phase.damageMultiplier * (critical ? 1.75 : 1);
+        damage = Math.max(1, damage);
+        this.activeBattle.health -= damage;
+        this.activeBattle.totalDamage += damage;
+        this.activeBattle.lastAttackAt = t;
+        this.activeBattle.lastAttackDamage = damage;
+        this.activeBattle.lastAttackCritical = critical;
+        this.activeBattle.attacks = (this.activeBattle.attacks || 0) + 1;
+        if (this.activeBattle.health <= 0) this.completeVictory();
         return true;
     };
 
@@ -129,24 +193,13 @@ Game.bosses = (function () {
         var boss = this.getBoss(this.activeBattle.bossId);
         this.history.unshift({ bossId: boss.id, result: "retreated", at: now() });
         this.activeBattle = null;
-        Game.notifyInfo("Squad retreated", "Battle injuries remain until healed in the Laboratory.");
+        Game.notifyInfo("Squad retreated", "Gate Bosses cannot damage miners. Your squad is safe.");
         return true;
     };
 
     instance.getLivingTeam = function () {
         if (!this.activeBattle) return [];
         return this.activeBattle.team.filter(function (id) { return Game.miners.getCurrentHealth(id) > 0; });
-    };
-
-    instance.applyBossDamage = function (boss, phase, seconds) {
-        var living = this.getLivingTeam();
-        if (!living.length) return 0;
-        var attackMultiplier = phase.attackMultiplier || (2 - phase.damageMultiplier);
-        var damage = boss.attackPower * attackMultiplier * seconds;
-        var perMiner = damage / living.length;
-        var dealt = 0;
-        for (var i = 0; i < living.length; i++) dealt += Game.miners.damageMiner(living[i], perMiner);
-        return dealt;
     };
 
     instance.getActiveSnapshot = function () {
@@ -157,6 +210,7 @@ Game.bosses = (function () {
         var health = this.getTeamHealth(this.activeBattle.team);
         return {
             boss: boss,
+            team: this.activeBattle.team.slice(),
             health: Math.max(0, this.activeBattle.health),
             healthPercent: Math.max(0, this.activeBattle.health / boss.maxHealth * 100),
             remainingMs: Math.max(0, this.activeBattle.endsAt - now()),
@@ -165,7 +219,12 @@ Game.bosses = (function () {
             phase: phase,
             teamPower: this.getBattleTeamPower(this.getLivingTeam()),
             teamHealth: health,
-            livingCount: this.getLivingTeam().length
+            livingCount: this.getLivingTeam().length,
+            teamAttack: this.getTeamAttackPower(this.getLivingTeam()),
+            lastAttackDamage: this.activeBattle.lastAttackDamage || 0,
+            lastAttackCritical: !!this.activeBattle.lastAttackCritical,
+            attacks: this.activeBattle.attacks || 0,
+            attackReadyInMs: Math.max(0, 650 - (now() - (this.activeBattle.lastAttackAt || 0)))
         };
     };
 
@@ -193,7 +252,7 @@ Game.bosses = (function () {
         this.history.unshift({ bossId: boss.id, result: "victory", at: now(), damage: this.activeBattle.totalDamage });
         this.history = this.history.slice(0, 20);
         this.activeBattle = null;
-        Game.notifySuccess("Passage opened", boss.name + " has fallen. The next planet is now accessible. Heal injured miners in the Laboratory.");
+        Game.notifySuccess("Passage opened", boss.name + " has fallen. The next planet is now accessible.");
     };
 
     instance.completeDefeat = function () {
@@ -202,7 +261,7 @@ Game.bosses = (function () {
         this.history.unshift({ bossId: boss.id, result: "defeat", at: now(), damage: this.activeBattle.totalDamage });
         this.history = this.history.slice(0, 20);
         this.activeBattle = null;
-        Game.notifyInfo("Squad defeated", boss.name + " survived. Your injured miners require treatment in the Laboratory.");
+        Game.notifyInfo("Time expired", boss.name + " survived. Upgrade your miners and increase squad Attack before trying again.");
     };
 
     instance.update = function () {
@@ -210,19 +269,9 @@ Game.bosses = (function () {
         var boss = this.getBoss(this.activeBattle.bossId);
         if (!boss) { this.activeBattle = null; return; }
         var t = now(), effectiveNow = Math.min(t, this.activeBattle.endsAt);
-        var elapsed = Math.max(0, (effectiveNow - this.activeBattle.lastTickAt) / 1000);
-        var remaining = elapsed;
-        while (remaining > 0 && this.activeBattle.health > 0 && this.getLivingTeam().length > 0) {
-            var step = Math.min(1, remaining);
-            var phase = this.getPhase(boss, this.activeBattle.health);
-            var teamPower = this.getBattleTeamPower(this.getLivingTeam());
-            var damage = teamPower * (1 - boss.defense) * phase.damageMultiplier * step;
-            this.activeBattle.health -= damage;
-            this.activeBattle.totalDamage += damage;
-            this.activeBattle.totalDamageTaken = (this.activeBattle.totalDamageTaken || 0) + this.applyBossDamage(boss, phase, step);
-            remaining -= step;
-        }
+        // Planetary Gate Bosses are progression checks only: they never damage miners.
         this.activeBattle.lastTickAt = effectiveNow;
+        this.activeBattle.totalDamageTaken = 0;
         if (this.activeBattle.health <= 0) this.completeVictory();
         else if (!this.getLivingTeam().length || t >= this.activeBattle.endsAt) this.completeDefeat();
     };

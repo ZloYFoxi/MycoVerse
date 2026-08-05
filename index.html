@@ -37,16 +37,23 @@
             <ul id="tabList" class="nav nav-tabs" role="tablist"><li role="presentation" id="settingsTopTab"><a href="#uiTab" aria-controls="uiTab" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-cog"></span> Settings</a></li></ul>
         </nav>
 
-        <section id="tabContent" class="tab-content"><div role="tabpanel" class="tab-pane fade" id="uiTab"><section class="myco-panel"><div class="myco-eyebrow">INTERFACE</div><h2>Settings</h2><table class="table"><tbody></tbody></table></section></div></section>
-
-        <section class="myco-panel myco-save-tools">
-            <div class="myco-eyebrow">LOCAL SAVE TOOLS</div>
-            <h3>Backup & Restore</h3>
-            <textarea id="impexpField" class="form-control" rows="4" placeholder="Exported save code"></textarea>
-            <div class="myco-save-actions">
-                <button class="btn btn-default" onclick="Game.export()">Export</button>
-                <button class="btn btn-primary" onclick="Game.import()">Import</button>
-                <button class="btn btn-danger" onclick="Game.deleteSave()">Delete Save</button>
+        <section id="tabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane fade" id="uiTab">
+                <section class="myco-panel">
+                    <div class="myco-eyebrow">INTERFACE</div>
+                    <h2>Settings</h2>
+                    <table class="table"><tbody></tbody></table>
+                </section>
+                <section class="myco-panel myco-save-tools">
+                    <div class="myco-eyebrow">LOCAL SAVE TOOLS</div>
+                    <h3>Backup & Restore</h3>
+                    <textarea id="impexpField" class="form-control" rows="4" placeholder="Exported save code"></textarea>
+                    <div class="myco-save-actions">
+                        <button class="btn btn-default" onclick="Game.export()">Export</button>
+                        <button class="btn btn-primary" onclick="Game.import()">Import</button>
+                        <button class="btn btn-danger" onclick="Game.deleteSave()">Delete Save</button>
+                    </div>
+                </section>
             </div>
         </section>
     </main>

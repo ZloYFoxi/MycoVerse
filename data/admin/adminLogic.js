@@ -231,8 +231,12 @@ Game.admin = (function () {
         if (!this.requireAccess() || !Game.planetData.planets[planetId]) return false;
         if (action === 'unlock') Game.planets.unlocked[planetId] = true;
         if (action === 'progress') {
+            var normalizedProgress = Math.max(0, Math.min(100, number(progress, 0)));
             Game.planets.unlocked[planetId] = true;
-            Game.planets.progress[planetId] = Math.max(0, Math.min(100, number(progress, 0)));
+            Game.planets.progress[planetId] = normalizedProgress;
+            Game.planets.lastProgressSource = 'Admin Panel';
+            // Setting exploration progress must not silently leave a stale completed state.
+            if (normalizedProgress < 100) delete Game.planets.completed[planetId];
         }
         if (action === 'complete') {
             Game.planets.unlocked[planetId] = true;

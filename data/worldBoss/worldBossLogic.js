@@ -2,13 +2,16 @@ Game.worldBoss = (function () {
     "use strict";
 
     var instance = {
-        dataVersion: 1,
+        dataVersion: 2,
         cycleId: -1,
         personalDamage: 0,
         attemptsUsed: 0,
         attemptDate: "",
         claimed: false,
         lastAttack: null,
+        nextBossAttackAt: 0,
+        lastBossStrike: null,
+        bossStrikes: 0,
         history: []
     };
 
@@ -35,6 +38,9 @@ Game.worldBoss = (function () {
         this.attemptDate = dateKey();
         this.claimed = false;
         this.lastAttack = null;
+        this.nextBossAttackAt = 0;
+        this.lastBossStrike = null;
+        this.bossStrikes = 0;
         this.history = [];
     };
 
@@ -48,6 +54,9 @@ Game.worldBoss = (function () {
             attemptDate: this.attemptDate,
             claimed: this.claimed,
             lastAttack: this.lastAttack,
+            nextBossAttackAt: this.nextBossAttackAt,
+            lastBossStrike: this.lastBossStrike,
+            bossStrikes: this.bossStrikes,
             history: this.history.slice(-12)
         };
     };
@@ -61,6 +70,9 @@ Game.worldBoss = (function () {
             this.attemptDate = saved.attemptDate || dateKey();
             this.claimed = !!saved.claimed;
             this.lastAttack = saved.lastAttack || null;
+            this.nextBossAttackAt = Math.max(0, num(saved.nextBossAttackAt, 0));
+            this.lastBossStrike = saved.lastBossStrike || null;
+            this.bossStrikes = Math.max(0, Math.floor(num(saved.bossStrikes, 0)));
             this.history = Array.isArray(saved.history) ? saved.history.slice(-12) : [];
         }
         this.ensureCycle();
@@ -79,6 +91,9 @@ Game.worldBoss = (function () {
         this.attemptDate = dateKey();
         this.claimed = false;
         this.lastAttack = null;
+        this.nextBossAttackAt = 0;
+        this.lastBossStrike = null;
+        this.bossStrikes = 0;
         this.history = this.history.slice(-12);
     };
 
@@ -127,6 +142,46 @@ Game.worldBoss = (function () {
         return null;
     };
 
+    instance.getLivingRaidTeam = function () {
+        var team = Game.bosses ? Game.bosses.selectedTeam : [];
+        return team.filter(function (id) {
+            return Game.miners && Game.miners.getCurrentHealth(id) > 0;
+        });
+    };
+
+    instance.getBossAttackRemainingMs = function () {
+        if (!this.nextBossAttackAt) return 0;
+        return Math.max(0, this.nextBossAttackAt - now());
+    };
+
+    instance.isBossAttackWarning = function () {
+        var remaining = this.getBossAttackRemainingMs();
+        return remaining > 0 && remaining <= 5000;
+    };
+
+    instance.getBossAttackMultiplier = function () {
+        var ratio = this.getGlobalDamage() / Game.worldBossData.boss.maxHealth;
+        return 1 + Math.max(0, Math.min(1, ratio)) * 1.5;
+    };
+
+    instance.applyBossStrike = function () {
+        var living = this.getLivingRaidTeam();
+        if (!living.length) {
+            this.nextBossAttackAt = 0;
+            return 0;
+        }
+        var rawDamage = Game.worldBossData.boss.bossAttackPower * this.getBossAttackMultiplier();
+        var perMiner = rawDamage / living.length;
+        var dealt = 0;
+        for (var i = 0; i < living.length; i++) dealt += Game.miners.damageMiner(living[i], perMiner);
+        dealt = Math.max(0, dealt);
+        this.lastBossStrike = { at: now(), damage: dealt, targets: living.length };
+        this.bossStrikes += 1;
+        this.nextBossAttackAt = now() + Game.worldBossData.boss.bossAttackIntervalMs;
+        if (Game.notifyInfo) Game.notifyInfo("Global Boss strike", "Mushroom Titan dealt " + Math.floor(dealt).toLocaleString() + " damage to your raid squad.");
+        return dealt;
+    };
+
     instance.attack = function () {
         this.ensureCycle();
         this.ensureDailyAttempts();
@@ -138,8 +193,9 @@ Game.worldBoss = (function () {
             Game.notifyInfo("No raid attempts", "Your daily raid attempts will reset at 00:00 UTC.");
             return false;
         }
+        var livingTeam = this.getLivingRaidTeam();
         var teamPower = this.getTeamPower();
-        if (teamPower <= 0) {
+        if (teamPower <= 0 || !livingTeam.length) {
             Game.notifyInfo("No combat squad", "Select miners in Planet Bosses before joining the world raid.");
             return false;
         }
@@ -151,6 +207,7 @@ Game.worldBoss = (function () {
         this.personalDamage += damage;
         this.attemptsUsed += 1;
         this.lastAttack = { at: now(), damage: damage, crit: crit, teamPower: teamPower };
+        if (!this.nextBossAttackAt) this.nextBossAttackAt = now() + Game.worldBossData.boss.bossAttackIntervalMs;
         if (Game.account) { Game.account.addXp(35, "World Boss raid", true); Game.account.recordStat("worldBossAttacks", 1); }
         if (Game.notifySuccess) Game.notifySuccess(crit ? "Critical raid strike" : "Raid strike complete", "+" + damage.toLocaleString() + " damage and +35 Commander XP");
         return damage;
@@ -193,6 +250,11 @@ Game.worldBoss = (function () {
     instance.update = function () {
         this.ensureCycle();
         this.ensureDailyAttempts();
+        if (!this.isActive() || this.isDefeated()) {
+            this.nextBossAttackAt = 0;
+            return;
+        }
+        if (this.nextBossAttackAt && now() >= this.nextBossAttackAt) this.applyBossStrike();
     };
 
     instance.resetForAscension = function () {

@@ -20,7 +20,7 @@ Game.minerCardUI = (function () {
         return '<article class="myco-collection-card rarity-'+d.rarity.id+' status-'+hp.className+'" style="--rarity:'+d.rarity.color+'">'+
             '<div class="myco-card-topline"><span class="myco-rarity-label">'+d.rarity.name+'</span>'+badge(hp.status,hp.className)+'</div>'+portrait(id,d.name)+
             '<div class="myco-card-body"><h3>'+esc(d.name)+'</h3><p>'+esc(d.description)+'</p>'+ 
-            '<div class="myco-card-stats"><span><small>OWNED</small><strong>'+miner.owned+'</strong></span><span><small>LEVEL</small><strong>'+miner.level+' / '+d.maxLevel+'</strong></span><span><small>RESOURCE</small><strong>'+esc(resourceName(d.resource))+'</strong></span><span><small>INCOME</small><strong>'+income.toFixed(2)+'/min</strong></span></div>'+ 
+            '<div class="myco-card-stats"><span><small>OWNED</small><strong>'+miner.owned+'</strong></span><span><small>LEVEL</small><strong>'+miner.level+' / '+d.maxLevel+'</strong></span><span><small>RESOURCE</small><strong>'+esc(resourceName(d.resource))+'</strong></span><span><small>INCOME</small><strong>'+income.toFixed(2)+'/min</strong></span><span><small>ATTACK</small><strong>'+fmt(Game.bosses.getMinerAttackPower(id))+'</strong></span></div>'+ 
             '<div class="myco-hp-row"><div><span>HP</span><strong>'+Math.floor(hp.current)+' / '+Math.floor(hp.max)+'</strong></div><progress value="'+hp.current+'" max="'+hp.max+'"></progress></div>'+ 
             (hp.ratio < .5 ? '<div class="myco-injury-warning">Below 50% HP — mining speed reduced</div>' : '')+
             (options.extraHtml || '')+'</div></article>';
@@ -31,7 +31,7 @@ Game.minerCardUI = (function () {
         return '<article class="myco-collection-card rarity-'+d.rarity.id+' '+(x.unlocked?'':'is-locked')+'" style="--rarity:'+d.rarity.color+'">'+
             '<div class="myco-card-topline"><span class="myco-rarity-label">'+d.rarity.name+'</span>'+badge(x.unlocked?"Available":"Locked",x.unlocked?"available":"locked")+'</div>'+portrait(x.id,d.name)+
             '<div class="myco-card-body"><div class="myco-card-rank">Rank '+(d.shopRank||1)+' • '+esc(status)+'</div><h3>'+esc(d.name)+'</h3><p>'+esc(d.description)+'</p>'+ 
-            '<div class="myco-card-stats"><span><small>RESOURCE</small><strong>'+esc(resourceName(d.resource))+'</strong></span><span><small>BASE</small><strong>'+fmt(d.incomePerMinute)+'/min</strong></span><span><small>PURCHASE XP</small><strong>+'+x.xp+'</strong></span><span><small>OWNED</small><strong>'+x.owned+'</strong></span></div>'+buttonHtml+'</div></article>';
+            '<div class="myco-card-stats"><span><small>RESOURCE</small><strong>'+esc(resourceName(d.resource))+'</strong></span><span><small>BASE</small><strong>'+fmt(d.incomePerMinute)+'/min</strong></span><span><small>PURCHASE XP</small><strong>+'+x.xp+'</strong></span><span><small>OWNED</small><strong>'+x.owned+'</strong></span><span><small>BASE ATTACK</small><strong>'+fmt(Game.bosses.getMinerAttackPower(x.id) || Math.max(5,Math.round(Math.sqrt(Math.max(1,d.incomePerMinute||1))*8*(d.rarity.incomeMultiplier||1)+(d.order||1)*4)))+'</strong></span></div>'+buttonHtml+'</div></article>';
     }
 
     return { ownedCard: ownedCard, shopCard: shopCard, portrait: portrait, badge: badge, fmt: fmt, resourceName: resourceName, health: health };

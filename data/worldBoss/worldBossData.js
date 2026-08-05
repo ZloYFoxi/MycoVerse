@@ -14,6 +14,8 @@ Game.worldBossData = (function () {
             maxHealth: 5000000,
             defense: 0.12,
             attackSeconds: 75,
+            bossAttackIntervalMs: 30 * 1000,
+            bossAttackPower: 12000,
             exclusiveMinerId: "titanHerald",
             exclusiveArtifactId: "titanHeart"
         },

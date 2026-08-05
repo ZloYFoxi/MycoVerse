@@ -120,18 +120,37 @@ Game.planets = (function () {
         return true;
     };
 
-    instance.beginGateBattle = function (planetId) {
-        if (!this.isGateReady(planetId)) {
-            Game.notifyInfo("Passage sealed", "Reach 100% planetary progress before challenging the guardian.");
+    instance.openGateChallenge = function (planetId) {
+        var planet = this.getPlanet(planetId);
+        if (!planet || !this.isUnlocked(planetId)) {
+            Game.notifyInfo("Passage sealed", "This planet has not been unlocked yet.");
+            return false;
+        }
+        var progress = this.getProgress(planetId);
+        if (progress < 100) {
+            Game.notifyInfo("Passage sealed", "Reach 100% planetary progress before challenging the guardian. Current progress: " + progress.toFixed(1) + "%.");
+            return false;
+        }
+        if (this.isCompleted(planetId)) {
+            Game.notifyInfo("Passage already open", "This planet guardian has already been defeated.");
             return false;
         }
         var boss = Game.bosses && Game.bosses.getBossForPlanet ? Game.bosses.getBossForPlanet(planetId) : null;
-        if (!boss) return false;
-        if (Game.bosses.startBattle(boss.id)) {
-            if (Game.bossUI && Game.bossUI.openArena) Game.bossUI.openArena();
+        if (!boss) {
+            Game.notifyInfo("Guardian unavailable", "No planetary guardian is assigned to this world.");
+            return false;
+        }
+        this.activePlanetId = planetId;
+        if (Game.bossUI && Game.bossUI.openArena) {
+            Game.bossUI.openArena();
             return true;
         }
         return false;
+    };
+
+    // Backward-compatible alias for older UI calls. This now opens battle preparation only.
+    instance.beginGateBattle = function (planetId) {
+        return this.openGateChallenge(planetId);
     };
 
     instance.completePlanet = function (planetId) {

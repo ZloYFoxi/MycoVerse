@@ -40,8 +40,10 @@ Game.worldBossUI = (function () {
             '<article><span>Attempts Today</span><strong id="worldBossAttempts">3 / 3</strong></article>' +
             '<article><span>Boss Tokens</span><strong id="worldBossTokens">0</strong></article>' +
             '</div>' +
+            '<div class="myco-worldboss-counter" id="worldBossCounter"><span>NEXT BOSS ATTACK</span><strong id="worldBossCounterTimer">—</strong><small id="worldBossCounterNote">The timer starts after your first raid strike.</small></div>' +
             '<div class="myco-worldboss-actions"><button class="btn btn-danger btn-lg" id="worldBossAttack">Launch Raid Attack</button><button class="btn btn-warning btn-lg" id="worldBossClaim">Claim Rank Reward</button></div>' +
             '<div id="worldBossLastAttack" class="myco-small-note"></div>' +
+            '<div id="worldBossLastStrike" class="myco-small-note"></div>' +
             '</section>' +
             '<section class="myco-panel-grid">' +
             '<article class="myco-panel"><h3>Rank Rewards</h3><div id="worldBossRanks"></div></article>' +
@@ -69,6 +71,9 @@ Game.worldBossUI = (function () {
         var healthPercent = Math.max(0, health / boss.maxHealth * 100);
         var rank = wb.getRank();
         var next = wb.getNextRank();
+        var bossAttackRemaining = wb.getBossAttackRemainingMs();
+        var bossAttackArmed = !!wb.nextBossAttackAt;
+        var livingRaidTeam = wb.getLivingRaidTeam();
 
         $("#worldBossState").text(defeated ? "DEFEATED" : (active ? "ACTIVE" : "RECOVERY"));
         $("#worldBossTimer").text(timeText(wb.getTimeRemainingMs()));
@@ -80,13 +85,21 @@ Game.worldBossUI = (function () {
         $("#worldBossRank").text(rank.name + (next ? " • next at " + fmt(next.minDamage) : " • MAX"));
         $("#worldBossAttempts").text(wb.getAttemptsRemaining() + " / " + data.dailyAttempts);
         $("#worldBossTokens").text(fmt(Game.account.getBalance("worldBossTokens")));
-        $("#worldBossAttack").prop("disabled", !active || defeated || wb.getAttemptsRemaining() <= 0 || wb.getTeamPower() <= 0);
+        $("#worldBossAttack").prop("disabled", !active || defeated || wb.getAttemptsRemaining() <= 0 || wb.getTeamPower() <= 0 || !livingRaidTeam.length);
+        $("#worldBossCounter").toggleClass("warning", wb.isBossAttackWarning()).toggleClass("armed", bossAttackArmed);
+        $("#worldBossCounterTimer").text(bossAttackArmed ? timeText(bossAttackRemaining) : "00:30");
+        $("#worldBossCounterNote").text(!bossAttackArmed ? "The timer starts after your first raid strike." : (wb.isBossAttackWarning() ? "WARNING — incoming global strike!" : "Mushroom Titan attacks every 30 seconds."));
         $("#worldBossClaim").prop("disabled", !wb.canClaim()).text(wb.claimed ? "Reward Claimed" : "Claim Rank Reward");
 
         if (wb.lastAttack) {
             $("#worldBossLastAttack").text((wb.lastAttack.crit ? "Critical strike: " : "Last strike: ") + fmt(wb.lastAttack.damage) + " damage");
         } else {
             $("#worldBossLastAttack").text("No raid attacks made during this cycle.");
+        }
+        if (wb.lastBossStrike) {
+            $("#worldBossLastStrike").text("Last boss strike: " + fmt(wb.lastBossStrike.damage) + " damage across " + wb.lastBossStrike.targets + " miners.");
+        } else {
+            $("#worldBossLastStrike").text("The Global Boss has not struck your squad yet.");
         }
 
         var rankHtml = [];
@@ -102,7 +115,7 @@ Game.worldBossUI = (function () {
         for (var j = 0; j < team.length; j++) {
             var entry = Game.miners.getEntry(team[j]);
             if (!entry) continue;
-            teamHtml.push('<div class="myco-worldboss-team-row"><span>' + entry.definition.name + '</span><strong>' + fmt(Game.bosses.getMinerCombatPower(team[j])) + ' power</strong></div>');
+            teamHtml.push('<div class="myco-worldboss-team-row"><span>' + entry.definition.name + ' • HP ' + fmt(Game.miners.getCurrentHealth(team[j])) + ' / ' + fmt(Game.miners.getMaxHealth(team[j])) + '</span><strong>' + fmt(Game.bosses.getMinerCombatPower(team[j])) + ' power</strong></div>');
         }
         $("#worldBossTeam").html(teamHtml.length ? teamHtml.join("") : '<p class="text-muted">No squad selected.</p>');
     };

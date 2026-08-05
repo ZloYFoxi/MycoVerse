@@ -37,6 +37,11 @@ Game.minerData = (function () {
             incomePerMinute: 110, maxLevel: 100, startOwned: 0, unlockCost: 99999999,
             upgradeBaseCost: 125, order: 7, shopUnlockLevel: 6, shopRank: 7, passiveBonus: { type: "global", percentPerOwned: 4 }
         },
+        pinkForager: {
+            name: "Pink Forager", description: "A cheerful cave scout that gathers luminous pink mushrooms and rare spores.", rarity: MINER_RARITY.COMMON, resource: "wood",
+            incomePerMinute: 125, attackPower: 115, maxLevel: 100, startOwned: 0, unlockCost: 99999999,
+            upgradeBaseCost: 145, order: 8, shopUnlockLevel: 7, shopRank: 8, passiveBonus: { type: "resource", resource: "wood", percentPerOwned: 4 }
+        },
         glowForager: {
             name: "Glow Forager", description: "Its luminous cap reveals rich fungal growth beneath the soil.", rarity: MINER_RARITY.RARE, resource: "wood",
             incomePerMinute: 150, maxLevel: 95, startOwned: 0, unlockCost: 99999999,
